@@ -1,2 +1,2 @@
-# blink-computational-thinking
+# Blink computational thinking
 Blink computational thinking
