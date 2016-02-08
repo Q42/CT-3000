@@ -42,5 +42,23 @@ header {
   justify-content: space-between;
 }
 
+.workspace {
+  flex: 1;
+  position: relative;
+  background: url(/assets/img/house.jpg) no-repeat top center;
+  background-size: cover;
+  padding-bottom: 42px;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(36, 36, 36, .7);
+  }
+}
 
 
