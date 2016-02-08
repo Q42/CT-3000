@@ -4,8 +4,11 @@
   "description": "Blink Computational Thinking",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot --inline --host 0.0.0.0 --port 8000",
-    "build": "webpack --optimize-minimize",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --optimize-minimize --progress --hide-modules",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist/*",
+    "release": "npm run clean && npm run build",
+    "deploy": "cp dist/* gh-pages/ && cd gh-pages && git add . && git commit -m \"Release at $(date)\" && git push"
   },
   "repository": {
     "type": "git",
