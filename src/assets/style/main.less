@@ -22,8 +22,14 @@ input, select, textarea {
   font: inherit;
 }
 
-.app {
+#container,
+#container > div,
+.editor {
   height: 100%;
+  width: 100%;
+}
+
+.editor {
   display: flex;
   flex-direction: column;
 }
@@ -42,14 +48,18 @@ header {
   justify-content: space-between;
 }
 
-.workspace {
+//Panes
+//=====
+.panes {
+  display: flex;
+  flex-direction: row;
   flex: 1;
+  align-content: stretch;
   position: relative;
-  background: url(/assets/img/house.jpg) no-repeat top center;
+  background: url(../img/house.jpg) no-repeat 50% 50%;
   background-size: cover;
   padding-bottom: 42px;
-
-  &:before {
+   &:before {
     content: '';
     display: block;
     position: absolute;
@@ -58,6 +68,11 @@ header {
     bottom: 0;
     top: 0;
     background: rgba(36, 36, 36, .7);
+  }
+  .pane {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid red;
   }
 }
 

@@ -7,9 +7,9 @@ import PreviewPaneComponent from './editor/previewPane';
 export default React.createClass({
   render() {
     return(
-      <div>
+      <div className="editor">
         <HeaderComponent />
-        <div>
+        <div className="panes">
           <EditorPaneComponent />
           <PreviewPaneComponent />
         </div>
