@@ -1,15 +1,29 @@
 // Editor
 //=======
+.editor-pane,
+.ReactCodeMirror,
+.CodeMirror {
+  display: flex;
+  align-content: stretch;
+  flex-direction: column;
+}
 .editor-pane {
-  padding: 30px;
   position: relative;
-  background: #fff;
-  .console {
+  padding: 20px 0 120px 20px;
+  .ReactCodeMirror {
     flex: 1;
-    background: rgba(34,34,34,0.9);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 4px
+    .CodeMirror {
+      flex: 1;
+      padding: 10px 10px 10px 0;
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 4px 4px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      .CodeMirror-scroll {
+        flex: 1;
+      }
+    }
   }
 }
 
 @import (css) "../../../node_modules/codemirror/lib/codemirror.css";
+@import (css) "../../../node_modules/codemirror/theme/monokai.css";

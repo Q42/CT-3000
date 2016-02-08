@@ -30,6 +30,7 @@ export default React.createClass({
     var options = {
       lineNumbers: true,
       lineWrapping: true,
+      theme: "monokai",
       mode: this.state.mode
     };
     return (
