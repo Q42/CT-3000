@@ -1,1 +1,1 @@
-import './assets/main.less'
+import './assets/style/main.less'
