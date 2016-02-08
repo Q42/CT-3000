@@ -8,7 +8,13 @@ import 'codemirror/addon/selection/active-line';
 export default React.createClass({
   getInitialState() {
     return {
-      code: 'lamp = aan\n\nals lamp = aan dan radio = uit',
+      code: `// Toekenningen
+lamp = aan
+bericht = "test"
+
+// Vergelijkingen
+als lamp = aan dan radio = uit
+als deur = open en lamp = uit dan bericht = "ALARM!"`,
       mode: 'ct-3000',
     };
   },
@@ -39,6 +45,13 @@ import CMInstance from 'codemirror';
 CMInstance.defineSimpleMode('ct-3000', {
   // The start state contains the rules that are intially used
   start: [
+    // Prop names
+    {regex: /(?:lamp|radio|deur|bericht)\b/, token: 'variable-3'},
+    // Keywords
+    {regex: /(?:als|dan|en)\b/, token: 'keyword'},
+    // Value enums
+    {regex: /(?:aan|uit|open|dicht)\b/, token: 'atom'},
+
     // The regex matches the token, the token property contains the type
     {regex: /"(?:[^\\]|\\.)*?"/, token: 'string'},
     // You can match multiple tokens at once. Note that the captured
@@ -47,9 +60,9 @@ CMInstance.defineSimpleMode('ct-3000', {
      token: ['keyword', null, 'variable-2']},
     // Rules are matched in the order in which they appear, so there is
     // no ambiguity between this one and the one above
-    {regex: /(?:function|var|return|if|for|while|else|do|this|als|dan)\b/,
+    {regex: /(?:function|var|return|if|for|while|else|do|this)\b/,
      token: 'keyword'},
-    {regex: /true|false|null|undefined|aan|uit/, token: 'atom'},
+    {regex: /true|false|null|undefined/, token: 'atom'},
     {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
      token: 'number'},
     {regex: /\/\/.*/, token: 'comment'},
