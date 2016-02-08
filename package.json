@@ -39,6 +39,7 @@
     "history": "^1.17.0",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
+    "postcss-loader": "^0.8.0",
     "react-codemirror": "^0.2.5",
     "react-router": "^1.0.3",
     "style-loader": "^0.13.0",

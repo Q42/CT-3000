@@ -1,4 +1,5 @@
 var path = require("path");
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: __dirname + "/src",
@@ -28,12 +29,15 @@ module.exports = {
       },
       {
         test: /\.(less|css)$/,
-        loader: 'style!css!less'
+        loader: 'style!css!postcss!less'
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff)$/,
         loader: "file?name=img/img-[hash:6].[ext]"
       }
     ],
+  },
+  postcss: function () {
+      return [autoprefixer];
   }
 };

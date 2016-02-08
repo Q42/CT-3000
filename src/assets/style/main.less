@@ -14,7 +14,7 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
+  font-family: monospace, sans-serif;
   color: @text-color;
 }
 
@@ -27,7 +27,6 @@ input, select, textarea {
 .editor {
   height: 100%;
   width: 100%;
-  //border:1px solid red;
 }
 
 .editor {
@@ -41,6 +40,7 @@ header {
   flex: 0 0 auto;
   background: @background-inverted;
   box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
+  border-bottom: 2px solid rgba(255,255,255,0.1);
   z-index: @z-header;
   position: relative;
   color: @text-inverted;
@@ -51,6 +51,9 @@ header {
   height: 60px;
   h1 {
     margin: 0;
+    line-height: 60px;
+    font-weight: 400;
+    color: @hack-color;
   }
 }
 
@@ -64,21 +67,19 @@ header {
   position: relative;
   background: url(../img/house.jpg) no-repeat 50% 50%;
   background-size: cover;
-  //border: 3px solid green;
-  //  &:before {
-  //   content: '';
-  //   display: block;
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   top: 0;
-  //   background: rgba(36, 36, 36, .7);
-  // }
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .7);
+  }
   .pane {
     flex: none;
     width: 50%;
-    //background: rgba(255,255,255,0.1);
   }
 }
 
