@@ -1,0 +1,35 @@
+{
+  "name": "blink-ct",
+  "version": "1.0.0",
+  "description": "Blink Computational Thinking",
+  "scripts": {
+    "start": "webpack-dev-server --progress --colors --hot --inline --host 0.0.0.0 --port 8000",
+    "build": "webpack --optimize-minimize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Q42/blink-ct.git"
+  },
+  "author": "Q42",
+  "license": "ISC",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/Q42/blink-ct/issues"
+  },
+  "homepage": "https://github.com/Q42/blink-ct#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.5.0",
+    "promise": "^7.1.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "file-loader": "^0.8.5",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
