@@ -27,7 +27,7 @@ module.exports = {
         loader: "file?name=[name].[ext]",
       },
       {
-        test: /\.less$/,
+        test: /\.(less|css)$/,
         loader: 'style!css!less'
       },
       {
