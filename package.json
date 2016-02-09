@@ -28,7 +28,10 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-motion": "^0.4.2",
-    "reflux": "^0.3.0"
+    "reflux": "^0.3.0",
+    "react-codemirror": "^0.2.5",
+    "react-router": "^1.0.3",
+    "history": "^1.17.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -39,13 +42,10 @@
     "css-loader": "^0.23.1",
     "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",
-    "history": "^1.17.0",
     "json-loader": "^0.5.4",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
     "postcss-loader": "^0.8.0",
-    "react-codemirror": "^0.2.5",
-    "react-router": "^1.0.3",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
