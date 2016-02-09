@@ -8,10 +8,11 @@ const springSetting2 = {stiffness: 120, damping: 17};
 
 export default React.createClass ({
   getInitialState() {
-    return { elements:[
-      {name: 'Lamp'},
-      {name: 'Radio'}
-    ]}
+    const elements = Object.keys(Objects).map((key) => {
+      return { name: key }
+    });
+
+    return { elements }
   },
 
   getDefaultStyles() {

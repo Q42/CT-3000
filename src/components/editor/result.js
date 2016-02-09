@@ -3,14 +3,20 @@ import React from 'react';
 import * as Objects from './objects/_index';
 
 export default React.createClass({
+  getInitialState() {
+    const objects = Object.keys(Objects).map((key) => {
+      const ObjectInstance = Objects[key];
+      return <ObjectInstance />
+    });
+
+    return { objects }
+  },
+
   render() {
-    const items = [
-      <Objects.Lamp key="lamp" />,
-      <Objects.Radio key="radio" />
-    ];
+    console.log(this.state.objects)
     return(
       <div className="result">
-        {items}
+        {this.state.objects}
       </div>
     );
   }
