@@ -10,7 +10,7 @@ export default React.createClass({
       <Radio />
     ];
     return(
-      <div className="row-preview">
+      <div className="result">
         {items}
       </div>
     );
