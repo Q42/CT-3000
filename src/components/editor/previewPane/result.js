@@ -6,8 +6,8 @@ import Radio from './components/radio';
 export default React.createClass({
   render() {
     const items = [
-      <Lamp />,
-      <Radio />
+      <Lamp key="lamp" />,
+      <Radio key="radio" />
     ];
     return(
       <div className="result">

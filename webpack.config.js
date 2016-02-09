@@ -1,16 +1,16 @@
-var path = require("path");
+var path = require('path');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
-  context: __dirname + "/src",
+  context: __dirname + '/src',
   entry: {
-    javascript: "./main.js",
-    html: "./index.html",
+    javascript: './main.js',
+    html: './index.html',
   },
 
   output: {
-    path: path.resolve(__dirname + "/dist"),
-    filename: "bundle.js"
+    path: path.resolve(__dirname + '/dist'),
+    filename: 'bundle.js'
   },
 
   module: {
@@ -18,14 +18,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel",
+        loader: 'babel',
         query: {
           presets: ['es2015','react']
         }
       },
       {
         test: /\.html$/,
-        loader: "file?name=[name].[ext]",
+        loader: 'file?name=[name].[ext]',
       },
       {
         test: /\.(less|css)$/,
@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff)$/,
-        loader: "file?name=img/img-[hash:6].[ext]"
+        loader: 'file?name=img/img-[hash:6].[ext]'
       }
     ],
   },
