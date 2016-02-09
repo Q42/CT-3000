@@ -2,6 +2,9 @@ import React from 'react';
 import BaseElement from './baseElement';
 import { StaggeredMotion, spring, presets } from 'react-motion';
 
+const springSetting1 = {stiffness: 172, damping: 15};
+const springSetting2 = {stiffness: 120, damping: 17};
+
 export default React.createClass ({
   getInitialState() {
     return { elements:[
@@ -11,8 +14,8 @@ export default React.createClass ({
       {name: "Toilet"},
       {name: "Fiets"},
       {name: "Broer"},
-      {name: "Vader"},
-      {name: "Douche"}
+      {name: "Telefoon"},
+      {name: "Plant"}
 
     ]}
   },
@@ -32,16 +35,15 @@ export default React.createClass ({
         defaultStyles={this.getDefaultStyles()}
         styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
           return i === 0
-           ? { scale: spring(1), rotate: spring(0) }
-           : { scale: spring(prevInterpolatedStyles[i-1].scale), rotate: spring(prevInterpolatedStyles[i-1].rotate) }
+           ? { scale: spring(1, springSetting1), rotate: spring(0, springSetting1) }
+           : { scale: spring(prevInterpolatedStyles[i-1].scale, springSetting1), rotate: spring(prevInterpolatedStyles[i-1].rotate, springSetting1) }
         })}>
 
         {interpolatingStyles =>
           <div className="status-bar">
           { interpolatingStyles.map((style, i)=>
-            <div key={i} className={"base-element " + this.state.elements[i].name.toLowerCase()}
-            style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
-              {this.state.elements[i].name}
+            <div key={i} className="element" style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
+              <BaseElement name={this.state.elements[i].name} />
             </div>)
           }
           </div>

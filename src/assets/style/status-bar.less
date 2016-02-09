@@ -5,11 +5,17 @@
   bottom: 0;
   left: 0;
   right: 0;
+  height:120px;
   background: transparent;
   display: flex;
   flex-direction: row;
-  padding: 10px 30px;
+  justify-content: space-between;
+  padding: 20px 30px;
   overflow-x: auto;
+  overflow-y: visible;
+  .element + .element {
+    margin-left: 30px;
+  }
   .base-element {
     min-width: 90px;
     min-height: 90px;
@@ -17,8 +23,29 @@
     border-radius: 90px;
     line-height: 90px;
     text-align: center;
-    & + .base-element {
-      margin-left: 30px;
+    &.elt-lamp {
+      background: @icon-orange;
+    }
+    &.elt-deur {
+      background: @icon-blue;
+    }
+    &.elt-radio {
+      background: @icon-yellow;
+    }
+    &.elt-toilet {
+      background: @icon-green;
+    }
+    &.elt-fiets {
+      background: @icon-grey;
+    }
+    &.elt-broer {
+      background: @icon-blue;
+    }
+    &.elt-telefoon {
+      background: @icon-orange;
+    }
+    &.elt-plant {
+      background: @icon-green;
     }
   }
 }
