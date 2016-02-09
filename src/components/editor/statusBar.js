@@ -38,10 +38,7 @@ export default React.createClass ({
           <div className="status-bar">
             { interpolatingStyles.map((style, i) => {
               const ObjectInstance = Objects[this.state.elements[i].name];
-
-              return (<div key={i} className="element" style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
-                <ObjectInstance />
-              </div>)
+              return <ObjectInstance key={i} style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}} />
             })}
           </div>
         }
