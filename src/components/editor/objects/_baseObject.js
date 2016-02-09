@@ -5,7 +5,7 @@ export default React.createClass({
     type: React.PropTypes.string.isRequired
   },
   render() {
-    const classNames = 'component ' + this.props.type;
+    const classNames = 'object ' + this.props.type;
     return(
       <div className={classNames} {...this.props}>
         {this.props.children}

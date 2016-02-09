@@ -1,6 +1,7 @@
 import React from 'react';
-import BaseElement from './baseElement';
 import { StaggeredMotion, spring, presets } from 'react-motion';
+
+import * as Objects from './objects/index';
 
 const springSetting1 = {stiffness: 172, damping: 15};
 const springSetting2 = {stiffness: 120, damping: 17};
@@ -8,15 +9,8 @@ const springSetting2 = {stiffness: 120, damping: 17};
 export default React.createClass ({
   getInitialState() {
     return { elements:[
-      {name: "Lamp"},
-      {name: "Deur"},
-      {name: "Radio"},
-      {name: "Toilet"},
-      {name: "Fiets"},
-      {name: "Broer"},
-      {name: "Telefoon"},
-      {name: "Plant"}
-
+      {name: 'Lamp'},
+      {name: 'Radio'}
     ]}
   },
 
@@ -41,14 +35,15 @@ export default React.createClass ({
 
         {interpolatingStyles =>
           <div className="status-bar">
-          { interpolatingStyles.map((style, i)=>
-            <div key={i} className="element" style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
-              <BaseElement name={this.state.elements[i].name} />
-            </div>)
-          }
+            { interpolatingStyles.map((style, i) => {
+              const ObjectInstance = Objects[this.state.elements[i].name];
+
+              return (<div key={i} className="element" style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
+                <ObjectInstance />
+              </div>)
+            })}
           </div>
         }
-
       </StaggeredMotion>
     );
   }

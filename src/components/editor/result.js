@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Lamp from './components/lamp';
-import Radio from './components/radio';
+import Lamp from './objects/lamp';
+import Radio from './objects/radio';
 
 export default React.createClass({
   render() {

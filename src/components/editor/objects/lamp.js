@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BaseComponent from '../baseComponent';
+import BaseComponent from './_baseObject';
 
 export default React.createClass({
   render() {

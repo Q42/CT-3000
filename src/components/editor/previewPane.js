@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Result from './previewPane/result';
+import Result from './result';
 
 export default React.createClass({
   render() {
