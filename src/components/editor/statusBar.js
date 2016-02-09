@@ -29,7 +29,7 @@ export default React.createClass ({
   getDefaultStyles() {
     var o = [];
     this.state.elements.forEach(key => {
-      o.push({ x:300, scale: 0.5, rotate: -360 });
+      o.push({ x:300, scale: 0.5 });
     })
     return o;
   },
@@ -42,8 +42,8 @@ export default React.createClass ({
         defaultStyles={this.getDefaultStyles()}
         styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
           return i === 0
-           ? { x: spring(0, springSetting1), scale: spring(1, springSetting1), rotate: spring(0, springSetting1) }
-           : { x: spring(prevInterpolatedStyles[i-1].x, springSetting1), scale: spring(prevInterpolatedStyles[i-1].scale, springSetting1), rotate: spring(prevInterpolatedStyles[i-1].rotate, springSetting1) }
+           ? { x: spring(0, springSetting1), scale: spring(1, springSetting1)}
+           : { x: spring(prevInterpolatedStyles[i-1].x, springSetting1), scale: spring(prevInterpolatedStyles[i-1].scale, springSetting1) }
         })}>
 
         {interpolatingStyles =>
