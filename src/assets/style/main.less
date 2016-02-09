@@ -38,9 +38,9 @@ input, select, textarea {
 //=======
 header {
   flex: 0 0 auto;
-  background: @background-inverted;
-  box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
-  border-bottom: 2px solid rgba(255,255,255,0.1);
+  background: @dark-background;
+  //box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
+  //border-bottom: 4px solid @dark-border;
   z-index: @z-header;
   position: relative;
   color: @text-inverted;
@@ -53,7 +53,7 @@ header {
     margin: 0;
     line-height: 60px;
     font-weight: 400;
-    color: @hack-color;
+    color: @text-inverted;
   }
 }
 
@@ -65,7 +65,7 @@ header {
   flex: 1;
   align-content: stretch;
   position: relative;
-  background: url(../img/house.jpg) no-repeat 50% 50%;
+  background: url(../img/BG_CodeUur.png) no-repeat 50% 50%;
   background-size: cover;
   &:before {
     content: '';
@@ -75,14 +75,20 @@ header {
     right: 0;
     bottom: 0;
     top: 0;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(218, 218, 218, .85);
   }
   .pane {
     flex: none;
-    width: 50%;
+    &:first-child {
+      width: 45%;
+    }
+    &:last-child {
+      width: 55%;
+    }
   }
 }
 
 @import "editor-pane";
+@import "status-bar";
 
 
