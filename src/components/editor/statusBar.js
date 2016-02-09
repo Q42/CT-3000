@@ -1,51 +1,53 @@
 import React from 'react';
-import BaseElement from './baseElement.js';
-import { spring, presets } from 'react-motion';
+import BaseElement from './baseElement';
+import { StaggeredMotion, spring, presets } from 'react-motion';
 
 export default React.createClass ({
   getInitialState() {
-    return {
-      items: Array.from(Array(8).keys())
-    }
+    return { elements:[
+      {name: "Lamp"},
+      {name: "Deur"},
+      {name: "Radio"},
+      {name: "Toilet"},
+      {name: "Fiets"},
+      {name: "Broer"},
+      {name: "Vader"},
+      {name: "Douche"}
+
+    ]}
   },
 
-  getDefaults() {
-    let obj = {};
-    this.state.items.forEach(key =>{
-      obj[key] = {
-        val: {
-          rotate: -360,
-          scale: 0
-        }
-      }
-    });
-    return obj;
-  },
-
-  getEnds() {
-    let obj = {};
-    this.state.items.forEach(key =>{
-      obj[key] = {
-        val: {
-          rotate: 0,
-          scale: 1
-        }
-      }
-    });
-    return obj;
+  getDefaultStyles() {
+    var o = [];
+    this.state.elements.forEach(key => {
+      o.push({ scale: 0, rotate: -360 });
+    })
+    console.log(o);
+    return o;
   },
 
   render() {
-    return(
-        <spring
-          defaultValue={this.getDefaults()}
-          endValues={this.getEnds()}>
+     return(
+      <StaggeredMotion
+        defaultStyles={this.getDefaultStyles()}
+        styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
+          return i === 0
+           ? { scale: spring(1), rotate: spring(0) }
+           : { scale: spring(prevInterpolatedStyles[i-1].scale), rotate: spring(prevInterpolatedStyles[i-1].rotate) }
+        })}>
+
+        {interpolatingStyles =>
           <div className="status-bar">
-            {this.state.items.map(key => {
-              return <BaseElement key={key}>{key}</BaseElement>
-            })}
+          { interpolatingStyles.map((style, i)=>
+            <div key={i} className={"base-element " + this.state.elements[i].name.toLowerCase()}
+            style={{ transform: 'scale(' + style.scale + ') rotate(' + style.rotate + 'deg)'}}>
+              {this.state.elements[i].name}
+            </div>)
+          }
           </div>
-        </spring>
+        }
+
+      </StaggeredMotion>
     );
   }
 });
