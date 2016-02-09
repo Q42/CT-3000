@@ -1,0 +1,19 @@
+{
+  "objects": [
+    {
+      "name": "lamp",
+      "type": "string",
+      "values": ["aan", "uit"]
+    },
+    {
+      "name": "huis",
+      "type": "string",
+      "values": ["donker", "licht"]
+    },
+    {
+      "name": "bord",
+      "type": "string"
+    }
+  ]
+
+}

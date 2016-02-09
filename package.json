@@ -23,10 +23,12 @@
   "homepage": "https://github.com/Q42/blink-ct#readme",
   "dependencies": {
     "babel-polyfill": "^6.5.0",
+    "canto34": "0.0.2",
     "promise": "^7.1.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-motion": "^0.4.2"
+    "react-motion": "^0.4.2",
+    "reflux": "^0.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -38,6 +40,7 @@
     "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",
     "history": "^1.17.0",
+    "json-loader": "^0.5.4",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
     "postcss-loader": "^0.8.0",

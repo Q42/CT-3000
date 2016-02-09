@@ -5,7 +5,17 @@ import EditorPaneComponent from './editor/editorPane';
 import PreviewPaneComponent from './editor/previewPane';
 import StatusBarComponent from './editor/statusBar.js';
 
+import ObjectActions from '../actions/object';
+import ObjectStore from '../stores/object';
+
 export default React.createClass({
+
+  componentWillMount(){
+    var languageConfig = require('json!../config/language');
+    ObjectActions.initiate(languageConfig);
+    ObjectActions.parse('als lamp = aan dan huis = licht');
+  },
+
   render() {
     return(
       <div className="editor">
