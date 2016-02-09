@@ -11,7 +11,6 @@ export default React.createClass ({
     const elements = Object.keys(Objects).map((key) => {
       return { name: key }
     });
-
     return { elements }
   },
 
@@ -20,7 +19,6 @@ export default React.createClass ({
     this.state.elements.forEach(key => {
       o.push({ scale: 0, rotate: -360 });
     })
-    console.log(o);
     return o;
   },
 
