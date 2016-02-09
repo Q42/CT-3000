@@ -6,7 +6,7 @@ export default React.createClass({
   getInitialState() {
     const objects = Object.keys(Objects).map((key) => {
       const ObjectInstance = Objects[key];
-      return <ObjectInstance />
+      return <ObjectInstance key={key} />
     });
 
     return { objects }
