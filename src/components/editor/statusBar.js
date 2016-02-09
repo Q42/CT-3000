@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaggeredMotion, spring, presets } from 'react-motion';
 
-import * as Objects from './objects/index';
+import * as Objects from './objects/_index';
 
 const springSetting1 = {stiffness: 172, damping: 15};
 const springSetting2 = {stiffness: 120, damping: 17};

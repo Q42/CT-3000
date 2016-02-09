@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Lamp from './objects/lamp';
-import Radio from './objects/radio';
+import * as Objects from './objects/_index';
 
 export default React.createClass({
   render() {
     const items = [
-      <Lamp key="lamp" />,
-      <Radio key="radio" />
+      <Objects.Lamp key="lamp" />,
+      <Objects.Radio key="radio" />
     ];
     return(
       <div className="result">
