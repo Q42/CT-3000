@@ -13,7 +13,6 @@ export default React.createClass({
   },
 
   render() {
-    console.log(this.state.objects)
     return(
       <div className="result">
         {this.state.objects}
