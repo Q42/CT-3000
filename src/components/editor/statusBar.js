@@ -4,7 +4,6 @@ import { StaggeredMotion, spring, presets } from 'react-motion';
 import * as Objects from './objects/_index';
 
 const springSetting1 = {stiffness: 172, damping: 18};
-//const springSetting2 = {stiffness: 120, damping: 17};
 
 export default React.createClass ({
   getInitialState() {

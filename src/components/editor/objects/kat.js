@@ -5,8 +5,8 @@ import BaseComponent from './_baseObject';
 export default React.createClass({
   render() {
     return(
-      <BaseComponent type="radio" {...this.props}>
-        <div className="icon">Radio</div>
+      <BaseComponent type="kat" {...this.props}>
+        <div className="icon">Kat</div>
       </BaseComponent>
     );
   }

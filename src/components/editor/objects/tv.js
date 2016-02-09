@@ -5,8 +5,8 @@ import BaseComponent from './_baseObject';
 export default React.createClass({
   render() {
     return(
-      <BaseComponent type="toilet" {...this.props}>
-        <div className="icon">Toilet</div>
+      <BaseComponent type="tv" {...this.props}>
+        <div className="icon">TV</div>
       </BaseComponent>
     );
   }
