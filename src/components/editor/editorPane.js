@@ -6,6 +6,10 @@ import 'codemirror/addon/mode/simple';
 import 'codemirror/addon/selection/active-line';
 
 export default React.createClass({
+  componentDidMount() {
+    const cm = this.refs.editor.getCodeMirror();
+    cm.on('cursorActivity', this.parseLine);
+  },
   getInitialState() {
     return {
       code: `// Toekenningen
@@ -22,6 +26,15 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
     this.setState({
       code: newCode
     });
+  },
+  parseLine(cm) {
+    const lineContent = cm.getLine(cm.getCursor().line);
+
+    if(this.lastLineContent && lineContent !== this.lastLineContent) {
+      console.log(cm.getLine(cm.getCursor().line));
+    }
+
+    this.lastLineContent = lineContent;
   },
   render () {
     var options = {

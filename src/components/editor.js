@@ -3,6 +3,7 @@ import React from 'react';
 import HeaderComponent from './editor/header';
 import EditorPaneComponent from './editor/editorPane';
 import PreviewPaneComponent from './editor/previewPane';
+import StatusBarComponent from './editor/statusBar.js';
 
 import ObjectActions from '../actions/object';
 import ObjectStore from '../stores/object';
@@ -23,6 +24,7 @@ export default React.createClass({
           <EditorPaneComponent />
           <PreviewPaneComponent />
         </div>
+        <StatusBarComponent />
       </div>
     );
   }
