@@ -25,33 +25,40 @@
     // object custom styling
     opacity: 0.5;
     transition: opacity 0.3s @ease-out, box-shadow 0.3s @ease-out;
-    &.on {
+
+    &.lamp.aan {
       opacity: 1;
-      &.lamp {
-        box-shadow: 0 0 5px 5px fadeout(@icon-orange, 50%);
-      }
-      &.deur {
-        box-shadow: 0 0 5px 5px @icon-blue;
-      }
-      &.klok {
-        box-shadow: 0 0 5px 5px @icon-yellow;
-      }
-      &.tv {
-        box-shadow: 0 0 5px 5px @icon-green;
-      }
-      &.stroom {
-        box-shadow: 0 0 5px 5px fadeout(@icon-grey, 50%);
-      }
-      &.kat {
-        box-shadow: 0 0 5px 5px @icon-blue;
-      }
-      &.telefoon {
-        box-shadow: 0 0 5px 5px @icon-orange;
-      }
-      &.weer {
-        box-shadow: 0 0 5px 5px @icon-green;
-      }
+      box-shadow: 0 0 5px 5px @icon-orange;
     }
+    &.deur.open {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-blue;
+    }
+    &.klok.aan {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-teal;
+    }
+    &.raam.open {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-grey;
+    }
+    &.stroom.aan {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-aqua;
+    }
+    &.bericht.aan {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-yellow;
+    }
+    &.telefoon.aan {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-green;
+    }
+    &.weer.zonnig {
+      opacity: 1;
+      box-shadow: 0 0 5px 5px @icon-red;
+    }
+
 
     .icon {
       white-space: nowrap;
