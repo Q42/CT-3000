@@ -33,8 +33,7 @@ export default class PreviewPane extends React.Component {
   }
 
   render() {
-    if(!this.state.rowResult || !this.state.rowResult.checks || this.state.rowResult.checks.constructor !== Array ||
-      !this.state.rowResult.assignments || this.state.rowResult.assignments.constructor !== Array){
+    if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
         return false;
     }
 
