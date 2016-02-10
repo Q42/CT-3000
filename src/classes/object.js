@@ -64,12 +64,15 @@ export default class {
   }
 
   getPossibleValues(){
-    return this.values.sort();
+    return this.values ? this.values.sort() : [];
   }
 
   setValue(value){
-    if(value && this.values.indexOf(value) > -1)
+    if(value && this.getValue() !== value && this.values.indexOf(value) > -1){
       this.state = value;
+      return true;
+    }
+    return false;
   }
 
 }

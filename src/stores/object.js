@@ -11,7 +11,11 @@ export default Reflux.createStore({
   parser: new LanguageParser(),
 
   data:{
-    objects: []
+    objects: {}
+  },
+
+  getDefaultData() {
+    return null;
   },
 
   init: function(){},
@@ -24,27 +28,33 @@ export default Reflux.createStore({
       if(x.name && typeof this.data.objects[x.name] === 'undefined')
         this.data.objects[x.name] = (new LanguageObject(x));
     });
+
+    this.trigger(this.data.objects);
   },
 
   checkObjectValue: function(name, value){
-    let object = this.getObjectValue(name);
+    let object = this.getObject(name);
     if(!object)
       return false;
 
     return object.getValue() === value;
   },
 
-  setObjectValue: function(name, value){
-    let object = this.getObjectValue(name);
-    if(object)
-      object.setValue(value);
-  },
-
-  get: function(name){
-
-  },
-
   getObjectValue: function(name){
+    let object = this.getObject(name);
+    if(object)
+      return object.getValue();
+  },
+
+  setObjectValue: function(name, value){
+    let object = this.getObject(name);
+    if(object){
+      if(object.setValue(value))
+        this.trigger(name);
+    }
+  },
+
+  getObject: function(name){
     return this.data.objects[name];
   },
 
@@ -66,20 +76,29 @@ export default Reflux.createStore({
     }, err => {
       console.log('not valid');
     });
-  }
+  },
 
-  /*
-  getObjectOptions(){
-    return Object.keys(this.objects).sort();
-  }
+  getAvailableObjects(){
+    return Object.keys(this.data.objects).sort();
+  },
+
+  getAvailableValues(){
+    const objects = [];
+    for(let key in this.data.objects){
+      objects.push(this.data.objects[key]);
+    }
+    return objects.reduce((x, y) => {
+      return x.concat(y.getPossibleValues());
+    }, []);
+  },
 
   getValuesForObject(key){
-    let value = this.objects[key];
+    let object = this.data.objects[key];
 
-    if(!value)
+    if(!object)
       return null;
 
-    return value.getPossibleValues();
+    return object.getPossibleValues();
   }
-  */
+
 });
