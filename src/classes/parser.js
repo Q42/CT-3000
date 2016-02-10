@@ -58,8 +58,8 @@ export default class {
             this.readAssignments().then(result => {
               this.readEOF().then(() => {
                 resolve({
-                  check: [],
-                  assignment: result
+                  checks: [],
+                  assignments: result
                 });
               }, err => reject());
             }, err => reject());
@@ -78,18 +78,18 @@ export default class {
   }
 
   readIfThen(){
-    let check = [];
+    let checks = [];
 
     return new Promise((resolve, reject) => {
       try{
         this.readAssignments().then(result => {
-          check = result;
+          checks = result;
         }, err => reject());
         this.parser.match('then');
         this.readAssignments().then(result => {
           resolve({
-            check: check,
-            assignment: result
+            checks: checks,
+            assignments: result
           });
         }, err => reject());
       }catch(e){

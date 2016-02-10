@@ -1,11 +1,15 @@
 import React from 'react';
 import * as Objects from './objects/_index';
 
-export default class extends React.Component {
+import ObjectActions from '../../actions/object';
+import ObjectStore from '../../stores/object';
+
+export default class PreviewPane extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       rowResult: {
+        /*
         checks: [
           {
             object: 'Lamp',
@@ -29,26 +33,52 @@ export default class extends React.Component {
             value: 'open',
             valid: true
           }
-        ]
+        ]*/
       }
-    }
+    };
+  }
+
+  componentDidMount() {
+    this.unsubscribe = ObjectStore.listen((data) => {
+      this.onUpdate(data);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onUpdate(data){
+    console.log('onUpdate pp', data.parsedCode);
+    this.setState({
+      rowResult: data.parsedCode
+    });
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   render() {
+    if(!this.state.rowResult || !this.state.rowResult.checks || this.state.rowResult.checks.constructor !== Array ||
+      !this.state.rowResult.assignments || this.state.rowResult.assignments.constructor !== Array){
+        return false;
+    }
+
     const checks = this.state.rowResult.checks.map((check, i) => {
-      const ObjectRef = Objects[check.object];
+      const ObjectRef = Objects[this.capitalizeFirstLetter(check.object)];
       if(!ObjectRef) return false;
 
       const classNames = 'check' + (check.valid ? ' valid' : '');
-      return <div className={classNames} key={i}><ObjectRef/> = {check.value}</div>
+      return <div className={classNames} key={i}><ObjectRef/> = {check.value}</div>;
     });
 
     const assignments = this.state.rowResult.assignments.map((assignment, i) => {
-      const ObjectRef = Objects[assignment.object];
+      const ObjectRef = Objects[this.capitalizeFirstLetter(assignment.object)];
       if(!ObjectRef) return false;
 
       const classNames = 'assignment' + (assignment.valid ? ' valid' : '');
-      return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>
+      return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>;
     });
 
     let output = [];
@@ -91,4 +121,4 @@ export default class extends React.Component {
       </div>
     );
   }
-};
+}

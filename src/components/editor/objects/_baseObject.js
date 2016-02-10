@@ -21,15 +21,18 @@ export let BaseObject = (ComposedComponent, type) => class extends React.Compone
     this.unsubscribe();
   }
 
-  onUpdate(updateFor){
-    if(updateFor === type){
-      this.setState(this.getState());
-    }
+  onUpdate(data){
+    if(data && data.objects && data.objects[type] &&
+      data.objects[type].getValue() !== this.state.state){
+        this.setState({
+          object: data.objects[type]
+        });
+      }
   }
 
   getState(){
     return {
-      value: ObjectStore.getObjectValue(type)
+      object: ObjectStore.getObject(type)
     };
   }
 
@@ -37,7 +40,7 @@ export let BaseObject = (ComposedComponent, type) => class extends React.Compone
     const classNames = 'object ' + type;
     return (
       <div className={classNames}>
-        <ComposedComponent {...this.props} data={this.state} />
+        <ComposedComponent { ...this.props } data={ this.state } />
       </div>
     );
   }
