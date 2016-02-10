@@ -1,13 +1,10 @@
 import React from 'react';
+import { BaseObject } from './_baseObject';
 
-import BaseComponent from './_baseObject';
-
-export default React.createClass({
+class Lamp extends React.Component {
   render() {
-    return(
-      <BaseComponent type="lamp" {...this.props}>
-        <div className="icon">Lamp</div>
-      </BaseComponent>
-    );
+    return <div className="icon">Lamp</div>;
   }
-});
+}
+
+export default BaseObject(Lamp, 'lamp');

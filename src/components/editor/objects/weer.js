@@ -1,13 +1,10 @@
 import React from 'react';
+import { BaseObject } from './_baseObject';
 
-import BaseComponent from './_baseObject';
-
-export default React.createClass({
+class Weer extends React.Component {
   render() {
-    return(
-      <BaseComponent type="weer" {...this.props}>
-        <div className="icon">Weer</div>
-      </BaseComponent>
-    );
+    return <div className="icon">Weer</div>;
   }
-});
+}
+
+export default BaseObject(Weer, 'weer');

@@ -1,15 +1,19 @@
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
-    type: React.PropTypes.string.isRequired
-  },
+export let BaseObject = (ComposedComponent, type) => class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: null };
+  }
+  componentDidMount() {
+    this.setState({ data: 'Hello' });
+  }
   render() {
-    const classNames = 'object ' + this.props.type;
-    return(
-      <div className={classNames} {...this.props}>
-        {this.props.children}
+    const classNames = 'object ' + type;
+    return (
+      <div className={classNames}>
+        <ComposedComponent {...this.props} data={this.state.data} />
       </div>
     );
   }
-});
+};
