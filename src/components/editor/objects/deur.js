@@ -1,13 +1,10 @@
 import React from 'react';
+import { BaseObject } from './_baseObject';
 
-import BaseComponent from './_baseObject';
-
-export default React.createClass({
+class Deur extends React.Component {
   render() {
-    return(
-      <BaseComponent type="deur" {...this.props}>
-        <div className="icon">Deur</div>
-      </BaseComponent>
-    );
+    return <div className="icon">Deur</div>;
   }
-});
+}
+
+export default BaseObject(Deur, 'deur');

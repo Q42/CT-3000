@@ -1,21 +1,96 @@
 import React from 'react';
 import * as Objects from './objects/_index';
 
-export default React.createClass({
-  getInitialState() {
-    const objects = Object.keys(Objects).map((key) => {
-      const ObjectInstance = Objects[key];
-      return <ObjectInstance key={key} />
-    });
+import ObjectActions from '../../actions/object';
+import ObjectStore from '../../stores/object';
 
-    return { objects }
-  },
+export default class PreviewPane extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rowResult: null
+    };
+  }
+
+  componentDidMount() {
+    this.unsubscribe = ObjectStore.listen((data) => {
+      this.onUpdate(data);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onUpdate(data){
+    this.setState({
+      rowResult: data.parsedCode
+    });
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   render() {
+    if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
+        return false;
+    }
+
+    const checks = this.state.rowResult.checks.map((check, i) => {
+      const ObjectRef = Objects[this.capitalizeFirstLetter(check.object)];
+      if(!ObjectRef) return false;
+
+      const classNames = 'check' + (check.valid ? ' valid' : '');
+      return <div className={classNames} key={i}><ObjectRef/> = {check.value}</div>;
+    });
+
+    const assignments = this.state.rowResult.assignments.map((assignment, i) => {
+      const ObjectRef = Objects[this.capitalizeFirstLetter(assignment.object)];
+      if(!ObjectRef) return false;
+
+      const classNames = 'assignment' + (assignment.valid ? ' valid' : '');
+      return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>;
+    });
+
+    let output = [];
+
+    if(checks.length > 0) {
+      output.push(
+        <div className="objects checks" key="checks">
+          { checks }
+        </div>
+      );
+
+      if(checks.length > 1) {
+        output.push(
+          <div className="combinator" key="combinator">
+            EN
+          </div>
+        );
+      }
+
+      if(assignments.length > 0) {
+        output.push(
+          <div className="computer" key="computer">
+            // Hier staat een computer //
+          </div>
+        );
+      }
+    }
+
+    if(assignments.length > 0) {
+      output.push(
+        <div className="objects assignments" key="assignments">
+          { assignments }
+        </div>
+      );
+    }
+
     return(
       <div className="pane preview-pane">
-        {this.state.objects}
+        { output }
       </div>
     );
   }
-});
+}

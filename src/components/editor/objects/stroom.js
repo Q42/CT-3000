@@ -1,13 +1,14 @@
 import React from 'react';
+import { BaseObject } from './_baseObject';
 
-import BaseComponent from './_baseObject';
-
-export default React.createClass({
+class Stroom extends React.Component {
   render() {
-    return(
-      <BaseComponent type="stroom" {...this.props}>
-        <div className="icon">Stroom</div>
-      </BaseComponent>
-    );
+    let state;
+    if(this.props.data.object)
+      state = this.props.data.object.state;
+
+    return <div className="icon">Stroom ({ state })</div>;
   }
-});
+}
+
+export default BaseObject(Stroom, 'stroom');

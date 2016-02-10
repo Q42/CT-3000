@@ -1,13 +1,10 @@
 import React from 'react';
+import { BaseObject } from './_baseObject';
 
-import BaseComponent from './_baseObject';
-
-export default React.createClass({
+class Klok extends React.Component {
   render() {
-    return(
-      <BaseComponent type="klok" {...this.props}>
-        <div className="icon">Klok</div>
-      </BaseComponent>
-    );
+    return <div className="icon">Klok</div>;
   }
-});
+}
+
+export default BaseObject(Klok, 'klok');

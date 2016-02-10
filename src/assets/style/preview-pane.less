@@ -2,7 +2,33 @@
   position: relative;
   padding: 20px 20px 120px 20px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   flex-direction: column;
+
+  .objects {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .check,
+    .assignment {
+      padding: 10px;
+      border: 2px solid rgba(190,0,0,1);
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+      &.valid {
+        border-color: rgba(0,150,0,1);
+      }
+    }
+  }
+
+  .combinator {
+    text-align: center;
+  }
+
+  .computer {
+    text-align: center;
+  }
 }

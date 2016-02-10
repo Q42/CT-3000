@@ -13,7 +13,6 @@ export default React.createClass({
   componentWillMount(){
     var languageConfig = require('json!../config/language');
     ObjectActions.initiate(languageConfig);
-    ObjectActions.parse('als lamp = aan dan huis = licht');
   },
 
   render() {

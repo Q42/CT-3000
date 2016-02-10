@@ -11,7 +11,12 @@ export default Reflux.createStore({
   parser: new LanguageParser(),
 
   data:{
-    objects: []
+    objects: {},
+    parsedCode: null
+  },
+
+  getDefaultData() {
+    return null;
   },
 
   init: function(){},
@@ -24,62 +29,95 @@ export default Reflux.createStore({
       if(x.name && typeof this.data.objects[x.name] === 'undefined')
         this.data.objects[x.name] = (new LanguageObject(x));
     });
+
+    this.trigger(this.data);
   },
 
+  /* object methods */
+
   checkObjectValue: function(name, value){
-    let object = this.getObjectValue(name);
+    let object = this.getObject(name);
     if(!object)
       return false;
 
     return object.getValue() === value;
   },
 
-  setObjectValue: function(name, value){
-    let object = this.getObjectValue(name);
-    if(object)
-      object.setValue(value);
-  },
-
-  get: function(name){
-
-  },
-
   getObjectValue: function(name){
+    const object = this.getObject(name);
+    return object ? object.getValue() : null;
+  },
+
+  setObjectValue: function(name, value){
+    const object = this.getObject(name);
+    return object && object.setValue(value);
+  },
+
+  getObject: function(name){
     return this.data.objects[name];
   },
+
+  /* parser methods */
 
   parse: function(text){
     this.parser.parse(text).then(result => {
       if(result &&
-        result.check && result.check.constructor === Array &&
-        result.assignment && result.assignment.constructor === Array){
-          let checkPassed = result.check.reduce((x, y) => {
-            return x && this.checkObjectValue(y.object, y.value);
+        result.checks && result.checks.constructor === Array &&
+        result.assignments && result.assignments.constructor === Array){
+          let newCode = !Object.is(this.data.parsedCode, result);
+          this.data.parsedCode = result;
+          let ci = 0;
+          let checksPassed = result.checks.reduce((x, y) => {
+            var valid = this.checkObjectValue(y.object, y.value);
+
+            this.data.parsedCode.checks[ci].valid = valid === true; ci++;
+            return x && valid;
           }, true);
 
-          if(checkPassed){
-            result.assignment.forEach(x => {
-              this.setObjectValue(x.object, x.value);
-            });
+          let assignmentsDone = false;
+          if(checksPassed){
+            let ai = 0;
+            assignmentsDone = result.assignments.reduce((x, y) => {
+              var valid = this.setObjectValue(y.object, y.value);
+              this.data.parsedCode.assignments[ai].valid = valid === true; ai++;
+              return x || valid;
+            }, false);
           }
+
+          if(newCode || assignmentsDone)
+            this.trigger(this.data);
+
+          return checkPassed && assignmentsDone;
         }
     }, err => {
       console.log('not valid');
+      return false;
     });
-  }
+  },
 
-  /*
-  getObjectOptions(){
-    return Object.keys(this.objects).sort();
-  }
+  /* helper methods */
+
+  getAvailableObjects(){
+    return Object.keys(this.data.objects).sort();
+  },
+
+  getAvailableValues(){
+    const objects = [];
+    for(let key in this.data.objects){
+      objects.push(this.data.objects[key]);
+    }
+    return objects.reduce((x, y) => {
+      return x.concat(y.getPossibleValues());
+    }, []);
+  },
 
   getValuesForObject(key){
-    let value = this.objects[key];
+    let object = this.data.objects[key];
 
-    if(!value)
+    if(!object)
       return null;
 
-    return value.getPossibleValues();
+    return object.getPossibleValues();
   }
-  */
+
 });

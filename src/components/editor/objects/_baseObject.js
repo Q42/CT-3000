@@ -1,24 +1,47 @@
 import React from 'react';
+import Reflux from 'reflux';
 
-export default React.createClass({
-  propTypes: {
-    type: React.PropTypes.string.isRequired,
-    status: React.PropTypes.bool.isRequired,
-  },
+import ObjectStore from '../../../stores/object';
+import ObjectActions from '../../../actions/object';
 
-  getDefaultProps: function() {
+export let BaseObject = (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.getState();
+  }
+
+  componentDidMount() {
+    this.unsubscribe = ObjectStore.listen((name) => {
+      this.onUpdate(name);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onUpdate(data){
+    if(data && data.objects && data.objects[type] &&
+      data.objects[type].getValue() !== this.state.state){
+        this.setState({
+          object: data.objects[type]
+        });
+      }
+  }
+
+  getState(){
     return {
-      status: false
+      object: ObjectStore.getObject(type)
     };
-  },
+  }
 
   render() {
-    const statusClass = this.props.status ? ' on' : ' off';
-    const classNames = 'object ' + this.props.type + statusClass;
-    return(
-      <div className={classNames} {...this.props}>
-        {this.props.children}
+    const objectState = this.state.object ? this.state.object.state : '';
+    const classNames = 'object ' + type + ' ' + objectState;
+    return (
+      <div className={classNames}>
+        <ComposedComponent { ...this.props } data={ this.state } />
       </div>
     );
   }
-});
+};
