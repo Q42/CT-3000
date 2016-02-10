@@ -4,8 +4,7 @@ import Reflux from 'reflux';
 import ObjectStore from '../../../stores/object';
 import ObjectActions from '../../../actions/object';
 
-export let BaseObject = (ComposedComponent, type) => class extends React.Component {
-
+export let BaseObject = (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getState();
@@ -37,7 +36,8 @@ export let BaseObject = (ComposedComponent, type) => class extends React.Compone
   }
 
   render() {
-    const classNames = 'object ' + type;
+    const objectState = this.state.object ? this.state.object.state : '';
+    const classNames = 'object ' + type + ' ' + objectState;
     return (
       <div className={classNames}>
         <ComposedComponent { ...this.props } data={ this.state } />

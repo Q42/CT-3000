@@ -4,17 +4,54 @@
   left: 0;
   right: 0;
   height:120px;
-  background: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px 30px;
-  overflow-x: auto;
-  overflow-y: visible;
+  .elements {
+    height:120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 30px;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
   .element + .element {
     margin-left: 30px;
   }
   .object {
     // object custom styling
+    opacity: 0.5;
+    transition: opacity 0.3s @ease-out, box-shadow 0.3s @ease-out;
+    &.on {
+      opacity: 1;
+      &.lamp {
+        box-shadow: 0 0 5px 5px fadeout(@icon-orange, 50%);
+      }
+      &.deur {
+        box-shadow: 0 0 5px 5px @icon-blue;
+      }
+      &.klok {
+        box-shadow: 0 0 5px 5px @icon-yellow;
+      }
+      &.tv {
+        box-shadow: 0 0 5px 5px @icon-green;
+      }
+      &.stroom {
+        box-shadow: 0 0 5px 5px fadeout(@icon-grey, 50%);
+      }
+      &.kat {
+        box-shadow: 0 0 5px 5px @icon-blue;
+      }
+      &.telefoon {
+        box-shadow: 0 0 5px 5px @icon-orange;
+      }
+      &.weer {
+        box-shadow: 0 0 5px 5px @icon-green;
+      }
+
+    }
   }
 }
