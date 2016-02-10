@@ -14,38 +14,27 @@ export default React.createClass ({
     return { elements, stroom }
   },
 
-  toggleStroom() {
-    var i = 0;
+  // +++++++++++++ <TEST-CODE> ++++++++++
+  toggleElement(i){
+    if(i == 0) {
+      this.setState({
+        stroom: !this.state.stroom
+      });
+    }
+    var n = 0;
     const elements = Object.keys(Objects).map((key) => {
-      var status = i == 0 ? true : this.state.elements[i].status;
-      i++;
+      var status = n === i ? !this.state.elements[n].status : this.state.elements[n].status;
+      n++;
       return { name: key, status: status }
     });
-
     this.setState({
-       stroom: !this.state.stroom,
        elements: elements
     });
   },
 
-  toggleElement(i){
-    if(this.state.stroom) {
-      var n = 0;
-      const elements = Object.keys(Objects).map((key) => {
-        var status = n === i ? !this.state.elements[i].status : this.state.elements[i].status;
-        n++;
-        return { name: key, status: status }
-      });
-      this.setState({
-         elements: elements
-      });
-    }
-  },
-
   handleKeyUp(e) {
     var num = e.which-49;
-    console.log(num);
-    if(num > 0 & num < 6) {
+    if(num >= 0 & num <= 5) {
         this.toggleElement(num);
     }
   },
@@ -53,6 +42,7 @@ export default React.createClass ({
   componentDidMount: function() {
     document.addEventListener('keyup', this.handleKeyUp);
   },
+  // +++++++++++++ </TEST-CODE> ++++++++++
 
 
   getDefaultStyles() {
@@ -68,7 +58,7 @@ export default React.createClass ({
     let size = this.state.stroom ? 1 : 0.5;
 
     return(
-      <div className="status-bar" onClick={this.toggleStroom} onKeyUp={this.handleKeyUp}>
+      <div className="status-bar" onKeyUp={this.handleKeyUp}>
         <StaggeredMotion
           defaultStyles={this.getDefaultStyles()}
           styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
