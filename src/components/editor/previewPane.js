@@ -38,13 +38,13 @@ export default class extends React.Component {
     const checks = this.state.rowResult.checks.map((check, i) => {
       const ObjectRef = Objects[check.object];
       const classNames = 'check' + (check.valid ? ' valid' : '');
-      return <div className={classNames}><ObjectRef key={i} /> = {check.value}</div>
+      return <div className={classNames} key={i}><ObjectRef/> = {check.value}</div>
     });
 
     const assignments = this.state.rowResult.assignments.map((assignment, i) => {
       const ObjectRef = Objects[assignment.object];
       const classNames = 'assignment' + (assignment.valid ? ' valid' : '');
-      return <div className={classNames}><ObjectRef key={i} /> = {assignment.value}</div>
+      return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>
     });
 
     return(
