@@ -49,8 +49,6 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
   onUpdate(data){
     if(!this.state.languageInitiated)
       this.initLanguage();
-
-    //console.log('onUpdate', data.parsedCode);
   }
 
   initLanguage(){

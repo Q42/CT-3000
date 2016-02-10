@@ -8,33 +8,7 @@ export default class PreviewPane extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rowResult: {
-        /*
-        checks: [
-          {
-            object: 'Lamp',
-            value: 'aan',
-            valid: true
-          },
-          {
-            object: 'Lamp',
-            value: 'uit',
-            valid: false
-          }
-        ],
-        assignments: [
-          {
-            object: 'Deur',
-            value: 'aan',
-            valid: false
-          },
-          {
-            object: 'Deur',
-            value: 'open',
-            valid: true
-          }
-        ]*/
-      }
+      rowResult: null
     };
   }
 
@@ -49,7 +23,6 @@ export default class PreviewPane extends React.Component {
   }
 
   onUpdate(data){
-    console.log('onUpdate pp', data.parsedCode);
     this.setState({
       rowResult: data.parsedCode
     });
