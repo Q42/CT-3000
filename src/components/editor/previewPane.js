@@ -47,17 +47,35 @@ export default class extends React.Component {
       return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>
     });
 
+    let output = [];
+
+    if(checks.length > 0) {
+      output.push(
+        <div className="objects checks" key="checks">
+          { checks }
+        </div>
+      );
+
+      if(assignments.length > 0) {
+        output.push(
+          <div className="computer" key="computer">
+            // Hier staat een computer //
+          </div>
+        );
+      }
+    }
+
+    if(assignments.length > 0) {
+      output.push(
+        <div className="objects assignments" key="assignments">
+          { assignments }
+        </div>
+      );
+    }
+
     return(
       <div className="pane preview-pane">
-        <div className="objects checks">
-          {checks}
-        </div>
-        <div className="computer">
-          // This is our PC component //
-        </div>
-        <div className="objects assignments">
-          {assignments}
-        </div>
+        { output }
       </div>
     );
   }
