@@ -6,14 +6,38 @@
       "values": ["aan", "uit"]
     },
     {
-      "name": "huis",
+      "name": "deur",
       "type": "string",
-      "values": ["donker", "licht"]
+      "values": ["dicht", "open"]
     },
     {
-      "name": "bord",
+      "name": "fiets",
       "type": "string"
+    },
+    {
+      "name": "kat",
+      "type": "string"
+    },
+    {
+      "name": "klok",
+      "type": "int"
+    },
+    {
+      "name": "telefoon",
+      "type": "string",
+      "values": ["uit", "aan"]
+    },
+    {
+      "name": "tv",
+      "type": "string",
+      "values": ["uit", "aan"]
+    },
+    {
+      "name": "weer",
+      "type": "string",
+      "values": ["zonnig", "bewolkt", "regen"]
     }
+
   ]
 
 }
