@@ -3,7 +3,7 @@ import { BaseObject } from './_baseObject';
 
 class Deur extends React.Component {
   render() {
-    return <div className="icon">Deur</div>;
+    return <div className="icon"></div>;
   }
 }
 

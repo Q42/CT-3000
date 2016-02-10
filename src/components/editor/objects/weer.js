@@ -3,7 +3,7 @@ import { BaseObject } from './_baseObject';
 
 class Weer extends React.Component {
   render() {
-    return <div className="icon">Weer</div>;
+    return <div className="icon"></div>;
   }
 }
 

@@ -7,7 +7,7 @@ class Stroom extends React.Component {
     if(this.props.data.object)
       state = this.props.data.object.state;
 
-    return <div className="icon">Stroom ({ state })</div>;
+    return <div className="icon">{ state }</div>;
   }
 }
 
