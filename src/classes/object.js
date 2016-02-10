@@ -68,7 +68,7 @@ export default class {
   }
 
   setValue(value){
-    if(value && this.getValue() !== value && this.values.indexOf(value) > -1){
+    if(value && this.values.indexOf(value) > -1){
       this.state = value;
       return true;
     }
