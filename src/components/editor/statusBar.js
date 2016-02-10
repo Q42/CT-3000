@@ -15,27 +15,43 @@ export default React.createClass ({
   },
 
   toggleStroom() {
-    // Zet stroom aan/uit
+    var i = 0;
+    const elements = Object.keys(Objects).map((key) => {
+      var status = i == 0 ? true : this.state.elements[i].status;
+      i++;
+      return { name: key, status: status }
+    });
 
     this.setState({
-       stroom: !this.state.stroom
+       stroom: !this.state.stroom,
+       elements: elements
     });
-    this.toggleElement(0);
   },
 
   toggleElement(i){
-    // Zet element status aan/uit
-    var n = 0;
-    const elements = Object.keys(Objects).map((key) => {
-      var status = n == i ? !this.state.elements[i].status : this.state.elements[i].status;
-      n++;
-      return { name: key, status: status }
-    });
-    this.setState({
-       elements: elements
-    });
+    if(this.state.stroom) {
+      var n = 0;
+      const elements = Object.keys(Objects).map((key) => {
+        var status = n === i ? !this.state.elements[i].status : this.state.elements[i].status;
+        n++;
+        return { name: key, status: status }
+      });
+      this.setState({
+         elements: elements
+      });
+    }
+  },
 
+  handleKeyUp(e) {
+    var num = e.which-49;
+    console.log(num);
+    if(num > 0 & num < 6) {
+        this.toggleElement(num);
+    }
+  },
 
+  componentDidMount: function() {
+    document.addEventListener('keyup', this.handleKeyUp);
   },
 
 
@@ -52,7 +68,7 @@ export default React.createClass ({
     let size = this.state.stroom ? 1 : 0.5;
 
     return(
-      <div className="status-bar" onClick={this.toggleStroom}>
+      <div className="status-bar" onClick={this.toggleStroom} onKeyUp={this.handleKeyUp}>
         <StaggeredMotion
           defaultStyles={this.getDefaultStyles()}
           styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
