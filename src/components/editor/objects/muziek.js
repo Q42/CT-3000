@@ -4,8 +4,8 @@ import { BaseObject } from './_baseObject';
 class Muziek extends React.Component {
   render() {
     return <div className="icon">
-      <div className="on"></div>
       <div className="off"></div>
+      <div className="on"></div>
     </div>;
   }
 }

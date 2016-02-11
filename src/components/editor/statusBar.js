@@ -3,7 +3,7 @@ import { StaggeredMotion, spring, presets } from 'react-motion';
 
 import * as Objects from './objects/_index';
 
-const springSetting1 = {stiffness: 172, damping: 18};
+const springSetting1 = {stiffness: 168, damping: 18};
 
 export default React.createClass ({
   getInitialState() {
@@ -14,36 +14,15 @@ export default React.createClass ({
     return { elements, stroom }
   },
 
-  // +++++++++++++ <TEST-CODE> ++++++++++
-  toggleElement(i){
-    if(i == 0) {
-      this.setState({
-        stroom: !this.state.stroom
-      });
-    }
-    var n = 0;
-    const elements = Object.keys(Objects).map((key) => {
-      var status = n === i ? !this.state.elements[n].status : this.state.elements[n].status;
-      n++;
-      return { name: key, status: status }
-    });
+  setStroomAan(){
     this.setState({
-       elements: elements
+        stroom: true
     });
   },
 
-  handleKeyUp(e) {
-    var num = e.which-49;
-    if(num >= 0 & num <= 5) {
-        this.toggleElement(num);
-    }
+  componentDidMount() {
+    setTimeout(this.setStroomAan, 1000);
   },
-
-  componentDidMount: function() {
-    document.addEventListener('keyup', this.handleKeyUp);
-  },
-  // +++++++++++++ </TEST-CODE> ++++++++++
-
 
   getDefaultStyles() {
     var o = [];
@@ -58,7 +37,7 @@ export default React.createClass ({
     let size = this.state.stroom ? 1 : 0.5;
 
     return(
-      <div className="status-bar" onKeyUp={this.handleKeyUp}>
+      <div className="status-bar">
         <StaggeredMotion
           defaultStyles={this.getDefaultStyles()}
           styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
@@ -71,7 +50,10 @@ export default React.createClass ({
             <div className="elements">
               { interpolatingStyles.map((style, i) => {
                 const ObjectInstance = Objects[this.state.elements[i].name];
-                return <ObjectInstance key={i} style={{ transform: 'scale(' + style.scale + ') translateY(' + style.x + 'px)'}} status={this.state.elements[i].status} />
+                return (
+                  <div key={i} style={{ transform: 'scale(' + style.scale + ') translateY(' + style.x + 'px)'}} >
+                    <ObjectInstance />
+                  </div>)
               })}
             </div>
           }
