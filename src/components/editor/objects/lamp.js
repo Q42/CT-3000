@@ -7,7 +7,10 @@ class Lamp extends React.Component {
     if(this.props.data.object)
       state = this.props.data.object.state;
 
-    return <div className="icon">{ state }</div>;
+    return <div className="icon">
+      <div className="on"></div>
+      <div className="off"></div>
+    </div>;
   }
 }
 

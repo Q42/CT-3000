@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseObject } from './_baseObject';
 
-class Bericht extends React.Component {
+class Muziek extends React.Component {
   render() {
     return <div className="icon">
       <div className="on"></div>
@@ -10,4 +10,4 @@ class Bericht extends React.Component {
   }
 }
 
-export default BaseObject(Bericht, 'bericht');
+export default BaseObject(Muziek, 'muziek');

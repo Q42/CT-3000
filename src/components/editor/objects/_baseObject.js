@@ -26,6 +26,7 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
         this.setState({
           object: data.objects[type]
         });
+        console.log(data.objects[type])
       }
   }
 
@@ -36,10 +37,30 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
   }
 
   render() {
-    const objectState = this.state.object ? this.state.object.state : '';
-    const classNames = 'object ' + type + ' ' + objectState;
+    let classNames = [
+      'object',
+      type
+    ];
+
+    const object = this.state.object;
+    if(object) {
+      const state = object.state;
+      if(object.values) {
+        classNames.push(state);
+      }
+      else if(object.type == 'string')
+      {
+        classNames.push(state == '' ? 'empty' : 'set');
+      }
+      else if(object.type == 'int')
+      {
+        classNames.push('int-' + state);
+      }
+
+    }
+
     return (
-      <div className={classNames}>
+      <div className={classNames.join(' ')}>
         <ComposedComponent { ...this.props } data={ this.state } />
       </div>
     );

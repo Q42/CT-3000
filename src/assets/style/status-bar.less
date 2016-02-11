@@ -23,40 +23,27 @@
   }
   .object {
     // object custom styling
-    opacity: 0.5;
-    transition: opacity 0.3s @ease-out, box-shadow 0.3s @ease-out;
 
-    &.lamp.aan {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-orange;
+    &.lamp {
+      border: 3px solid darken(@icon-orange,10%);
     }
-    &.deur.open {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-blue;
+    &.deur {
+      border: 3px solid darken(@icon-blue,10%);
     }
-    &.klok.aan {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-teal;
+    &.bericht {
+      border: 3px solid darken(@icon-yellow,10%);
     }
-    &.raam.open {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-grey;
+    &.tijd {
+      border: 3px solid darken(@icon-teal,10%);
     }
-    &.stroom.aan {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-aqua;
+    &.muziek {
+      border: 3px solid darken(@icon-aqua,10%);
     }
-    &.bericht.aan {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-yellow;
+    &.kat {
+      border: 3px solid darken(@icon-grey,10%);
     }
-    &.telefoon.aan {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-green;
-    }
-    &.weer.zonnig {
-      opacity: 1;
-      box-shadow: 0 0 5px 5px @icon-red;
+    &.weer {
+      border: 3px solid darken(@icon-red,10%);
     }
 
 

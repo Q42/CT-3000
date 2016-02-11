@@ -3,7 +3,7 @@
     {
       "name": "lamp",
       "type": "string",
-      "values": ["aan", "uit"]
+      "values": ["uit", "aan", "knipper"]
     },
     {
       "name": "deur",
@@ -11,31 +11,27 @@
       "values": ["dicht", "open"]
     },
     {
-      "name": "fiets",
+      "name": "bericht",
       "type": "string"
     },
     {
-      "name": "kat",
-      "type": "string"
-    },
-    {
-      "name": "klok",
+      "name": "tijd",
       "type": "int"
     },
     {
-      "name": "telefoon",
+      "name": "muziek",
       "type": "string",
       "values": ["uit", "aan"]
     },
     {
-      "name": "tv",
+      "name": "kat",
       "type": "string",
-      "values": ["uit", "aan"]
+      "values": ["binnen", "buiten"]
     },
     {
       "name": "weer",
       "type": "string",
-      "values": ["zonnig", "bewolkt", "regen"]
+      "values": ["goed", "slecht"]
     }
 
   ]

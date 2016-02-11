@@ -1,4 +1,5 @@
 .object {
+  position: relative;
   width: 90px;
   height: 90px;
   border-radius: 90px;
@@ -6,28 +7,147 @@
   text-align: center;
   border: 1px solid rgba(0,0,0,0.2);
 
+  .icon, .on, .off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 84px;
+    width: 84px;
+    height: 84px;
+    transition: all 0.5s @ease-out;
+    background: transparent none 50% 50% no-repeat;
+  }
+
+
+
   &.lamp {
-    background: @icon-orange url(../svg/lamp.svg) 50% 50% no-repeat;
+    background: @icon-orange;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/lamp-aan.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/lamp-uit.svg);
+    }
+    &.aan {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
+    .knipper {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 1;
+      }
+    }
   }
   &.deur {
-    background: @icon-blue url(../svg/deur.svg) 50% 50% no-repeat;
-  }
-  &.klok {
-    background: @icon-teal url(../svg/klok.svg) 50% 50% no-repeat;
-  }
-  &.raam {
-    background: @icon-grey url(../svg/raam.svg) 50% 50% no-repeat;
-  }
-  &.stroom {
-    background: @icon-aqua url(../svg/stroom.svg) 50% 50% no-repeat;
+    background: @icon-blue;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/deur-open.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/deur-dicht.svg);
+    }
+    &.open {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
   }
   &.bericht {
-    background: @icon-yellow url(../svg/bericht.svg) 50% 50% no-repeat;
+    background: @icon-yellow;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/bericht-aan.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/bericht-uit.svg);
+      // background-position: -2px -20px;
+      // background-size: 110px 110px;
+    }
+    &.set {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+        //transform: scale(0.825) translate(-11px, 8px);
+      }
+    }
   }
-  &.telefoon {
-    background: @icon-green url(../svg/telefoon.svg) 50% 50% no-repeat;
+  &.tijd {
+    background: @icon-teal url(../svg/tijd.svg) 50% 50% no-repeat;
+  }
+  &.muziek {
+    background: @icon-aqua;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/muziek-aan.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/muziek-uit.svg);
+    }
+    &.aan {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
+  }
+  &.kat {
+    background: @icon-grey;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/kat-binnen.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/kat-buiten.svg);
+    }
+    &.binnen {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    };
   }
   &.weer {
-    background: @icon-red url(../svg/weer.svg) 50% 50% no-repeat;
+    background: @icon-red;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/weer-goed.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/weer-slecht.svg);
+    }
+    &.goed {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    };
   }
 }
