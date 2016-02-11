@@ -1,4 +1,3 @@
-
 .object {
   position: relative;
   width: 90px;
@@ -6,6 +5,22 @@
   border-radius: 90px;
   line-height: 90px;
   text-align: center;
+
+  .much-objects & {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    line-height: 60px;
+    .icon, .on, .off {
+      border-radius: 60px;
+      width: 60px;
+      height: 60px;
+      background-size: 60px 60px;
+    }
+    &.tijd {
+      background-size: 60px 60px;
+    }
+  }
 
   .icon, .on, .off {
     position: absolute;
