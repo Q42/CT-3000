@@ -19,9 +19,9 @@ export default Reflux.createStore({
     return null;
   },
 
-  init: function(){},
+  init(){},
 
-  create: function(objects){
+  create(objects){
     if(!objects || objects.constructor !== Array)
       return;
 
@@ -35,7 +35,7 @@ export default Reflux.createStore({
 
   /* object methods */
 
-  checkObjectValue: function(name, value){
+  checkObjectValue(name, value){
     let object = this.getObject(name);
     if(!object)
       return false;
@@ -43,56 +43,60 @@ export default Reflux.createStore({
     return object.getValue() === value;
   },
 
-  getObjectValue: function(name){
+  getObjectValue(name){
     const object = this.getObject(name);
     return object ? object.getValue() : null;
   },
 
-  setObjectValue: function(name, value){
+  setObjectValue(name, value){
     const object = this.getObject(name);
     return object && object.setValue(value);
   },
 
-  getObject: function(name){
+  getObject(name){
     return this.data.objects[name];
+  },
+
+  objectExists(name){
+    return this.getObject(name) !== null;
   },
 
   /* parser methods */
 
-  parse: function(text){
-    this.parser.parse(text).then(result => {
-      if(result &&
-        result.checks && result.checks.constructor === Array &&
-        result.assignments && result.assignments.constructor === Array){
-          let newCode = !Object.is(this.data.parsedCode, result);
-          this.data.parsedCode = result;
-          let ci = 0;
-          let checksPassed = result.checks.reduce((x, y) => {
-            var valid = this.checkObjectValue(y.object, y.value);
+  parse(text){
+    this.parser.parse(text)
+      .then(result => {
+        if(!result)
+          return false;
 
-            this.data.parsedCode.checks[ci].valid = valid === true; ci++;
-            return x && valid;
-          }, true);
+        let checkedCode = {
+          checks: result.checks ? result.checks.filter(x => this.objectExists(x.object)) : [],
+          assignments: result.assignments ? result.assignments.filter(x => this.objectExists(x.object)) : []
+        };
 
-          let assignmentsDone = false;
-          if(checksPassed){
-            let ai = 0;
-            assignmentsDone = result.assignments.reduce((x, y) => {
-              var valid = this.setObjectValue(y.object, y.value);
-              this.data.parsedCode.assignments[ai].valid = valid === true; ai++;
-              return x || valid;
-            }, false);
-          }
+        let newCode = !Object.is(this.data.parsedCode, checkedCode);
+        this.data.parsedCode = checkedCode;
 
-          if(newCode || assignmentsDone)
-            this.trigger(this.data);
+        let ci = 0;
+        let checksPassed = checkedCode.checks.reduce((x, y) => {
+          let valid = this.checkObjectValue(y.object, y.value);
+          this.data.parsedCode.checks[ci].valid = valid === true; ci++;
+          return x && valid;
+        }, true);
 
-          return checkPassed && assignmentsDone;
+        let assignmentsDone = false;
+        if(checksPassed){
+          let ai = 0;
+          assignmentsDone = checkedCode.assignments.reduce((x, y) => {
+            let valid = this.setObjectValue(y.object, y.value);
+            this.data.parsedCode.assignments[ai].valid = valid === true; ai++;
+            return x || valid;
+          }, false);
         }
-    }, err => {
-      console.log('not valid');
-      return false;
-    });
+
+        if(newCode)
+          this.trigger(this.data);
+      });
   },
 
   /* helper methods */

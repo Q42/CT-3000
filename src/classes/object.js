@@ -68,11 +68,20 @@ export default class {
   }
 
   setValue(value){
-    if(value && this.values.indexOf(value) > -1){
+    if(value && ((!this.values && this.valueMatchesType(value)) || this.values.indexOf(value) > -1)){
       this.state = value;
       return true;
     }
     return false;
+  }
+
+  valueMatchesType(value){
+    switch(this.type){
+      case 'string':
+        return /^\"[^\"]*\"$/i.test(value);
+      case 'int':
+        return /^[0-9]+$/.test(value);
+    }
   }
 
 }
