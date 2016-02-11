@@ -1,9 +1,72 @@
 .viewer {
-  background: black;
+  background: url(../img/BG_CodeUur.png) no-repeat 50% 50%;
+  background-size: cover;
   color: white;
-  font-size: 10vmin;
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+  }
+
+  .message {
+    position: absolute;
+    background: rgba(118,208,59,1);
+    border: 4px solid black;
+    border-radius: 10px;
+    width: auto;
+    line-height: 1.5;
+    white-space: normal;
+    padding: 20px;
+    color: black;
+    font-size: 24px;
+    max-width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &:before {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 12px solid rgba(118,208,59,1);
+      border-right: 12px solid transparent;
+      bottom: -12px;
+      left: 20px;
+    }
+     &:after {
+      display: block;
+      position: absolute;
+      z-index: 0;
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 22px solid rgba(0,0,0,1);
+      border-right: 22px solid transparent;
+      bottom: -22px;
+      left: 16px;
+    }
+    p {
+      min-width: 240px;
+    }
+  }
+
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .text {
-  margin: auto;
+  padding: 20px;
 }
