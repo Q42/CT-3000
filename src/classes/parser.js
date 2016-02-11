@@ -76,7 +76,7 @@ export default class {
             .then(() => {
               this.readAssignments()
                 .then(result => resolve(this.readIfThenReturn(checks, result)))
-                .catch(err => resolve(this.readIfThenReturn(checks, null)));
+                .catch(err => resolve(this.readIfThenReturn(checks, err)));
             })
             .catch(err => resolve(this.readIfThenReturn(checks, null)));
         })
@@ -109,7 +109,7 @@ export default class {
         }).then(result => {
           this.readAssignments(assignments)
             .then(result => resolve(result))
-            .catch(err => reject());
+            .catch(err => resolve(assignments));
         }).catch(err => resolve(assignments));
     });
   }
@@ -142,6 +142,9 @@ export default class {
       try{
         let val = this.parser.match(type).content;
 
+        if(type === 'string'){
+          val = val.replace(/\"/g,'');
+        }
 
         if(list && list.constructor === Array){
           list.push(val);
