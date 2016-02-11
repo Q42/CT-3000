@@ -1,3 +1,4 @@
+
 .object {
   position: relative;
   width: 90px;
@@ -5,7 +6,6 @@
   border-radius: 90px;
   line-height: 90px;
   text-align: center;
-  border: 1px solid rgba(0,0,0,0.2);
 
   .icon, .on, .off {
     position: absolute;
@@ -13,14 +13,12 @@
     right: 0;
     bottom: 0;
     left: 0;
-    border-radius: 84px;
-    width: 84px;
-    height: 84px;
+    border-radius: 90px;
+    width: 90px;
+    height: 90px;
     transition: all 0.5s @ease-out;
     background: transparent none 50% 50% no-repeat;
   }
-
-
 
   &.lamp {
     background: @icon-orange;
@@ -40,9 +38,9 @@
         opacity: 0;
       }
     }
-    .knipper {
+    &.knipper {
       .on {
-        opacity: 1;
+        animation: pulse 0.5s infinite;
       }
       .off{
         opacity: 1;
@@ -149,5 +147,14 @@
         opacity: 0;
       }
     };
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

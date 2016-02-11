@@ -26,7 +26,6 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
         this.setState({
           object: data.objects[type]
         });
-        console.log(data.objects[type])
       }
   }
 

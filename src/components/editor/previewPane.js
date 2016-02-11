@@ -1,4 +1,7 @@
 import React from 'react';
+//import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { TransitionMotion, spring, presets } from 'react-motion';
+
 import * as Objects from './objects/_index';
 
 import ObjectActions from '../../actions/object';
@@ -42,7 +45,7 @@ export default class PreviewPane extends React.Component {
       if(!ObjectRef) return false;
 
       const classNames = 'check' + (check.valid ? ' valid' : '');
-      return <div className={classNames} key={i}><ObjectRef/> = {check.value}</div>;
+      return <div className={classNames} key={i}><ObjectRef/></div>;
     });
 
     const assignments = this.state.rowResult.assignments.map((assignment, i) => {
@@ -50,7 +53,7 @@ export default class PreviewPane extends React.Component {
       if(!ObjectRef) return false;
 
       const classNames = 'assignment' + (assignment.valid ? ' valid' : '');
-      return <div className={classNames} key={i}><ObjectRef/> = {assignment.value}</div>;
+      return <div className={classNames} key={i}><ObjectRef/></div>;
     });
 
     let output = [];
@@ -89,7 +92,7 @@ export default class PreviewPane extends React.Component {
 
     return(
       <div className="pane preview-pane">
-        { output }
+      { output }
       </div>
     );
   }
