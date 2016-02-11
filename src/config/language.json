@@ -31,7 +31,15 @@
     {
       "name": "weer",
       "type": "string",
+<<<<<<< Updated upstream
       "values": ["goed", "slecht"]
+=======
+      "values": ["zonnig", "bewolkt", "regen"]
+    },
+    {
+      "name": "bericht",
+      "type": "string"
+>>>>>>> Stashed changes
     }
 
   ]

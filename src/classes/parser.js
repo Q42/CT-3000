@@ -32,39 +32,27 @@ export default class {
     this.lexer.addTokenType(types.constant('=','equals'));
     this.lexer.addTokenType(types.constant('en','and'));
     this.lexer.addTokenType({ name: 'item', regexp: /^[a-z0-9]+/i });
-    this.lexer.addTokenType({ name: 'string', regexp: /^\".*\"+/ });
+    this.lexer.addTokenType({ name: 'string', regexp: /^\"[^\"]*\"+/i });
   }
 
   runParser(){
-    let type;
-    try{
-      this.parser.match('if');
-      type = 'if';
-    }catch(e){
-      type = 'statement';
-    }
-
     return new Promise((resolve, reject) => {
-      switch(type){
-        case 'if':
-          this.readIfThen().then(result => {
-            this.readEOF().then(() => {
-              resolve(result);
-            }, err => reject());
-          }, err => reject());
-          break;
-
-        case 'statement':
-            this.readAssignments().then(result => {
-              this.readEOF().then(() => {
-                resolve({
-                  checks: [],
-                  assignments: result
-                });
-              }, err => reject());
-            }, err => reject());
-          break;
-        }
+      this.match('if').then(result => {
+        this.readIfThen()
+          .then(result => {
+            this.readEOF().then(() => resolve(result), err => reject());
+          })
+          .catch(err => reject());
+      }, err => {
+        this.readAssignments()
+          .then(result => {
+            this.readEOF().then(() => resolve({
+              type: 'statement',
+              assignments: result
+            }), err => reject());
+          })
+          .catch(err => reject());
+      });
     });
   }
 
@@ -81,54 +69,90 @@ export default class {
     let checks = [];
 
     return new Promise((resolve, reject) => {
-      try{
-        this.readAssignments().then(result => {
+      this.readAssignments()
+        .then(result => {
           checks = result;
-        }, err => reject());
-        this.parser.match('then');
-        this.readAssignments().then(result => {
-          resolve({
-            checks: checks,
-            assignments: result
-          });
-        }, err => reject());
-      }catch(e){
-        reject();
-      }
+          this.match('then')
+            .then(() => {
+              this.readAssignments()
+                .then(result => resolve(this.readIfThenReturn(checks, result)))
+                .catch(err => resolve(this.readIfThenReturn(checks, null)));
+            })
+            .catch(err => resolve(this.readIfThenReturn(checks, null)));
+        })
+        .catch(err => resolve(this.readIfThenReturn(null, null)));
     });
   }
 
-  readAssignments(){
-    let assignments = [];
+  readIfThenReturn(checks, assignments){
+    return {
+      type: 'if',
+      checks: checks,
+      assignments: assignments
+    };
+  }
 
+  readAssignments(assignments = []){
     return new Promise((resolve, reject) => {
-      try{
-        assignments.push(this.readAssignment());
-        while (!this.parser.eof() && this.parser.la1('and')) {
-          this.parser.match('and');
-          assignments.push(this.readAssignment());
-        }
-        resolve(assignments);
-      }catch(e){
-        reject();
-      }
+      this.readAssignment()
+        .then(result => {
+          if(!result || result.length === 0)
+            reject();
+
+          let [object, , value] = result;
+          assignments.push({
+            object: object,
+            value: value
+          });
+
+          return this.match('and');
+        }).then(result => {
+          this.readAssignments(assignments)
+            .then(result => resolve(result))
+            .catch(err => reject());
+        }).catch(err => resolve(assignments));
     });
   }
 
   readAssignment(){
-    let object = this.parser.match('item').content;
-    this.parser.match('equals');
-    let value;
-    try{
-      value = this.parser.match('item').content;
-    }catch(e){
-      value = this.parser.match('string').content;
-    }
+    return new Promise((resolve, reject) => {
+      this.match('item', []).then(result => {
+        return this.match('equals', result);
+      }, err => resolve(err)).then(result => {
+        return this.readItemOrString(result);
+      }, err => resolve(err))
+        .then(result => resolve(result), err => resolve(err));
+    });
+  }
 
-    return {
-      object: object,
-      value: value
-    };
+  readItemOrString(list){
+    return new Promise((resolve, reject) => {
+      this.match('item', list)
+        .then(result => resolve(result))
+        .catch(err => {
+          this.match('string', list)
+            .then(result => resolve(result))
+            .catch(err => reject(list));
+        });
+    });
+  }
+
+  match(type, list){
+    return new Promise((resolve, reject) => {
+      try{
+        let val = this.parser.match(type).content;
+
+
+        if(list && list.constructor === Array){
+          list.push(val);
+          resolve(list);
+        }else{
+          resolve(val);
+        }
+      }catch(e){
+        reject(list);
+      }
+    });
   }
 
 }
