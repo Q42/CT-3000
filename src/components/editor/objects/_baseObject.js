@@ -55,8 +55,8 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       {
         classNames.push('int-' + state);
       }
-
     }
+
 
     return (
       <div className={classNames.join(' ')}>

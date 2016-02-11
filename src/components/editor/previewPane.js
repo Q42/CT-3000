@@ -65,19 +65,9 @@ export default class PreviewPane extends React.Component {
         </div>
       );
 
-      if(checks.length > 1) {
-        output.push(
-          <div className="combinator" key="combinator">
-            EN
-          </div>
-        );
-      }
-
       if(assignments.length > 0) {
         output.push(
-          <div className="computer" key="computer">
-            // Hier staat een computer //
-          </div>
+          <div className="computer" key="computer"></div>
         );
       }
     }

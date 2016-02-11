@@ -26,7 +26,7 @@ lamp = aan
 bericht = "test"
 
 // Vergelijkingen
-als lamp = aan dan radio = uit
+als weer = slecht dan lamp = aan
 als deur = open en lamp = uit dan bericht = "ALARM!"`,
       mode: '',
       languageInitiated: false
