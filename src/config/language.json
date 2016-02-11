@@ -21,7 +21,7 @@
     {
       "name": "muziek",
       "type": "string",
-      "values": ["uit", "aan"]
+      "values": ["uit", "piano","gitaar","zang"]
     },
     {
       "name": "kat",
