@@ -26,7 +26,6 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
         this.setState({
           object: data.objects[type]
         });
-        console.log(data.objects[type])
       }
   }
 
@@ -50,7 +49,7 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       }
       else if(object.type == 'string')
       {
-        classNames.push(state == '' ? 'empty' : 'set');
+        classNames.push(state === '' ? 'empty' : 'set');
       }
       else if(object.type == 'int')
       {
