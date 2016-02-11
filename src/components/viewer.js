@@ -3,7 +3,11 @@ import React from 'react';
 export default React.createClass({
   render() {
     return(
-      <div>Viewer</div>
+      <div className="viewer">
+        <div className="text">
+          Viewer
+        </div>
+      </div>
     );
   }
 });
