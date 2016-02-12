@@ -13,10 +13,6 @@ class Bericht extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.postMessage();
-  }
-
   componentDidUpdate() {
     this.postMessage();
   }
