@@ -177,7 +177,7 @@ export default class PreviewPane extends React.Component {
         const combinaterClasses = 'combinator ' + (allChecksValid ? 'valid' : '');
         output.push(
           <div className={ combinaterClasses } key="combinator" ref="combinator">
-            EN
+            <div className="ampersand">&amp;</div>
           </div>
         );
       }
