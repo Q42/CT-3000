@@ -54,12 +54,12 @@ export default class PreviewPane extends React.Component {
       to: this.getCenter(to)
     };
 
-    const color = from.className.indexOf('valid') > -1 ? 'green' : 'red';
+    const style = from.className.indexOf('valid') > -1 ? 'valid' : 'not-valid';
 
-    return this.createLineDiv(center.from.x, center.from.y, center.to.x, center.to.y, key, 3, color);
+    return this.createLineDiv(center.from.x, center.from.y, center.to.x, center.to.y, key, 32, style);
   }
 
-  createLineDiv(x1, y1, x2, y2, key = '', thickness = 2, color = 'black'){
+  createLineDiv(x1, y1, x2, y2, key = '', thickness = 2, style = 'transparent'){
     const length = Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
     const cx = ((x1 + x2) / 2) - (length / 2);
     const cy = ((y1 + y2) / 2) - (thickness / 2);
@@ -70,7 +70,6 @@ export default class PreviewPane extends React.Component {
       margin: 0,
       height: thickness + 'px',
       width: length + 'px',
-      backgroundColor: color,
       lineHeight: '1px',
       position: 'absolute',
       top: cy + 'px',
@@ -81,7 +80,7 @@ export default class PreviewPane extends React.Component {
       WebkitTransform: 'rotate(' + angle + 'deg)',
       OTransform: 'rotate(' + angle + 'deg)'
     };
-    return <div className='line' key={ key } style={ styles } />;
+    return <div className={'line ' + style} key={ key } style={ styles } />;
   }
 
   componentWillUpdate(){
@@ -119,7 +118,7 @@ export default class PreviewPane extends React.Component {
 
     if(this.assignmentRefs.length > 0 && this.checkRefs.length > 0)
       assignmentLines = this.assignmentRefs.map((x, i) => {
-        return this.createLine(x, this.refs.computer, 'assignment-line-' + i);
+        return this.createLine(this.refs.computer, x, 'assignment-line-' + i);
       });
 
     this.setState({

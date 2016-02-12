@@ -20,9 +20,13 @@ export default class EditorPane extends React.Component {
     this.updateCode = this.updateCode.bind(this);
     this.parseLine = this.parseLine.bind(this);
     this.executeCode = this.executeCode.bind(this);
+    this.stopExecution = this.stopExecution.bind(this);
+
+    this.codeInterval = null;
 
     this.state = {
       code: `// Toekenningen
+digibord = 12345
 lamp = aan
 bericht = "test"
 tijd = 10:15
@@ -97,12 +101,12 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
 
     let lineCount = this.cm.lineCount();
     let line = 1;
-    let interval = setInterval(() => {
+    this.codeInterval = setInterval(() => {
       this.cm.setCursor(line, 0);
       line++;
 
       if(line > lineCount) {
-        clearInterval(interval);
+        clearInterval(this.codeInterval);
 
         this.cm.setCursor(0, 0);
         this.setState({
@@ -110,6 +114,13 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
         });
       }
     }, 2000);
+  }
+
+  stopExecution() {
+    this.setState({
+      executing: false
+    });
+    clearInterval(this.codeInterval);
   }
 
   render () {
@@ -132,7 +143,7 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
     return (
       <div className={ classNames }>
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
-          <button className="play" onClick={ this.executeCode }>{ this.state.executing ? 'Executing ...' : 'Test code' }</button>
+        <button className="play" onClick={ this.state.executing ? this.stopExecution : this.executeCode }><span className="icon-btn" aria="hidden"></span>{ this.state.executing ? 'Stop test' : 'Test code' }</button>
       </div>
     );
   }

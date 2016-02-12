@@ -1,6 +1,10 @@
 {
   "objects": [
     {
+      "name": "digibord",
+      "type": "int"
+    },
+    {
       "name": "lamp",
       "type": "string",
       "values": ["uit", "aan", "knipper"]
