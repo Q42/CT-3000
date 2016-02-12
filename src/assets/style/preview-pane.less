@@ -38,13 +38,13 @@
       height: 42px;
       line-height: 42px;
       text-align: center;
-      background: #be0000;
+      background: @color-wrong;
       font-size: 28px;
       border-radius: 42px;
       color: white;
     }
     &.valid .ampersand {
-      background: #009600;
+      background: @color-right;
     }
   }
 
@@ -59,26 +59,32 @@
     background-size: 120px 120px;
     border: 4px solid darken(@icon-light-grey,10%);
     border-radius: 120px;
-    &.valid { animation: beat 1s infinite; }
+    &.valid {
+      animation: beat 1s infinite;
+      border: 4px solid @color-right;
+    }
   }
 }
 
-.example-enter {
-  opacity: 0.01;
+.line {
+  background: transparent none 50% 50% no-repeat;
+  &.valid {
+    background-image: url(../svg/moving-line.svg);
+    animation: stream 0.2s infinite;
+    animation-timing-function: linear;
+  }
+  &.not-valid {
+    background-image: url(../svg/broken-line.svg);
+  }
 }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.example-leave {
-  opacity: 1;
-}
-
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+@keyframes stream {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -8px 0;
+  }
 }
 
 

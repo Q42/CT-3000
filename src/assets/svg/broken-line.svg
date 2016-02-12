@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1000px" height="32px" viewBox="0 0 1000 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
+    <title>broken-line</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="broken-line" sketch:type="MSArtboardGroup" stroke="#BE0000" stroke-width="4" stroke-linecap="round">
+            <path d="M753.912565,-238.786789 C753.912565,-238.786789 755.785158,82.7588088 755.786785,239.514328 C755.786894,250.029953 742.982098,246.844406 748.804363,250.424484 C754.626629,254.004562 757.133465,252.933273 752.031353,257.983449 C746.92924,263.033625 746.868817,263.40007 746.868817,263.40007" id="Line" sketch:type="MSShapeGroup" transform="translate(751.327801, 12.306641) rotate(-270.000000) translate(-751.327801, -12.306641) "></path>
+            <path d="M234.90779,-247.559032 C234.90779,-247.559032 234.907791,-213.462934 234.907791,-211.367626 C234.907791,-177.67379 234.90779,114.401884 234.90779,261.98003 C234.90779,266.333546 224.912047,267.051319 231.385505,270.116749 C233.63486,271.181905 243.347949,267.625538 234.90779,275.534718 C226.467632,283.443898 227.864021,282.477101 227.864021,282.477101" id="Line" sketch:type="MSShapeGroup" transform="translate(233.036722, 17.477690) scale(-1, -1) rotate(-270.000000) translate(-233.036722, -17.477690) "></path>
+        </g>
+    </g>
+</svg>
