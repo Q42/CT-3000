@@ -22,9 +22,8 @@ export default class {
             this.state = this.values[0];
           }
         }else{
-          if(data.default && typeof data.default === 'string'){
+          if(data.default && typeof data.default === 'string')
             this.state = data.default;
-          }
         }
 
         break;
@@ -41,10 +40,17 @@ export default class {
             this.state = this.values[0];
           }
         }else{
-          if(data.default && typeof data.default === 'number' && data.default % 1  === 0){
+          if(data.default && typeof data.default === 'number' && data.default % 1  === 0)
             this.state = data.default;
-          }
         }
+
+        break;
+      case 'text':
+        this.type = 'text';
+        this.state = '';
+
+        if(data.default && typeof data.default === 'string')
+          this.state = data.default;
 
         break;
       case 'time':
@@ -56,16 +62,6 @@ export default class {
           ObjectActions.notifyUpdate(this.name);
         }, 60000);
         break;
-      /*
-      default:
-        this.type = 'bool';
-        this.state = false;
-        this.values = [true, false];
-
-        if(data.default && typeof data.default === 'boolean' && this.values.indexOf(data.default) > -1){
-          this.state = data.default;
-        }
-      */
     }
 
   }
@@ -79,11 +75,17 @@ export default class {
   }
 
   setValue(value){
-    if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || this.values.indexOf(value) > -1)){
+    if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || (this.values && this.values.indexOf(value) > -1))){
       this.state = this.formatValue(value);
-      return true;
+      return {
+        status: true,
+        value: this.state
+      };
     }
-    return false;
+    return {
+      status: false,
+      value: null
+    };
   }
 
   valueMatchesType(value){
@@ -92,6 +94,8 @@ export default class {
         return true;
       case 'int':
         return /^[0-9]+$/.test(value);
+      case 'text':
+        return /^\"[^\"]*\"$/i.test(value);
       case 'time':
         if(/^[0-9]{1,2}:[0-9]{2}$/.test(value)){
           let [h,m] = value.split(':');
@@ -106,6 +110,8 @@ export default class {
 
   formatValue(value){
     switch(this.type){
+      case 'text':
+        return value.replace(/\"/g,'');
       case 'time':
         let [h,m] = value.split(':');
         var d = new Date();
