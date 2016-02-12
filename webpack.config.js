@@ -1,4 +1,5 @@
 var path = require('path');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: __dirname + '/src',
