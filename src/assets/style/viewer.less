@@ -12,6 +12,14 @@
     background: rgba(0,0,0,0.8);
   }
 
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   .message {
     position: absolute;
     background: rgba(118,208,59,1);
@@ -29,6 +37,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     &:before {
       display: block;
       position: absolute;
@@ -41,7 +50,8 @@
       bottom: -12px;
       left: 20px;
     }
-     &:after {
+
+    &:after {
       display: block;
       position: absolute;
       z-index: 0;
@@ -53,21 +63,13 @@
       bottom: -22px;
       left: 16px;
     }
+
     p {
       min-width: 240px;
     }
   }
 
-}
-
-.content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.text {
-  padding: 20px;
+  .text {
+    padding: 20px;
+  }
 }
