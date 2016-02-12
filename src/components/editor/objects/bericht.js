@@ -51,7 +51,7 @@ class Bericht extends React.Component {
   postMessage() {
     const object = this.props.data.object;
 
-    if(!object || !object.state || !this.base) {
+    if(!object || !this.base) {
       return;
     }
 
