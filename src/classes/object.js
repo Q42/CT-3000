@@ -7,6 +7,11 @@ export default class {
       return;
 
     this.name = data.name;
+    this.allowedOperators = ['='];
+
+    this.equals = (value) => {
+      return value === this.state;
+    };
 
     switch(data.type){
       case 'string':
@@ -56,6 +61,40 @@ export default class {
       case 'time':
         this.type = 'time';
         this.state = Date.now() || 0;
+        this.allowedOperators = ['=','<','>'];
+
+        this.equals = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() === h && d.getMinutes() === m;
+        };
+
+        this.greater = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() > h || (d.getHours() === h && d.getMinutes() > m);
+        };
+
+        this.smaller = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() < h || (d.getHours() === h && d.getMinutes() < m);
+        };
 
         setInterval(() => {
           this.state += 1000;
@@ -72,6 +111,24 @@ export default class {
 
   getPossibleValues(){
     return this.values ? this.values.sort() : [];
+  }
+
+  operatorIsAllowed(op){
+    return this.allowedOperators.indexOf(op) > -1;
+  }
+
+  isTrueStatement(value, operator){
+    if(!this.operatorIsAllowed(operator))
+      return false;
+
+    switch(operator){
+      case '=':
+        return this.equals && this.equals(value);
+      case '>':
+        return this.greater && this.greater(value);
+      case '<':
+        return this.smaller && this.smaller(value);
+    }
   }
 
   setValue(value){

@@ -39,12 +39,12 @@ export default Reflux.createStore({
 
   /* object methods */
 
-  checkObjectValue(name, value){
+  checkObjectValue(name, value, operator){
     let object = this.getObject(name);
     if(!object)
       return false;
 
-    return object.getValue() === value;
+    return object.isTrueStatement(value, operator);
   },
 
   getObjectValue(name){
@@ -88,7 +88,7 @@ export default Reflux.createStore({
         let parsedCode = JSON.parse(JSON.stringify(checkedCode));
         let ci = 0;
         let checksPassed = checkedCode.checks.reduce((x, y) => {
-          let valid = this.checkObjectValue(y.object, y.value);
+          let valid = this.checkObjectValue(y.object, y.value, y.operator);
           parsedCode.checks[ci].valid = valid === true; ci++;
           return x && valid;
         }, true);
@@ -109,7 +109,7 @@ export default Reflux.createStore({
           this.data.parsedCode = parsedCode;
           this.trigger(this.data);
         }
-        
+
       });
   },
 
