@@ -84,6 +84,10 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
   }
 
   executeCode() {
+    if(this.state.executing) {
+      return;
+    }
+
     this.setState({
       executing: true
     });
