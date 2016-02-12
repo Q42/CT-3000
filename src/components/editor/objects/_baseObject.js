@@ -47,7 +47,7 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       if(object.values) {
         classNames.push(state);
       }
-      else if(object.type == 'string')
+      else if(object.type == 'string' || object.type == 'text')
       {
         classNames.push(state === '' ? 'empty' : 'set');
       }

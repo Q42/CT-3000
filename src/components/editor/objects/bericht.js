@@ -10,7 +10,7 @@ class Bericht extends React.Component {
 
     this.state = {
       display: {},
-    }
+    };
   }
 
   componentDidMount() {

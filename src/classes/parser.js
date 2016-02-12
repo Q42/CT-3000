@@ -142,10 +142,6 @@ export default class {
       try{
         let val = this.parser.match(type).content;
 
-        if(type === 'string'){
-          val = val.replace(/\"/g,'');
-        }
-
         if(list && list.constructor === Array){
           list.push(val);
           resolve(list);
