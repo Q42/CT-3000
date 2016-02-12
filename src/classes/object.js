@@ -10,7 +10,7 @@ export default class {
     this.allowedOperators = ['='];
 
     this.equals = (value) => {
-      return value === this.value;
+      return value === this.state;
     };
 
     switch(data.type){
