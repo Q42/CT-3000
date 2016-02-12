@@ -26,6 +26,7 @@ export default class EditorPane extends React.Component {
 
     this.state = {
       code: `// Toekenningen
+digibord = 12345
 lamp = aan
 bericht = "test"
 tijd = 10:15

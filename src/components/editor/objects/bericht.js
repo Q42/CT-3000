@@ -2,8 +2,6 @@ import React from 'react';
 import { BaseObject } from './_baseObject';
 import Rebase from 're-base';
 
-const base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/1');
-
 class Bericht extends React.Component {
   constructor(props) {
     super(props);
@@ -13,22 +11,28 @@ class Bericht extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.postMessage();
-  }
-
   componentDidUpdate() {
-    this.postMessage();
+    const digibord = (this.props.data.digibord || {}).state || null;
+    if(digibord && digibord.length == 6) {
+      if(this.base) {
+        this.base.reset();
+        delete this.base;
+      }
+
+      this.base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + digibord);
+      this.postMessage();
+    }
+
   }
 
   postMessage() {
     const object = this.props.data.object;
 
-    if(!object) {
+    if(!object || !object.state || !this.base) {
       return;
     }
 
-    this.ref = base.post('display/message', {
+    this.ref = this.base.post('display/message', {
       data: object.state
     });
   }
