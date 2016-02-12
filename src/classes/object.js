@@ -1,3 +1,5 @@
+import ObjectActions from '../actions/object';
+
 export default class {
 
   constructor(data){
@@ -45,6 +47,15 @@ export default class {
         }
 
         break;
+      case 'time':
+        this.type = 'time';
+        this.state = Date.now() || 0;
+
+        setInterval(() => {
+          this.state += 1000;
+          ObjectActions.notifyUpdate(this.name);
+        }, 1000);
+        break;
       /*
       default:
         this.type = 'bool';
@@ -69,7 +80,7 @@ export default class {
 
   setValue(value){
     if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || this.values.indexOf(value) > -1)){
-      this.state = value;
+      this.state = this.formatValue(value);
       return true;
     }
     return false;
@@ -81,6 +92,28 @@ export default class {
         return true;
       case 'int':
         return /^[0-9]+$/.test(value);
+      case 'time':
+        if(/^[0-9]{1,2}:[0-9]{2}$/.test(value)){
+          let [h,m] = value.split(':');
+          h = parseInt(h);
+          m = parseInt(m);
+          return  h >= 0 && h < 24 && m >= 0 && m < 60;
+        }
+
+        return false;
+    }
+  }
+
+  formatValue(value){
+    switch(this.type){
+      case 'time':
+        let [h,m] = value.split(':');
+        var d = new Date();
+        d.setHours(h);
+        d.setMinutes(m);
+        return d.getTime();
+      default:
+        return value;
     }
   }
 

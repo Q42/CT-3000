@@ -16,12 +16,12 @@
     },
     {
       "name": "tijd",
-      "type": "int"
+      "type": "time"
     },
     {
       "name": "muziek",
       "type": "string",
-      "values": ["uit", "piano","gitaar","zang"]
+      "values": ["uit", "piano", "gitaar", "zang"]
     },
     {
       "name": "kat",
@@ -33,7 +33,6 @@
       "type": "string",
       "values": ["goed", "slecht"]
     }
-
   ]
 
 }
