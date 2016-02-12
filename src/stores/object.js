@@ -39,12 +39,12 @@ export default Reflux.createStore({
 
   /* object methods */
 
-  checkObjectValue(name, value){
+  checkObjectValue(name, value, operator){
     let object = this.getObject(name);
     if(!object)
       return false;
 
-    return object.getValue() === value;
+    return object.isTrueStatement(value, operator);
   },
 
   getObjectValue(name){
@@ -54,7 +54,14 @@ export default Reflux.createStore({
 
   setObjectValue(name, value){
     const object = this.getObject(name);
-    return object && object.setValue(value);
+    let objectValue;
+    if(object)
+      objectValue = object.setValue(value);
+
+    return {
+      status: object && objectValue.status,
+      value: object ? objectValue.value : null
+    };
   },
 
   getObject(name){
@@ -70,7 +77,6 @@ export default Reflux.createStore({
   parse(text){
     this.parser.parse(text)
       .then(result => {
-        console.log('parse2', result);
         if(!result)
           return false;
 
@@ -79,13 +85,11 @@ export default Reflux.createStore({
           assignments: result.assignments ? result.assignments.filter(x => this.objectExists(x.object)) : []
         };
 
-        let newCode = !Object.is(this.data.parsedCode, checkedCode);
-        this.data.parsedCode = checkedCode;
-
+        let parsedCode = JSON.parse(JSON.stringify(checkedCode));
         let ci = 0;
         let checksPassed = checkedCode.checks.reduce((x, y) => {
-          let valid = this.checkObjectValue(y.object, y.value);
-          this.data.parsedCode.checks[ci].valid = valid === true; ci++;
+          let valid = this.checkObjectValue(y.object, y.value, y.operator);
+          parsedCode.checks[ci].valid = valid === true; ci++;
           return x && valid;
         }, true);
 
@@ -93,14 +97,19 @@ export default Reflux.createStore({
         if(checksPassed){
           let ai = 0;
           assignmentsDone = checkedCode.assignments.reduce((x, y) => {
-            let valid = this.setObjectValue(y.object, y.value);
-            this.data.parsedCode.assignments[ai].valid = valid === true; ai++;
-            return x || valid;
+            let objectValue = this.setObjectValue(y.object, y.value);
+            parsedCode.assignments[ai].valid = objectValue.status === true;
+            parsedCode.assignments[ai].value = objectValue.value;
+            ai++;
+            return x || objectValue.status;
           }, false);
         }
 
-        if(newCode)
+        if(!Object.is(this.data.parsedCode, parsedCode)){
+          this.data.parsedCode = parsedCode;
           this.trigger(this.data);
+        }
+
       });
   },
 

@@ -12,7 +12,7 @@
     },
     {
       "name": "bericht",
-      "type": "string"
+      "type": "text"
     },
     {
       "name": "tijd",

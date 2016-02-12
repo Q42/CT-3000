@@ -7,6 +7,11 @@ export default class {
       return;
 
     this.name = data.name;
+    this.allowedOperators = ['='];
+
+    this.equals = (value) => {
+      return value === this.state;
+    };
 
     switch(data.type){
       case 'string':
@@ -22,9 +27,8 @@ export default class {
             this.state = this.values[0];
           }
         }else{
-          if(data.default && typeof data.default === 'string'){
+          if(data.default && typeof data.default === 'string')
             this.state = data.default;
-          }
         }
 
         break;
@@ -41,31 +45,62 @@ export default class {
             this.state = this.values[0];
           }
         }else{
-          if(data.default && typeof data.default === 'number' && data.default % 1  === 0){
+          if(data.default && typeof data.default === 'number' && data.default % 1  === 0)
             this.state = data.default;
-          }
         }
+
+        break;
+      case 'text':
+        this.type = 'text';
+        this.state = '';
+
+        if(data.default && typeof data.default === 'string')
+          this.state = data.default;
 
         break;
       case 'time':
         this.type = 'time';
         this.state = Date.now() || 0;
+        this.allowedOperators = ['=','<','>'];
+
+        this.equals = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() === h && d.getMinutes() === m;
+        };
+
+        this.greater = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() > h || (d.getHours() === h && d.getMinutes() > m);
+        };
+
+        this.smaller = (value) => {
+          if(!this.valueMatchesType(value))
+            return false;
+
+          let [h,m] = value.split(':');
+          h = parseInt(h); m = parseInt(m);
+          let d = new Date(this.state);
+
+          return d.getHours() < h || (d.getHours() === h && d.getMinutes() < m);
+        };
 
         setInterval(() => {
           this.state += 1000;
           ObjectActions.notifyUpdate(this.name);
         }, 60000);
         break;
-      /*
-      default:
-        this.type = 'bool';
-        this.state = false;
-        this.values = [true, false];
-
-        if(data.default && typeof data.default === 'boolean' && this.values.indexOf(data.default) > -1){
-          this.state = data.default;
-        }
-      */
     }
 
   }
@@ -78,12 +113,36 @@ export default class {
     return this.values ? this.values.sort() : [];
   }
 
-  setValue(value){
-    if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || this.values.indexOf(value) > -1)){
-      this.state = this.formatValue(value);
-      return true;
+  operatorIsAllowed(op){
+    return this.allowedOperators.indexOf(op) > -1;
+  }
+
+  isTrueStatement(value, operator){
+    if(!this.operatorIsAllowed(operator))
+      return false;
+
+    switch(operator){
+      case '=':
+        return this.equals && this.equals(value);
+      case '>':
+        return this.greater && this.greater(value);
+      case '<':
+        return this.smaller && this.smaller(value);
     }
-    return false;
+  }
+
+  setValue(value){
+    if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || (this.values && this.values.indexOf(value) > -1))){
+      this.state = this.formatValue(value);
+      return {
+        status: true,
+        value: this.state
+      };
+    }
+    return {
+      status: false,
+      value: null
+    };
   }
 
   valueMatchesType(value){
@@ -92,6 +151,8 @@ export default class {
         return true;
       case 'int':
         return /^[0-9]+$/.test(value);
+      case 'text':
+        return /^\"[^\"]*\"$/i.test(value);
       case 'time':
         if(/^[0-9]{1,2}:[0-9]{2}$/.test(value)){
           let [h,m] = value.split(':');
@@ -106,6 +167,8 @@ export default class {
 
   formatValue(value){
     switch(this.type){
+      case 'text':
+        return value.replace(/\"/g,'');
       case 'time':
         let [h,m] = value.split(':');
         var d = new Date();

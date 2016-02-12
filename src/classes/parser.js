@@ -30,6 +30,8 @@ export default class {
     this.lexer.addTokenType(types.constant('als','if'));
     this.lexer.addTokenType(types.constant('dan','then'));
     this.lexer.addTokenType(types.constant('=','equals'));
+    this.lexer.addTokenType(types.constant('>','greater'));
+    this.lexer.addTokenType(types.constant('<','smaller'));
     this.lexer.addTokenType(types.constant('en','and'));
     this.lexer.addTokenType({ name: 'item', regexp: /^[a-z0-9:]+/i });
     this.lexer.addTokenType({ name: 'string', regexp: /^\"[^\"]*\"/i });
@@ -99,9 +101,10 @@ export default class {
           if(!result || result.length === 0)
             reject();
 
-          let [object, , value] = result;
+          let [object, op, value] = result;
           assignments.push({
             object: object,
+            operator: op,
             value: value
           });
 
@@ -117,11 +120,27 @@ export default class {
   readAssignment(){
     return new Promise((resolve, reject) => {
       this.match('item', []).then(result => {
-        return this.match('equals', result);
+        return this.readOperator(result);
       }, err => resolve(err)).then(result => {
         return this.readItemOrString(result);
       }, err => resolve(err))
         .then(result => resolve(result), err => resolve(err));
+    });
+  }
+
+  readOperator(list){
+    return new Promise((resolve, reject) => {
+      this.match('equals', list)
+      .then(result => resolve(result))
+      .catch(err => {
+        this.match('greater', list)
+        .then(result => resolve(result))
+        .catch(err => {
+          this.match('smaller', list)
+          .then(result => resolve(result))
+          .catch(err => reject(list));
+        });
+      });
     });
   }
 
@@ -141,10 +160,6 @@ export default class {
     return new Promise((resolve, reject) => {
       try{
         let val = this.parser.match(type).content;
-
-        if(type === 'string'){
-          val = val.replace(/\"/g,'');
-        }
 
         if(list && list.constructor === Array){
           list.push(val);

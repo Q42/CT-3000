@@ -31,6 +31,7 @@ bericht = "test"
 tijd = 10:15
 
 // Vergelijkingen
+als tijd > 10:14 dan lamp = aan
 als weer = slecht dan lamp = aan
 als deur = open en lamp = uit dan bericht = "ALARM!"`,
       mode: '',
