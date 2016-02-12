@@ -73,7 +73,7 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
     const lineContent = cm.getLine(cm.getCursor().line);
 
     if(lineContent !== this.lastLineContent) {
-      ObjectActions.parse(cm.getLine(cm.getCursor().line));
+      ObjectActions.parse(lineContent);
     }
 
     this.lastLineContent = lineContent;
