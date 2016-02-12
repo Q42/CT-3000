@@ -22,14 +22,7 @@ export default class EditorPane extends React.Component {
     this.executeCode = this.executeCode.bind(this);
 
     this.state = {
-      code: `// Toekenningen
-lamp = aan
-bericht = "test"
-tijd = 10:15
-
-// Vergelijkingen
-als weer = slecht dan lamp = aan
-als deur = open en lamp = uit dan bericht = "ALARM!"`,
+      code: `digibord = 12345\nbericht = ""`,
       mode: '',
       executing: false,
       languageInitiated: false

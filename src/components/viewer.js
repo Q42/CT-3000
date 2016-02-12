@@ -2,7 +2,6 @@ import React from 'react';
 import Rebase from 're-base';
 import { Motion, spring, presets } from 'react-motion';
 
-const base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/1');
 const springSetting1 = {stiffness: 164, damping: 10};
 
 export default class Viewer extends React.Component {
@@ -10,19 +9,28 @@ export default class Viewer extends React.Component {
     super(props)
 
     this.state = {
-      display: {}
+      display: {},
+      classId: this.generateId(),
     };
   }
 
   componentWillMount() {
-    this.ref = base.syncState('display', {
+    this.base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + this.state.classId);
+
+    this.ref = this.base.syncState('display', {
       context: this,
       state: 'display'
     });
   }
 
   componentWillUnmount(){
-    base.removeBinding(this.ref);
+    this.base.removeBinding(this.ref);
+  }
+
+  generateId() {
+    const num = Math.floor(Math.random() * 1000000).toString();
+    const pad = '000000'
+    return pad.slice(num.length) + num;
   }
 
   render() {
@@ -40,6 +48,7 @@ export default class Viewer extends React.Component {
           </Motion>
 
         </div>
+        <div className="class-id">Digibord ID: { this.state.classId }</div>
       </div>
     );
   }
