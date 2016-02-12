@@ -86,15 +86,21 @@
   }
   &.bericht {
     background: @icon-yellow;
+    position: relative;
+    .preview-pane .checks & {
+      .message {
+        display: none;
+      }
+    }
     .preview-pane & {
       .message {
         transition: all 0.3s @ease-out;
         transform: scale(0) translate(-100%, 100%);
         position: absolute;
-        bottom: 94px;
-        left: 54px;
+        bottom: 95px;
+        left: 40px;
         background: rgba(118,208,59,1);
-        border: 4px solid black;
+        border: 2px solid black;
         border-radius: 10px;
         width: auto;
         line-height: 1.5;
@@ -118,13 +124,14 @@
           content: '';
           width: 0;
           height: 0;
-          border-top: 22px solid rgba(0,0,0,1);
-          border-right: 22px solid transparent;
-          bottom: -22px;
-          left: 16px;
+          border-top: 16px solid rgba(0,0,0,1);
+          border-right: 16px solid transparent;
+          bottom: -16px;
+          left: 18px;
         }
         p {
-          min-width: 240px;
+          min-width: 220px;
+          padding: 0 10px;
         }
       }
     }
@@ -147,7 +154,7 @@
         opacity: 0;
         //transform: scale(0.825) translate(-11px, 8px);
       }
-      .preview-pane & {
+      .preview-pane .assignments & {
         .on {
           opacity: 0;
         }

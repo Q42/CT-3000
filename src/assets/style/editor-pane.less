@@ -11,7 +11,7 @@
 
 .editor-pane {
   position: relative;
-  padding: 20px 0 20px 20px;
+  padding: 20px 0 0 20px;
 
   .ReactCodeMirror {
     flex: 1;
@@ -27,8 +27,10 @@
       flex: 1;
       padding: 10px 10px 10px 0;
       border: 4px solid #636363;
-      box-shadow: 0 0 4px 4px rgba(0,0,0,0.1);
-      border-radius: 8px;
+      border-bottom: none;
+      //box-shadow: 0 0 4px 4px rgba(0,0,0,0.1);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
       .CodeMirror-scroll {
         flex: 1;
       }
@@ -36,20 +38,57 @@
   }
 
   button.play {
-    background: #272822;
+    font-family: 'Lato', sans-serif;
+    background: #636363;
+    border: none;
     color: white;
-    border: 4px solid #636363;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     cursor: pointer;
-    border-radius: 8px;
-    line-height: 1.8;
-    margin-top: 10px;
+    line-height: 42px;
+    padding: 5px 0 5px 50%;
+    text-align: left;
+    span {
+      opacity: 0.8;
+      &:first-child{
+        margin-left: -42px;
+      }
+    }
+
+    .icon-btn {
+      display:inline-block;
+      background: transparent url(../svg/play.svg) 50% 50% no-repeat;
+      width: 42px;
+      height:42px;
+      vertical-align: top;
+      margin-right: 5px;
+    }
 
     &:hover {
-      background: #373831;
+      span {
+        opacity: 1;
+      }
     }
 
     &:active, &:focus {
       outline: none;
     }
+  }
+  &.executing button.play {
+    background: #636363 url(../svg/active-bg.svg) 0 50% repeat-x;
+    animation: stream-too 0.3s infinite;
+    animation-timing-function: linear;
+    .icon-btn {
+      background-image: url(../svg/pause.svg);
+    }
+  }
+}
+
+@keyframes stream-too {
+  0% {
+    background-position: 0 50%;
+  }
+  100% {
+    background-position: 20px 50%;
   }
 }
