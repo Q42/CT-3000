@@ -19,6 +19,7 @@ export default class EditorPane extends React.Component {
 
     this.updateCode = this.updateCode.bind(this);
     this.parseLine = this.parseLine.bind(this);
+    this.executeCode = this.executeCode.bind(this);
 
     this.state = {
       code: `// Toekenningen
@@ -30,6 +31,7 @@ tijd = 10:15
 als weer = slecht dan lamp = aan
 als deur = open en lamp = uit dan bericht = "ALARM!"`,
       mode: '',
+      executing: false,
       languageInitiated: false
     };
   }
@@ -39,8 +41,9 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
       this.onUpdate(data);
     });
 
-    const cm = this.refs.editor.getCodeMirror();
-    cm.on('cursorActivity', this.parseLine);
+
+    this.cm = this.refs.editor.getCodeMirror();
+    this.cm.on('cursorActivity', this.parseLine);
   }
 
   componentWillUnmount() {
@@ -74,10 +77,34 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
     const lineContent = cm.getLine(cm.getCursor().line);
 
     if(lineContent !== this.lastLineContent) {
-      ObjectActions.parse(cm.getLine(cm.getCursor().line));
+      ObjectActions.parse(lineContent);
     }
 
     this.lastLineContent = lineContent;
+  }
+
+  executeCode() {
+    this.setState({
+      executing: true
+    });
+
+    this.cm.setCursor(0, 0);
+
+    let lineCount = this.cm.lineCount();
+    let line = 1;
+    let interval = setInterval(() => {
+      this.cm.setCursor(line, 0);
+      line++;
+
+      if(line > lineCount) {
+        clearInterval(interval);
+
+        this.cm.setCursor(0, 0);
+        this.setState({
+          executing: false
+        });
+      }
+    }, 2000);
   }
 
   render () {
@@ -88,11 +115,19 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
       tabSize: 2,
       theme: 'monokai',
       styleActiveLine: true,
-      mode: this.state.mode
+      mode: this.state.mode,
+      readOnly: this.state.executing
     };
+
+    let classNames = 'pane editor-pane';
+    if(this.state.executing) {
+      classNames += ' executing';
+    }
+
     return (
-      <div className="pane editor-pane">
+      <div className={ classNames }>
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
+          <button className="play" onClick={ this.executeCode }>{ this.state.executing ? 'Executing ...' : 'Test code' }</button>
       </div>
     );
   }
