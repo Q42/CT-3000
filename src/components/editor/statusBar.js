@@ -8,10 +8,10 @@ const springSetting1 = {stiffness: 168, damping: 18};
 export default React.createClass ({
   getInitialState() {
     const elements = Object.keys(Objects).map((key) => {
-      return { name: key, status: false }
+      return { name: key, status: false };
     });
     const stroom = false;
-    return { elements, stroom }
+    return { elements, stroom };
   },
 
   setStroomAan(){
@@ -28,7 +28,7 @@ export default React.createClass ({
     var o = [];
     this.state.elements.forEach(key => {
       o.push({ x:300, scale: 0.5 });
-    })
+    });
     return o;
   },
 
@@ -52,8 +52,8 @@ export default React.createClass ({
                 const ObjectInstance = Objects[this.state.elements[i].name];
                 return (
                   <div key={i} style={{ transform: 'scale(' + style.scale + ') translateY(' + style.x + 'px)'}} >
-                    <ObjectInstance />
-                  </div>)
+                    <ObjectInstance main={ true } />
+                  </div>);
               })}
             </div>
           }
