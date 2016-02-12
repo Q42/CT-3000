@@ -39,5 +39,8 @@ module.exports = {
         loader: 'file?name=img/img-[hash:6].[ext]'
       }
     ],
+  },
+  postcss: function () {
+      return [autoprefixer];
   }
 };
