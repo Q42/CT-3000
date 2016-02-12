@@ -8,32 +8,33 @@ class Muziek extends React.Component {
   }
 
   componentDidMount(){
-    if(!this.props.main)
+    if(!this.props.main) {
       return;
+    }
 
     this.audio = new Audio('http://icecast.omroep.nl/3fm-sb-mp3');
   }
 
   componentDidUpdate(){
-    if(!this.props.main)
+    if(!this.props.main) {
       return;
+    }
 
-    if(this.props.data.object.state === this.prevState)
+    if(this.props.data.object.state === this.prevState) {
       return;
-
+    }
+    this.prevState = this.props.data.object.state;
 
     switch(this.props.data.object.state){
       case 'uit':
-        console.log('uit');
         this.audio.pause();
         break;
       case 'piano':
       case 'zang':
       case 'gitaar':
         this.audio.play();
+        break;
     }
-
-    this.prevState = this.props.data.object.state;
   }
 
   render() {
