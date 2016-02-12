@@ -159,6 +159,31 @@
   }
   &.tijd {
     background: @icon-teal url(../svg/tijd.svg) 50% 50% no-repeat;
+    .hourHandContainer, .minuteHandContainer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .hourHand {
+      height: 15%;
+      width: 3%;
+      background: red;
+      left: 48.5%;
+      position: absolute;
+      top: 36%;
+      transform-origin: 50% 100%;
+    }
+    .minuteHand {
+      height: 21%;
+      width: 3%;
+      background: red;
+      left: 48.5%;
+      position: absolute;
+      top: 30%;
+      transform-origin: 50% 100%;
+    }
   }
   &.muziek {
     background: @icon-aqua;

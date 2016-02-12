@@ -24,6 +24,7 @@ export default class EditorPane extends React.Component {
       code: `// Toekenningen
 lamp = aan
 bericht = "test"
+tijd = 10:15
 
 // Vergelijkingen
 als weer = slecht dan lamp = aan
