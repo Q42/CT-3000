@@ -30,6 +30,11 @@ class Bericht extends React.Component {
       return;
     }
 
+    if(this.props.data.object.state === this.prevState) {
+      return;
+    }
+    this.prevState = this.props.data.object.state;
+
     const digibord = (this.props.data.digibord || {}).state || null;
     if(digibord && digibord.length == 6) {
       if(this.base) {
