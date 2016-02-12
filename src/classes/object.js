@@ -97,7 +97,7 @@ export default class {
         };
 
         setInterval(() => {
-          this.state += 1000;
+          this.state += 60000;
           ObjectActions.notifyUpdate(this.name);
         }, 60000);
         break;
