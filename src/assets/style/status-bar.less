@@ -1,10 +1,8 @@
 .status-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex: none;
   height:120px;
   overflow-y: visible;
+
   .elements {
     height:120px;
     position: absolute;
@@ -19,9 +17,7 @@
     overflow-x: auto;
     overflow-y: visible;
   }
-  .element + .element {
-    margin-left: 30px;
-  }
+
   .object {
     // object custom styling
     .icon {
