@@ -15,6 +15,12 @@
 
   .ReactCodeMirror {
     flex: 1;
+
+    .executing& {
+      pointer-events: none;
+      user-select: none;
+    }
+
     .CodeMirror {
       //font-family: 'Ubuntu Mono', 'monospace', sans-serif;
       line-height: 1.8;
@@ -26,6 +32,24 @@
       .CodeMirror-scroll {
         flex: 1;
       }
+    }
+  }
+
+  button.play {
+    background: #272822;
+    color: white;
+    border: 4px solid #636363;
+    cursor: pointer;
+    border-radius: 8px;
+    line-height: 1.8;
+    margin-top: 10px;
+
+    &:hover {
+      background: #373831;
+    }
+
+    &:active, &:focus {
+      outline: none;
     }
   }
 }
