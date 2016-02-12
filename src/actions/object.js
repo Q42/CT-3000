@@ -3,7 +3,8 @@ import Reflux from 'reflux';
 var Actions = Reflux.createActions({
   initiate: {},
   create: {},
-  parse: {}
+  parse: {},
+  notifyUpdate: {}
 });
 
 Actions.initiate = function(languageConfig){

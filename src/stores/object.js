@@ -21,6 +21,10 @@ export default Reflux.createStore({
 
   init(){},
 
+  notifyUpdate(name){
+    this.trigger(this.data);
+  },
+
   create(objects){
     if(!objects || objects.constructor !== Array)
       return;
@@ -66,6 +70,7 @@ export default Reflux.createStore({
   parse(text){
     this.parser.parse(text)
       .then(result => {
+        console.log('parse2', result);
         if(!result)
           return false;
 
