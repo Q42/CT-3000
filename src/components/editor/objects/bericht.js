@@ -19,7 +19,17 @@ class Bericht extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if(!this.props.main) {
+      return;
+    }
+  }
+
   componentDidUpdate() {
+    if(!this.props.main) {
+      return;
+    }
+
     const digibord = (this.props.data.digibord || {}).state || null;
     if(digibord && digibord.length == 6) {
       if(this.base) {
