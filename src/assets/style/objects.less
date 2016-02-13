@@ -105,10 +105,11 @@
         transition: all 0.3s @ease-out;
         &.set {
           opacity: 0;
-          animation: show-message 300ms 300ms @ease-out both;
+          animation: show-message 300ms @ease-out both;
         }
         &.empty {
           opacity: 0;
+          animation: hide-message 300ms ease-in both;
         }
         &:before {
           display: block;
@@ -257,9 +258,22 @@
 @keyframes show-message {
   0% {
     opacity: 0;
+    transform: translate(-30px, 0%) scale(0.5);
   }
   100% {
     opacity: 1;
+    transform: translate(40px, -90%)  scale(1);
+  }
+}
+
+@keyframes hide-message {
+  0% {
+    opacity: 1;
+    transform: translate(40px, -90%) scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(-30px, 0%) scale(0);
   }
 }
 

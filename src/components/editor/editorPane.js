@@ -113,7 +113,7 @@ als deur = open en lamp = uit dan bericht = "ALARM!"`,
           executing: false
         });
       }
-    }, 2000);
+    }, 3000);
   }
 
   stopExecution() {
