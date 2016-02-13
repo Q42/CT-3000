@@ -2,8 +2,6 @@ import React from 'react';
 import { BaseObject } from './_baseObject';
 import Rebase from 're-base';
 
-import { Motion, spring, presets } from 'react-motion';
-
 const springSetting1 = {stiffness: 164, damping: 10};
 
 class Bericht extends React.Component {
@@ -65,18 +63,12 @@ class Bericht extends React.Component {
     if(this.props.data.object)
       state = this.props.data.object.state;
 
-    this.o = state == undefined ||  state == '' && this.state.show ? 0 : 1;
-    this.t = state == undefined ||  state == '' && this.state.show ? -100 : 40;
-    this.s = state == undefined ||  state == '' && this.state.show ? 100 : -70;
-
     return <div className="icon">
       <div className="on"></div>
       <div className="off"></div>
-      <Motion defaultStyle={{ x: 0, y: -100, z: 0, q:100 }} style={{ x: spring(this.o), y: spring(this.t,springSetting1), z: spring(this.o,springSetting1),q: spring(this.s,springSetting1)}}>
-        {value => <div className="message" style={{opacity: value.x, transform: 'scale(' + value.z + ') translate(' + value.y + 'px,'+ value.q +'px)'}}>
-          <p>{state}</p>
-        </div>}
-      </Motion>
+      <div className={"message" + (state == undefined || state == '' ? ' empty' : ' set') }>
+        <p>{state}</p>
+      </div>
     </div>;
   }
 }

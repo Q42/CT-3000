@@ -1,6 +1,7 @@
 import React from 'react';
-//import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-//import { Motion, spring, presets } from 'react-motion';
+import { Motion, spring, presets } from 'react-motion';
+
+const springSetting1 = {stiffness: 164, damping: 10};
 
 import * as Objects from './objects/_index';
 

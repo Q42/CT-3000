@@ -58,7 +58,6 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       }
     }
 
-
     return (
       <div className={classNames.join(' ')}>
         <ComposedComponent { ...this.props } data={ this.state } />

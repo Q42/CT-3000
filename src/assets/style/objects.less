@@ -94,6 +94,7 @@
     }
     .preview-pane & {
       .message {
+        transform: translate(40px, -90%);
         position: absolute;
         background: rgba(118,208,59,1);
         border: 2px solid black;
@@ -101,11 +102,14 @@
         width: auto;
         line-height: 1.5;
         white-space: normal;
-        // animation-name: hide;
-        // animation-duration: 0.5s;
-        // animation-timing-function: ease-out;
-        // animation-iteration-count: 1;
-        // animation-delay: 3s;
+        transition: all 0.3s @ease-out;
+        &.set {
+          opacity: 0;
+          animation: show-message 300ms 300ms @ease-out both;
+        }
+        &.empty {
+          opacity: 0;
+        }
         &:before {
           display: block;
           position: absolute;
@@ -132,6 +136,7 @@
         }
         p {
           min-width: 220px;
+          min-height: 24px;
           padding: 0 10px;
         }
       }
@@ -249,12 +254,12 @@
   }
 }
 
-@keyframes hide {
+@keyframes show-message {
   0% {
-    opacity: 1;
+    opacity: 0;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -266,3 +271,25 @@
     opacity: 1;
   }
 }
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
