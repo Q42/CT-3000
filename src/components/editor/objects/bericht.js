@@ -8,13 +8,13 @@ class Bericht extends React.Component {
   constructor(props) {
     super(props);
 
-    this.o = 0;
-    this.t = -100;
-    this.s = 100;
-
     this.state = {
       display: {},
+      showMessage: true,
+      timer: null
     };
+
+    this.hideMessage = this.hideMessage.bind(this)
   }
 
   componentDidMount() {
@@ -24,7 +24,19 @@ class Bericht extends React.Component {
   }
 
   componentDidUpdate() {
+
     if(!this.props.main) {
+      // IF Object is in preview pane hide message after a few seconds unless content is being updated
+      if(this.props.data.object.state != this.prevState) {
+        this.prevState = this.props.data.object.state;
+
+        clearTimeout(this.state.timer);
+        this.setState({
+          showMessage: true,
+          timer: setTimeout(this.hideMessage, 4242)
+        });
+      }
+      // And do nothing more IF Object is in preview pane
       return;
     }
 
@@ -46,6 +58,12 @@ class Bericht extends React.Component {
 
   }
 
+  componentWillUnmount() {
+    // CLEAN UP: Clear timer, set timer state to null
+    clearTimeout(this.state.timer);
+    this.hideMessage();
+  }
+
   postMessage() {
     const object = this.props.data.object;
 
@@ -58,15 +76,24 @@ class Bericht extends React.Component {
     });
   }
 
+  hideMessage() {
+    this.setState({
+      showMessage: false,
+      timer: null
+    });
+  }
+
   render() {
     let state;
     if(this.props.data.object)
       state = this.props.data.object.state;
 
+    let hideMessageClass = this.state.showMessage ? '' : ' hide-message';
+
     return <div className="icon">
       <div className="on"></div>
       <div className="off"></div>
-      <div className={"message" + (state == undefined || state == '' ? ' empty' : ' set') }>
+      <div className={"message" + (state == undefined || state == '' ? ' empty' : ' set') + hideMessageClass}>
         <p>{state}</p>
       </div>
     </div>;

@@ -191,7 +191,7 @@ export default class PreviewPane extends React.Component {
     }
 
     if(assignments.length > 0) {
-      let classLength = assignments > 4 ? ' much-objects' : '';
+      let classLength = assignments.length > 4 ? ' much-objects' : '';
       output.push(
         <div className={ 'objects assignments ' + classLength } key="assignments">
           { assignments }
