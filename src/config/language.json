@@ -25,7 +25,7 @@
     {
       "name": "muziek",
       "type": "string",
-      "values": ["uit", "piano", "gitaar", "zang"]
+      "values": ["uit", "3fm", "sky", "klassiek", "jazz"]
     },
     {
       "name": "kat",
