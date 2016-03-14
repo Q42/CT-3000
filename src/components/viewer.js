@@ -40,15 +40,67 @@ export default class Viewer extends React.Component {
     return(
       <div className="viewer">
         <div className="content">
+          <div className="diagonal-thingy" aria-hidden="true"></div>
 
-        <Motion defaultStyle={{ x: 0, y: -100, z: 0 }} style={{ x: spring(o), y: spring(t,springSetting1), z: spring(o,springSetting1)}}>
-            {value => <div className="message" style={{opacity: value.x, transform: 'scale(' + value.z + ') translateX(' + value.y + 'px)'}}>
-              {this.state.display.message}
-            </div>}
-          </Motion>
+          <h2 className="header-init">
+            <span className="class-id">Mainframe ID: { this.state.classId }</span>
+          </h2>
 
+          <div className="chat">
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+            bla...<br />
+          </div>
+
+          <Motion defaultStyle={{ x: 0, y: -100, z: 0 }} style={{ x: spring(o), y: spring(t,springSetting1), z: spring(o,springSetting1)}}>
+              {value => <div className="message" style={{opacity: value.x, transform: 'scale(' + value.z + ') translateX(' + value.y + 'px)'}}>
+                {this.state.display.message}
+              </div>}
+            </Motion>
+          <div className="station">
+            <h3><small>Je luister nu naar:</small> klassiek</h3>
+          </div>
         </div>
-        <div className="class-id">Digibord ID: { this.state.classId }</div>
+
       </div>
     );
   }

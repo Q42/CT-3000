@@ -1,31 +1,98 @@
 .viewer {
   color: white;
+  background: black url(../img/bg-digibord.png) 50% 50% no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
+.content {
+  font-family: "Lato", sans-serif;
+  position: relative;
+  height: 80%;
+  width: 80%;
+  min-height: 600px;
+  min-width: 850px;
+  max-width: 1200px;background: #333;
+  background: linear-gradient(135deg, transparent 60px, @background-mainboard 0);
+  border: 5px solid @border-orange;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-width: 0 5px 5px 0;
   &:before {
-    display: block;
     content: '';
+    width: ~"calc(100% - 77px)";
+    height: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: @border-orange;
+  }
+  &:after {
+    content: '';
+    height: ~"calc(100% - 73px)";
+    width: 20px;
+    position: absolute;
+    background-color: transparent;
+    bottom: -5px;
+    left: 0;
+    border: 5px solid @border-orange;
+    border-width: 0 0 5px 5px;
+    border-bottom-left-radius: 10px;
+  }
+  .diagonal-thingy {
+    width: 5px;
+    height: 109px;
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.8);
+    transform: rotate(45deg) translate(17px, -36px);
+    background-color: @border-orange;
   }
+}
 
-  .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.header-init {
+  position: absolute;
+  background: transparent url(../svg/background-init.svg) 0 0 no-repeat;
+  background-size: 100% 100%;
+  padding: 10px 20px;
+  margin: 16px 0 16px -50px;
+  text-align: right;
+  min-width: 400px;
+}
+
+.chat {
+  width: ~"calc(100% - 400px)";
+  max-height: ~"calc(100% - 120px)";
+  overflow-y: auto;
+  margin: 100px 0 0 20px;
+  //background: rgba(0,0,0,0.1);
+  color: #00f;
+}
+
+.station {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  height: 100px;
+  background: transparent url(../svg/background-station.svg) 0 0 no-repeat;
+  background-size: 100% 100%;
+  h3 {
+    height: 100%;
+    margin: 0;
+    padding: 10px 20px 20px 110px;
+    background: transparent url(../svg/radio-station.svg) 20px 50% no-repeat;
+    color: rgb(80,80,80);
+    font-size:28px;
+    background-size: 80px;
+    small {
+      font-size: 20px;
+      display: block;
+      color: rgb(120,120,120);
+    }
   }
-
-  .class-id {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-  }
-
+}
   .message {
     position: absolute;
     background: rgba(118,208,59,1);
