@@ -25,7 +25,7 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       data.objects[type].getValue() !== this.state.state){
         this.setState({
           object: data.objects[type],
-          digibord: data.objects.digibord
+          digibord: data.objects.digibord || {},
         });
       }
   }
