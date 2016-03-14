@@ -31,11 +31,7 @@ export default class Viewer extends React.Component {
   }
 
   componentDidUpdate() {
-    const maxHeigtChildren = Array.from(this.refs.chat.childNodes).reduce((max, child) => {
-      return Math.max(max, child.offsetHeight);
-    }, 0) || 0;
-
-    this.refs.chat.scrollTop = maxHeigtChildren;
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
   }
 
   generateId() {
@@ -57,8 +53,7 @@ export default class Viewer extends React.Component {
           </h2>
 
           <div ref="chat" className="chat">
-            { Object.entries(messageList).map( ([key , message]) => {
-              console.log(key, message);
+            { Object.entries(messageList).map(([key, message]) => {
               return (
                 <div className="group-message" key={ key }>
                   <div className="group-name">{ message.groupName }</div>
