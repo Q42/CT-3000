@@ -59,7 +59,7 @@ class Muziek extends React.Component {
 
   render() {
     let classes = 'icon';
-    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state !== '0' && this.props.data.digibord.state !== 0) {
+    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state.length === 6) {
       classes += ' on-digiboard';
     }
 
