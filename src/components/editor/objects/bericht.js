@@ -110,21 +110,20 @@ class Bericht extends React.Component {
   }
 
   render() {
-    let state;
-    if(this.props.data.object)
-      state = this.props.data.object.state;
-
-    let hideMessageClass = this.state.showMessage ? '' : ' hide-message';
+    const object = this.props.data.object.state;
+    const digibord = this.props.data.digibord.state;
 
     let classes = 'icon';
-    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state.length === 6) {
+    if(digibord  && digibord.length === 6) {
       classes += ' on-digiboard';
     }
+
+    let hideMessageClass = this.state.showMessage ? '' : ' hide-message';
 
     return <div className={ classes }>
       <div className="on"></div>
       <div className="off"></div>
-      <div className={ "message" + (state === undefined || state === '' ? ' empty' : ' set') + hideMessageClass }>
+      <div className={ 'message' + (object === undefined || object === '' ? ' empty' : ' set') + hideMessageClass }>
         <p>{state}</p>
       </div>
     </div>;
