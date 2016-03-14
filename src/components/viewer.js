@@ -14,6 +14,8 @@ export default class Viewer extends React.Component {
     this.state = {
       display: {},
       classId: this.generateId(),
+      isPlaying: false,
+      nowPlayingID: ''
     };
   }
 
@@ -23,6 +25,46 @@ export default class Viewer extends React.Component {
     this.ref = this.base.syncState('display', {
       context: this,
       state: 'display'
+    });
+  }
+
+  componentDidMount(){
+    this.streams =  {
+      pop: 'http://icecast.omroep.nl/3fm-sb-mp3',
+      easy: 'http://8573.live.streamtheworld.com:80/SKYRADIO_SC',
+      classical: 'http://icecast.omroep.nl/radio4-bb-mp3',
+      jazz: 'http://icecast.omroep.nl/radio6-bb-mp3'
+    };
+
+    this.audio = new Audio();
+  }
+
+  componentDidUpdate(){
+    const stream = this.state.display.music ? this.state.display.music.stream : null;
+    if(!stream || this.currentStream === stream) {
+      return;
+    }
+    this.currentStream = stream;
+
+    this.playStream(stream, this.state.display.music.id);
+  }
+
+  playStream (stream, id) {
+    if(!stream && !this.audio.paused){
+      this.audio.pause();
+      return;
+    }
+
+    if(!stream){
+      return;
+    }
+
+    this.audio.src = stream;
+    this.audio.play();
+
+    this.setState({
+      isPlaying: true,
+      nowPlayingID: id
     });
   }
 
@@ -103,11 +145,11 @@ export default class Viewer extends React.Component {
           <div className="users-total">
             <h3>999 gebruikers</h3>
           </div>
-          <div className="station">
+          <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
             </span>
-            <h3><small>Je luister nu naar:</small> klassiek</h3>
+            <h3><small>Je luister nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3>
           </div>
         </div>
 
