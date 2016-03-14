@@ -58,7 +58,8 @@
   padding: 10px 20px;
   margin: 16px 0 16px -50px;
   text-align: right;
-  min-width: 400px;
+  min-width: 420px;
+  font-size: 28px;
 }
 
 .chat {
@@ -70,22 +71,61 @@
   color: #00f;
 }
 
+.users-total {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 300px;
+  height: 80px;
+  background: transparent url(../svg/background-users.svg) 0 0 no-repeat;
+  background-size: contain;
+  h3 {
+    font-size: 24px;
+    color: rgb(80,80,80);
+    margin: 0;
+    padding: 16px 20px 20px 100px;
+
+  }
+}
+
 .station {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 320px;
+  width: 340px;
   height: 100px;
   background: transparent url(../svg/background-station.svg) 0 0 no-repeat;
   background-size: 100% 100%;
+  .icon-station {
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    height: 80px;
+    width: 80px;
+      #Fill-1,
+      #Fill-3,
+      #Fill-5,
+      #Fill-7 {
+        opacity: 0;
+      }
+    &.send {
+      #Fill-1,
+      #Fill-5 {
+        animation: send 1s infinite;
+      }
+      #Fill-3,
+      #Fill-7 {
+        animation: send-large 1s 0.5s infinite;
+      }
+    }
+  }
   h3 {
     height: 100%;
     margin: 0;
-    padding: 10px 20px 20px 110px;
-    background: transparent url(../svg/radio-station.svg) 20px 50% no-repeat;
+    padding: 10px 20px 20px 140px;
     color: rgb(80,80,80);
     font-size:28px;
-    background-size: 80px;
     small {
       font-size: 20px;
       display: block;
@@ -144,5 +184,31 @@
 
   .text {
     padding: 20px;
+  }
+}
+
+@keyframes send {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes send-large {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }

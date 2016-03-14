@@ -31,9 +31,11 @@
     "react-addons-css-transition-group": "^0.14.7",
     "react-codemirror": "^0.2.5",
     "react-dom": "^0.14.7",
+    "react-inline-svg": "^1.0.2",
     "react-motion": "^0.4.2",
     "react-router": "^1.0.3",
-    "reflux": "^0.3.0"
+    "reflux": "^0.3.0",
+    "svg-inline-react": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -49,6 +51,7 @@
     "less-loader": "^2.2.2",
     "postcss-loader": "^0.8.0",
     "style-loader": "^0.13.0",
+    "svg-inline-loader": "^0.4.1",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   }

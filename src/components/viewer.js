@@ -1,6 +1,9 @@
 import React from 'react';
 import Rebase from 're-base';
 import { Motion, spring, presets } from 'react-motion';
+import InlineSVG from 'svg-inline-react';
+
+import svg from '!svg-inline!../assets/svg/radio-station.svg';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 
@@ -96,7 +99,14 @@ export default class Viewer extends React.Component {
                 {this.state.display.message}
               </div>}
             </Motion>
+
+          <div className="users-total">
+            <h3>999 gebruikers</h3>
+          </div>
           <div className="station">
+            <span className="icon-station" aria-hidden="true">
+              <InlineSVG src={ svg } />
+            </span>
             <h3><small>Je luister nu naar:</small> klassiek</h3>
           </div>
         </div>
