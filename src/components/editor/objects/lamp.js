@@ -7,7 +7,12 @@ class Lamp extends React.Component {
     if(this.props.data.object)
       state = this.props.data.object.state;
 
-    return <div className="icon">
+    let classes = 'icon';
+    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state !== '0' && this.props.data.digibord.state !== 0) {
+      classes += ' on-digiboard';
+    }
+
+    return <div className={ classes }>
       <div className="off"></div>
       <div className="on"></div>
     </div>;
