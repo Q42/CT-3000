@@ -47,7 +47,7 @@ export default class Viewer extends React.Component {
   }
 
   theMatrix(){
-    const matrixLength = 200;
+    const matrixLength = 225;
 
     let matrix = this.state.matrix + '' + Math.round(Math.random());
     if(matrix.length > matrixLength){
