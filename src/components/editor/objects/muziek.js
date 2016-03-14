@@ -33,8 +33,6 @@ class Muziek extends React.Component {
     }
     this.prevState = this.props.data.object.state;
 
-    console.log('paused',this.audio.paused);
-
     switch(this.props.data.object.state){
       case 'uit':
         if (!this.audio.paused) this.audio.pause();
@@ -60,7 +58,12 @@ class Muziek extends React.Component {
   }
 
   render() {
-    return <div className="icon">
+    let classes = 'icon';
+    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state !== '0' && this.props.data.digibord.state !== 0) {
+      classes += ' on-digiboard';
+    }
+
+    return <div className={ classes }>
       <div className="off"></div>
       <div className="on"></div>
     </div>;

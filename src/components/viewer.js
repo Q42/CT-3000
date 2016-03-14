@@ -9,7 +9,7 @@ const springSetting1 = {stiffness: 164, damping: 10};
 
 export default class Viewer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       display: {},
@@ -32,13 +32,13 @@ export default class Viewer extends React.Component {
 
   generateId() {
     const num = Math.floor(Math.random() * 1000000).toString();
-    const pad = '000000'
+    const pad = '000000';
     return pad.slice(num.length) + num;
   }
 
   render() {
-    let o = this.state.display.message == undefined ||  this.state.display.message == '' ? 0 : 1;
-    let t = this.state.display.message == undefined ||  this.state.display.message == '' ? -100 : 0;
+    let o = this.state.display.message === undefined ||  this.state.display.message === '' ? 0 : 1;
+    let t = this.state.display.message === undefined ||  this.state.display.message === '' ? -100 : 0;
 
     return(
       <div className="viewer">
@@ -114,4 +114,4 @@ export default class Viewer extends React.Component {
       </div>
     );
   }
-};
+}
