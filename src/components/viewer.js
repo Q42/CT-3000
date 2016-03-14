@@ -86,6 +86,9 @@ export default class Viewer extends React.Component {
 
   render() {
     const messageList = this.state.display.messages || {};
+    const playing = this.state.isPlaying ?
+                    <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
+                    <h3><small>Geen muziek geselecteerd</small></h3>;
 
     return(
       <div className="viewer">
@@ -114,7 +117,7 @@ export default class Viewer extends React.Component {
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
             </span>
-            <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3>
+            { playing }
           </div>
         </div>
 
