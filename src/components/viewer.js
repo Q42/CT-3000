@@ -15,7 +15,8 @@ export default class Viewer extends React.Component {
       display: {},
       classId: this.generateId(),
       isPlaying: false,
-      nowPlayingID: ''
+      nowPlayingID: '',
+      matrix: ''
     };
   }
 
@@ -39,6 +40,22 @@ export default class Viewer extends React.Component {
     };
 
     this.audio = new Audio();
+
+    this.matrixInterval = setInterval(() => {
+      this.theMatrix();
+    }, 100);
+  }
+
+  theMatrix(){
+    const matrixLength = 225;
+
+    let matrix = this.state.matrix + '' + Math.round(Math.random());
+    if(matrix.length > matrixLength){
+      matrix = matrix.substring(matrix.length - matrixLength)
+    }
+    this.setState({
+      matrix: matrix
+    });
   }
 
   componentDidUpdate(){
@@ -76,6 +93,7 @@ export default class Viewer extends React.Component {
 
   componentWillUnmount(){
     this.base.removeBinding(this.ref);
+    clearInterval(this.matrixInterval);
   }
 
   generateId() {
@@ -112,6 +130,9 @@ export default class Viewer extends React.Component {
 
           <div className="users-total">
             <h3>999 gebruikers</h3>
+          </div>
+          <div className="the-matrix">
+            { this.state.matrix }
           </div>
           <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
             <span className="icon-station" aria-hidden="true">
