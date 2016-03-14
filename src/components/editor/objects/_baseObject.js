@@ -46,6 +46,9 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
     const object = this.state.object;
     if(object) {
       const state = object.state;
+      if(object.type == 'rgb' && typeof state === 'object') {
+        classNames.push('aan'); // Hardcoded, ugh...
+      }
       if(object.values) {
         classNames.push(state);
       }
