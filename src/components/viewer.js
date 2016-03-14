@@ -18,6 +18,8 @@ export default class Viewer extends React.Component {
       nowPlayingID: '',
       matrix: ''
     };
+
+    this.matrixText = '';
   }
 
   componentWillMount() {
@@ -49,13 +51,13 @@ export default class Viewer extends React.Component {
   theMatrix(){
     const matrixLength = 225;
 
-    let matrix = this.state.matrix + '' + Math.round(Math.random());
+    let matrix = this.matrixText + '' + Math.round(Math.random());
     if(matrix.length > matrixLength){
       matrix = matrix.substring(matrix.length - matrixLength)
     }
-    this.setState({
-      matrix: matrix
-    });
+
+    this.matrixText = matrix;
+    this.refs.matrix.innerHTML = matrix;
   }
 
   componentDidUpdate(){
@@ -131,9 +133,9 @@ export default class Viewer extends React.Component {
           <div className="users-total">
             <h3>999 gebruikers</h3>
           </div>
-          <div className="the-matrix">
-            { this.state.matrix }
-          </div>
+
+          <div ref="matrix" className="the-matrix"/>
+
           <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
