@@ -61,7 +61,7 @@ export default class Viewer extends React.Component {
               console.log(key, message);
               return (
                 <div className="group-message" key={ key }>
-                  <div className="group-name">{ message.groupName }</div>
+                  <div className="group-name">{ message.groupName } zegt:</div>
                   <div className="group-text">{ message.message }</div>
                 </div>
                 )

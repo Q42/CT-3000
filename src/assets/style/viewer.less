@@ -70,16 +70,68 @@
 }
 
 .group-message {
+  position: relative;
+  //float: left;
+  clear: both;
+  border: 2px solid rgb(0,0,0);
+  background: lighten(@border-orange,40%);
+  border-radius: 4px;
+  padding: 5px 10px 10px 10px;
+  margin-right: 100px;
+
+  &:before {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 12px solid lighten(@border-orange,40%);
+    border-right: 12px solid transparent;
+    bottom: -12px;
+    left: 20px;
+  }
+
+  &:after {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 16px solid rgba(0,0,0,1);
+    border-right: 16px solid transparent;
+    bottom: -16px;
+    left: 18px;
+  }
   &:nth-child(2n) {
-    margin-left: 30px;
+    margin-right: 20px;
+    margin-left: 100px;
+    text-align: right;
+    //float: right;
+    background: lighten(@border-orange,45%);
+    &:before {
+      border-top-color: lighten(@border-orange,45%);
+      border-left: 12px solid transparent;
+      border-right: none;
+      left: auto;
+      right: 20px;
+    }
+    &:after {
+      border-left: 16px solid transparent;
+      border-right: none;
+      left: auto;
+      right: 18px;
+    }
   }
   & + .group-message {
-    margin-top: 10px;
+    margin-top: 20px;
   }
   .group-name {
     font-size: 20px;
     font-weight: bold;
-    color: rgb(120,120,120);
+    color: rgb(80,80,80);
+    margin-bottom: 2px;
   }
   .group-text {
     font-size: 20px;
@@ -209,5 +261,14 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
