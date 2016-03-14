@@ -61,12 +61,14 @@ export default class Viewer extends React.Component {
   }
 
   componentDidUpdate(){
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
+
     const stream = this.state.display.music ? this.state.display.music.stream : null;
     if(this.currentStream === stream) {
       return;
     }
-    this.currentStream = stream;
 
+    this.currentStream = stream;
     this.playStream(stream, this.state.display.music ? this.state.display.music.id : null);
   }
 
@@ -123,7 +125,7 @@ export default class Viewer extends React.Component {
             { Object.entries(messageList).map(([key, message]) => {
               return (
                 <div className="group-message" key={ key }>
-                  <div className="group-name">{ message.groupName } zegt:</div>
+                  <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
                   <div className="group-text">{ message.message }</div>
                 </div>
                 )

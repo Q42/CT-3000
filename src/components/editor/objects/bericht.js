@@ -71,7 +71,7 @@ class Bericht extends React.Component {
   }
 
   postMessage(message, groupName) {
-    if(!message || !groupName || !this.fireBase) {
+    if(!message || !this.fireBase) {
       return;
     }
 
