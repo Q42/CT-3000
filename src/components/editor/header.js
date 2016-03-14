@@ -21,22 +21,27 @@ export default class HeaderComponent extends React.Component {
   }
 
   onUpdate(data){
-    const type = 'digibord';
-    if(data && data.objects && data.objects[type] &&
-      data.objects[type].getValue() !== this.state.state){
+    if(data && data.objects){
         this.setState({
-          digibord: data.objects[type]
+          digibord: data.objects.digibord && data.objects.digibord.getValue() !== this.state.state ? data.objects.digibord : null,
+          naam: data.objects.naam && data.objects.naam.getValue() !== this.state.state ? data.objects.naam : null
         });
       }
   }
 
   getState(){
     return {
-      object: ObjectStore.getObject('digibord')
+      digibord: ObjectStore.getObject('digibord'),
+      naam: ObjectStore.getObject('naam'),
     };
   }
 
   render() {
+    let name;
+    if(this.state.naam && this.state.naam.state !== ''){
+      name = <span>{ this.state.naam.state }</span>;
+    }
+
     let connectedTo;
     if(this.state.digibord && this.state.digibord.state > 0){
       connectedTo = <span>{ this.state.digibord.state }</span>;
@@ -45,6 +50,7 @@ export default class HeaderComponent extends React.Component {
     return(
       <header>
         <h1>CT-3000</h1>
+        { name }
         { connectedTo }
       </header>
     );

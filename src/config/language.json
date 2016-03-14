@@ -36,7 +36,12 @@
       "name": "weer",
       "type": "string",
       "values": ["goed", "slecht"]
+    },
+    {
+      "name": "naam",
+      "type": "text"
     }
+
   ]
 
 }
