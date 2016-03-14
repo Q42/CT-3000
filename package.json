@@ -35,6 +35,7 @@
     "react-motion": "^0.4.2",
     "react-router": "^1.0.3",
     "reflux": "^0.3.0",
+    "slugify": "^0.1.1",
     "svg-inline-react": "^1.0.0"
   },
   "devDependencies": {
