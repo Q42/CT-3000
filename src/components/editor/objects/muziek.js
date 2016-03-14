@@ -2,6 +2,9 @@ import React from 'react';
 import { BaseObject } from './_baseObject';
 import Rebase from 're-base';
 
+import InlineSVG from 'svg-inline-react';
+import svg from '!svg-inline!../../../assets/svg/sending.svg';
+
 class Muziek extends React.Component {
 
   constructor(props){
@@ -108,7 +111,9 @@ class Muziek extends React.Component {
 
     return <div className={ classes }>
       <div className="off"></div>
-      <div className="on"></div>
+      <div className="on">
+        <div className="connected"><InlineSVG src={ svg } /></div>
+      </div>
     </div>;
   }
 }
