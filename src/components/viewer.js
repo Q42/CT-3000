@@ -8,9 +8,20 @@ export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
 
+    let test = Array.apply(null, {length: 49}).map(Number.call, Number);
+    test.shift();
+
     this.state = {
       display: {},
       classId: this.generateId(),
+      lights: test.map(x => {
+        return {
+          name: 'Lamp ' + x,
+          state: 'aan',
+          date: new Date()
+        };
+      }),
+
     };
   }
 
@@ -36,6 +47,15 @@ export default class Viewer extends React.Component {
   render() {
     let o = this.state.display.message === undefined ||  this.state.display.message === '' ? 0 : 1;
     let t = this.state.display.message === undefined ||  this.state.display.message === '' ? -100 : 0;
+
+    const lights = this.state.lights.map((light, i) => {
+      return (
+        <div className="container" key={ i }>
+          <div className="light">{ light.name }</div>
+          <div className="beam" />
+        </div>
+      );
+    });
 
     return(
       <div className="viewer">
@@ -99,6 +119,10 @@ export default class Viewer extends React.Component {
           <div className="station">
             <h3><small>Je luister nu naar:</small> klassiek</h3>
           </div>
+        </div>
+
+        <div className="lights">
+          { lights }
         </div>
 
       </div>
