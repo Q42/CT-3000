@@ -38,6 +38,39 @@
     opacity: 0;
   }
 
+  .connected {
+    position: absolute;
+    top: -21px;
+    right: -30px;
+    height: 42px;
+    width: 42px;
+    transform: rotate(45deg);
+
+    .preview-pane & {
+      top: -24px;
+      right: -36px;
+    }
+    #layer-1,
+    #layer-2,
+    #layer-3,
+    #layer-4 {
+      opacity: 0;
+    }
+
+    #layer-1 {
+      animation: connect 2s infinite;
+    }
+    #layer-2 {
+      animation: connect 2s 0.5s infinite;
+    }
+    #layer-3 {
+      animation: connect 2s 1s infinite;
+    }
+    #layer-4 {
+      animation: connect 2s 1.5s infinite;
+    }
+  }
+
   &.lamp {
     background: @icon-orange;
     .on {
@@ -88,6 +121,10 @@
     background: @icon-yellow;
     position: relative;
     z-index: 10;
+    .connected {
+      right: -32px;
+      top: -32px;
+    }
     .preview-pane .checks & {
       .message {
         display: none;
@@ -291,6 +328,15 @@
 }
 
 @keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes connect {
   0% {
     opacity: 1;
   }

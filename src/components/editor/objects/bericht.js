@@ -1,6 +1,9 @@
 import React from 'react';
 import { BaseObject } from './_baseObject';
 import Rebase from 're-base';
+import InlineSVG from 'svg-inline-react';
+
+import svg from '!svg-inline!../../../assets/svg/sending.svg';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 
@@ -125,6 +128,7 @@ class Bericht extends React.Component {
       <div className="off"></div>
       <div className={ 'message' + (!object ? ' empty' : ' set') + hideMessageClass }>
         <p>{ object }</p>
+        <div className="connected"><InlineSVG src={ svg } /></div>
       </div>
     </div>;
   }

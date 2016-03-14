@@ -1,6 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
-import { Motion, spring, presets } from 'react-motion';
+
 import InlineSVG from 'svg-inline-react';
 
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
@@ -30,6 +30,10 @@ export default class Viewer extends React.Component {
     this.base.removeBinding(this.ref);
   }
 
+  componentDidUpdate() {
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
+  }
+
   generateId() {
     const num = Math.floor(Math.random() * 1000000).toString();
     const pad = '000000';
@@ -37,8 +41,7 @@ export default class Viewer extends React.Component {
   }
 
   render() {
-    let o = this.state.display.message === undefined ||  this.state.display.message === '' ? 0 : 1;
-    let t = this.state.display.message === undefined ||  this.state.display.message === '' ? -100 : 0;
+    const messageList = this.state.display.messages || {};
 
     return(
       <div className="viewer">
@@ -49,56 +52,16 @@ export default class Viewer extends React.Component {
             <span className="class-id">Mainframe ID: { this.state.classId }</span>
           </h2>
 
-          <div className="chat">
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
+          <div ref="chat" className="chat">
+            { Object.entries(messageList).map(([key, message]) => {
+              return (
+                <div className="group-message" key={ key }>
+                  <div className="group-name">{ message.groupName } zegt:</div>
+                  <div className="group-text">{ message.message }</div>
+                </div>
+                )
+            }) }
           </div>
-
-          <Motion defaultStyle={{ x: 0, y: -100, z: 0 }} style={{ x: spring(o), y: spring(t,springSetting1), z: spring(o,springSetting1)}}>
-              {value => <div className="message" style={{opacity: value.x, transform: 'scale(' + value.z + ') translateX(' + value.y + 'px)'}}>
-                {this.state.display.message}
-              </div>}
-            </Motion>
 
           <div className="users-total">
             <h3>999 gebruikers</h3>
@@ -107,7 +70,7 @@ export default class Viewer extends React.Component {
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
             </span>
-            <h3><small>Je luister nu naar:</small> klassiek</h3>
+            <h3><small>Je luistert nu naar:</small> klassiek</h3>
           </div>
         </div>
 
