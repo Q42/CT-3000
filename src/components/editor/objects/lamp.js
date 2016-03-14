@@ -13,7 +13,7 @@ class Lamp extends React.Component {
     let style = {};
     if(typeof object === 'object'){
       style = {
-        backgroundColor: 'rgb(' + state.r + ',' + state.g + ',' + state.b + ')'
+        backgroundColor: 'rgb(' + object.r + ',' + object.g + ',' + object.b + ')'
       };
     }
 

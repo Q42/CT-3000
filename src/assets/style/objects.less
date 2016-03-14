@@ -73,6 +73,13 @@
 
   &.lamp {
     background: @icon-orange;
+    &.rgb {
+      #Fill-11 {
+        transition: all 0.3s linear;
+        fill: white;
+        opacity: 0.3;
+      }
+    }
     .on {
       opacity: 0;
     }
@@ -120,7 +127,7 @@
     background: @icon-yellow;
     position: relative;
     z-index: 10;
-    .connected {
+    .message .connected {
       right: -32px;
       top: -32px;
     }

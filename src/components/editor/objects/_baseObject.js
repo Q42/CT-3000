@@ -46,8 +46,9 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
       const state = object.state;
       if(object.type == 'rgb' && typeof state === 'object') {
         classNames.push('aan'); // Hardcoded, ugh...
+        classNames.push('rgb'); // Hardcoded, ugh...
       }
-      if(object.values) {
+      else if(object.values) {
         classNames.push(state);
       }
       else if(object.type == 'string' || object.type == 'text')

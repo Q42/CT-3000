@@ -124,7 +124,9 @@ class Bericht extends React.Component {
     let hideMessageClass = this.state.showMessage ? '' : ' hide-message';
 
     return <div className={ classes }>
-      <div className="on"></div>
+      <div className="on">
+        <div className="connected"><InlineSVG src={ svg } /></div>
+      </div>
       <div className="off"></div>
       <div className={ 'message' + (!object ? ' empty' : ' set') + hideMessageClass }>
         <p>{ object }</p>
