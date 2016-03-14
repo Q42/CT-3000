@@ -29,6 +29,8 @@ export default class Viewer extends React.Component {
   }
 
   componentDidMount(){
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
+
     this.streams =  {
       pop: 'http://icecast.omroep.nl/3fm-sb-mp3',
       easy: 'http://8573.live.streamtheworld.com:80/SKYRADIO_SC',
@@ -74,10 +76,6 @@ export default class Viewer extends React.Component {
 
   componentWillUnmount(){
     this.base.removeBinding(this.ref);
-  }
-
-  componentDidUpdate() {
-    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
   }
 
   generateId() {
