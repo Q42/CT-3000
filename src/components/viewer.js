@@ -46,12 +46,16 @@ export default class Viewer extends React.Component {
     }
     this.currentStream = stream;
 
-    this.playStream(stream, this.state.display.music.id);
+    this.playStream(stream, this.state.display.music ? this.state.display.music.id : null);
   }
 
   playStream (stream, id) {
     if(!stream && !this.audio.paused){
       this.audio.pause();
+      this.setState({
+        isPlaying: false,
+        nowPlayingID: null
+      });
       return;
     }
 
