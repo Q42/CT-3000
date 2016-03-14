@@ -23,8 +23,8 @@ export default class HeaderComponent extends React.Component {
   onUpdate(data){
     if(data && data.objects){
         this.setState({
-          digibord: data.objects.digibord && data.objects.digibord.getValue() !== this.state.state ? data.objects.digibord : null,
-          naam: data.objects.naam && data.objects.naam.getValue() !== this.state.state ? data.objects.naam : null
+          digibord: data.objects.digibord && data.objects.digibord.getValue() !== this.state.digibord ? data.objects.digibord : null,
+          naam: data.objects.naam && data.objects.naam.getValue() !== this.state.naam ? data.objects.naam : null
         });
       }
   }
