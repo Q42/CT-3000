@@ -123,8 +123,8 @@ class Bericht extends React.Component {
     return <div className={ classes }>
       <div className="on"></div>
       <div className="off"></div>
-      <div className={ 'message' + (object === undefined || object === '' ? ' empty' : ' set') + hideMessageClass }>
-        <p>{state}</p>
+      <div className={ 'message' + (!object ? ' empty' : ' set') + hideMessageClass }>
+        <p>{ object }</p>
       </div>
     </div>;
   }
