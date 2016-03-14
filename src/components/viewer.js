@@ -168,11 +168,18 @@ export default class Viewer extends React.Component {
 
   renderLights() {
     const lights = this.state.display.lights || {};
+
     return Object.entries(lights).map(([key, light]) => {
+      let style = {};
+      if(typeof light.light === 'object'){
+        style = {
+          backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
+        };
+      }
       return (
         <div className="container" key={ key }>
           <div className="light">{ light.groupName }</div>
-          <div className="beam" />
+          <div className="beam" style={ style } />
         </div>
       );
     });
