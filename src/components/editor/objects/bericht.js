@@ -17,7 +17,7 @@ class Bericht extends React.Component {
       timer: null
     };
 
-    this.hideMessage = this.hideMessage.bind(this)
+    this.hideMessage = this.hideMessage.bind(this);
   }
 
   componentDidMount() {
