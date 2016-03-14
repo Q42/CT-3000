@@ -177,9 +177,13 @@ export default class Viewer extends React.Component {
           backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
         };
       }
+
+      const matches = light.groupName.match(/\b(\w)/g);
+      const acronym = matches.slice(0,2).join('');
+
       return (
         <div className="container" key={ key }>
-          <div className="light"><span className="name">{ light.groupName }</span></div>
+          <div className="light"><span className="name">{ acronym }</span></div>
           <div className="beam" style={ style } />
         </div>
       );
