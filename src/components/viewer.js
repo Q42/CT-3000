@@ -113,19 +113,9 @@ export default class Viewer extends React.Component {
   }
 
   render() {
-    const messageList = this.state.display.messages || {};
     const playing = this.state.isPlaying ?
                     <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
                     <h3><small>Geen muziek geselecteerd</small></h3>;
-
-    const lights = this.state.lights.map((light, i) => {
-      return (
-        <div className="container" key={ i }>
-          <div className="light">{ light.name }</div>
-          <div className="beam" />
-        </div>
-      );
-    });
 
     return(
       <div className="viewer">
@@ -137,22 +127,17 @@ export default class Viewer extends React.Component {
           </h2>
 
           <div ref="chat" className="chat">
-            { Object.entries(messageList).map(([key, message]) => {
-              return (
-                <div className="group-message" key={ key }>
-                  <div className="group-name">{ message.groupName } zegt:</div>
-                  <div className="group-text">{ message.message }</div>
-                </div>
-                )
-            }) }
+            { this.renderMessages() }
           </div>
 
           <div className="users-total">
             <h3>999 gebruikers</h3>
           </div>
+
           <div className="the-matrix">
             { this.state.matrix }
           </div>
+
           <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
@@ -162,10 +147,34 @@ export default class Viewer extends React.Component {
         </div>
 
         <div className="lights">
-          { lights }
+          { this.renderLights() }
         </div>
 
       </div>
     );
+  }
+
+  renderMessages() {
+    const messageList = this.state.display.messages || {};
+    return Object.entries(messageList).map(([key, message]) => {
+      return (
+        <div className="group-message" key={ key }>
+          <div className="group-name">{ message.groupName } zegt:</div>
+          <div className="group-text">{ message.message }</div>
+        </div>
+      );
+    });
+  }
+
+  renderLights() {
+    const lights = this.state.display.lights || {};
+    return Object.entries(lights).map(([key, light]) => {
+      return (
+        <div className="container" key={ key }>
+          <div className="light">{ light.groupName }</div>
+          <div className="beam" />
+        </div>
+      );
+    });
   }
 }

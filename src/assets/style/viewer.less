@@ -226,13 +226,21 @@
   .lights {
     .container {
       position: absolute;
+      perspective: 160px;
 
       .light {
 
       }
 
       .beam {
-
+        width: 300vw;
+        position: absolute;
+        height: 30px;
+        background: red;
+        top: -50%;
+        opacity: 0.1;
+        transform: rotateY(-45deg);
+        transform-origin: left;
       }
 
       &:nth-child(10n+1), &:nth-child(10n+5) {
@@ -253,51 +261,51 @@
       &:nth-child(10n+2), &:nth-child(10n+6), &:nth-child(10n+9) {
         top: 0;
       }
-      &:nth-child( 2) { left: 79%; transform: rotate(300deg); }
+      &:nth-child( 2) { left: 79%; transform: rotate(120deg); .light { transform: rotate(180deg); } }
       &:nth-child( 6) { left: 21%; transform: rotate(55deg); }
-      &:nth-child( 9) { left: 65%; transform: rotate(290deg); }
+      &:nth-child( 9) { left: 65%; transform: rotate(110deg); .light { transform: rotate(180deg); } }
       &:nth-child(12) { left: 35%; transform: rotate(35deg); }
-      &:nth-child(16) { left: 93%; transform: rotate(320deg); }
+      &:nth-child(16) { left: 93%; transform: rotate(140deg); .light { transform: rotate(180deg); } }
       &:nth-child(19) { left:  7%; transform: rotate(65deg); }
-      &:nth-child(22) { left: 50%; transform: rotate(280deg); }
-      &:nth-child(26) { left: 100%; transform: rotate(310deg); }
+      &:nth-child(22) { left: 50%; transform: rotate(100deg); .light { transform: rotate(180deg); } }
+      &:nth-child(26) { left: 100%; transform: rotate(130deg); .light { transform: rotate(180deg); } }
       &:nth-child(29) { left: 28%; transform: rotate(50deg); }
-      &:nth-child(32) { left: 72%; transform: rotate(295deg); }
+      &:nth-child(32) { left: 72%; transform: rotate(115deg); .light { transform: rotate(180deg); } }
       &:nth-child(36) { left: 42%; transform: rotate(60deg); }
-      &:nth-child(39) { left: 58%; transform: rotate(265deg); }
+      &:nth-child(39) { left: 58%; transform: rotate(85deg); .light { transform: rotate(180deg); } }
       &:nth-child(42) { left: 14%; transform: rotate(45deg); }
-      &:nth-child(46) { left: 86%; transform: rotate(275deg); }
+      &:nth-child(46) { left: 86%; transform: rotate(-5deg); .light { transform: rotate(180deg); } }
 
       &:nth-child(10n+3), &:nth-child(10n+7) {
         right: 0
       }
-      &:nth-child( 3) { bottom: 20%; transform: rotate(20deg); }
-      &:nth-child( 7) { bottom: 80%; transform: rotate(-35deg); }
-      &:nth-child(13) { bottom: 40%; transform: rotate(-5deg); }
-      &:nth-child(17) { bottom: 60%; transform: rotate(-20deg); }
-      &:nth-child(23) { bottom: 30%; transform: rotate(10deg); }
-      &:nth-child(27) { bottom: 70%; transform: rotate(-30deg); }
-      &:nth-child(33) { bottom: 50%; transform: rotate(2deg); }
-      &:nth-child(37) { bottom: 10%; transform: rotate(30deg); }
-      &:nth-child(43) { bottom: 90%; transform: rotate(-50deg); }
-      &:nth-child(47) { bottom:  0%; transform: rotate(50deg); }
+      &:nth-child( 3) { bottom: 20%; transform: rotate(200deg); .light { transform: rotate(180deg); }}
+      &:nth-child( 7) { bottom: 80%; transform: rotate(-215deg); .light { transform: rotate(180deg); } }
+      &:nth-child(13) { bottom: 40%; transform: rotate(-185deg); .light { transform: rotate(180deg); } }
+      &:nth-child(17) { bottom: 60%; transform: rotate(-200deg); .light { transform: rotate(180deg); } }
+      &:nth-child(23) { bottom: 30%; transform: rotate(190deg); .light { transform: rotate(180deg); } }
+      &:nth-child(27) { bottom: 70%; transform: rotate(-210deg); .light { transform: rotate(180deg); } }
+      &:nth-child(33) { bottom: 50%; transform: rotate(182deg); .light { transform: rotate(180deg); } }
+      &:nth-child(37) { bottom: 10%; transform: rotate(210deg); .light { transform: rotate(180deg); } }
+      &:nth-child(43) { bottom: 90%; transform: rotate(-230deg); .light { transform: rotate(180deg); } }
+      &:nth-child(47) { bottom:  0%; transform: rotate(230deg); .light { transform: rotate(180deg); } }
 
       &:nth-child(10n+4), &:nth-child(10n+8), &:nth-child(10n+10) {
         bottom: 0;
       }
       &:nth-child( 4) { right: 79%; transform: rotate(300deg); }
-      &:nth-child( 8) { right: 21%; transform: rotate(55deg); }
+      &:nth-child( 8) { right: 21%; transform: rotate(235deg); .light { transform: rotate(180deg); } }
       &:nth-child(10) { right: 65%; transform: rotate(290deg); }
-      &:nth-child(14) { right: 35%; transform: rotate(35deg); }
+      &:nth-child(14) { right: 35%; transform: rotate(215deg); .light { transform: rotate(180deg); } }
       &:nth-child(18) { right: 93%; transform: rotate(320deg); }
-      &:nth-child(20) { right:  7%; transform: rotate(65deg); }
+      &:nth-child(20) { right:  7%; transform: rotate(245deg); .light { transform: rotate(180deg); } }
       &:nth-child(24) { right: 50%; transform: rotate(280deg); }
       &:nth-child(28) { right: 100%; transform: rotate(310deg); }
-      &:nth-child(30) { right: 28%; transform: rotate(50deg); }
+      &:nth-child(30) { right: 28%; transform: rotate(230deg); .light { transform: rotate(180deg); } }
       &:nth-child(34) { right: 72%; transform: rotate(295deg); }
-      &:nth-child(38) { right: 42%; transform: rotate(60deg); }
+      &:nth-child(38) { right: 42%; transform: rotate(240deg); .light { transform: rotate(180deg); } }
       &:nth-child(40) { right: 58%; transform: rotate(265deg); }
-      &:nth-child(44) { right: 14%; transform: rotate(45deg); }
+      &:nth-child(44) { right: 14%; transform: rotate(225deg); .light { transform: rotate(180deg); } }
       &:nth-child(48) { right: 86%; transform: rotate(275deg); }
     }
   }
