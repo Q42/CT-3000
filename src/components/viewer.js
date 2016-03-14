@@ -1,6 +1,9 @@
 import React from 'react';
 import Rebase from 're-base';
-import { Motion, spring, presets } from 'react-motion';
+
+import InlineSVG from 'svg-inline-react';
+
+import svg from '!svg-inline!../assets/svg/radio-station.svg';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 
@@ -21,7 +24,9 @@ export default class Viewer extends React.Component {
           date: new Date()
         };
       }),
-
+      isPlaying: false,
+      nowPlayingID: '',
+      matrix: ''
     };
   }
 
@@ -34,8 +39,71 @@ export default class Viewer extends React.Component {
     });
   }
 
+  componentDidMount(){
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
+
+    this.streams =  {
+      pop: 'http://icecast.omroep.nl/3fm-sb-mp3',
+      easy: 'http://8573.live.streamtheworld.com:80/SKYRADIO_SC',
+      classical: 'http://icecast.omroep.nl/radio4-bb-mp3',
+      jazz: 'http://icecast.omroep.nl/radio6-bb-mp3'
+    };
+
+    this.audio = new Audio();
+
+    this.matrixInterval = setInterval(() => {
+      this.theMatrix();
+    }, 100);
+  }
+
+  theMatrix(){
+    const matrixLength = 225;
+
+    let matrix = this.state.matrix + '' + Math.round(Math.random());
+    if(matrix.length > matrixLength){
+      matrix = matrix.substring(matrix.length - matrixLength)
+    }
+    this.setState({
+      matrix: matrix
+    });
+  }
+
+  componentDidUpdate(){
+    const stream = this.state.display.music ? this.state.display.music.stream : null;
+    if(this.currentStream === stream) {
+      return;
+    }
+    this.currentStream = stream;
+
+    this.playStream(stream, this.state.display.music ? this.state.display.music.id : null);
+  }
+
+  playStream (stream, id) {
+    if(!stream && !this.audio.paused){
+      this.audio.pause();
+      this.setState({
+        isPlaying: false,
+        nowPlayingID: null
+      });
+      return;
+    }
+
+    if(!stream){
+      return;
+    }
+
+    this.audio.src = stream;
+    this.audio.play();
+
+    this.setState({
+      isPlaying: true,
+      nowPlayingID: id
+    });
+  }
+
   componentWillUnmount(){
     this.base.removeBinding(this.ref);
+    clearInterval(this.matrixInterval);
   }
 
   generateId() {
@@ -45,8 +113,10 @@ export default class Viewer extends React.Component {
   }
 
   render() {
-    let o = this.state.display.message === undefined ||  this.state.display.message === '' ? 0 : 1;
-    let t = this.state.display.message === undefined ||  this.state.display.message === '' ? -100 : 0;
+    const messageList = this.state.display.messages || {};
+    const playing = this.state.isPlaying ?
+                    <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
+                    <h3><small>Geen muziek geselecteerd</small></h3>;
 
     const lights = this.state.lights.map((light, i) => {
       return (
@@ -63,61 +133,31 @@ export default class Viewer extends React.Component {
           <div className="diagonal-thingy" aria-hidden="true"></div>
 
           <h2 className="header-init">
-            <span className="class-id">Mainframe ID: { this.state.classId }</span>
+            <span className="class-id">Digibord ID: { this.state.classId }</span>
           </h2>
 
-          <div className="chat">
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
-            bla...<br />
+          <div ref="chat" className="chat">
+            { Object.entries(messageList).map(([key, message]) => {
+              return (
+                <div className="group-message" key={ key }>
+                  <div className="group-name">{ message.groupName } zegt:</div>
+                  <div className="group-text">{ message.message }</div>
+                </div>
+                )
+            }) }
           </div>
 
-          <Motion defaultStyle={{ x: 0, y: -100, z: 0 }} style={{ x: spring(o), y: spring(t,springSetting1), z: spring(o,springSetting1)}}>
-              {value => <div className="message" style={{opacity: value.x, transform: 'scale(' + value.z + ') translateX(' + value.y + 'px)'}}>
-                {this.state.display.message}
-              </div>}
-            </Motion>
-          <div className="station">
-            <h3><small>Je luister nu naar:</small> klassiek</h3>
+          <div className="users-total">
+            <h3>999 gebruikers</h3>
+          </div>
+          <div className="the-matrix">
+            { this.state.matrix }
+          </div>
+          <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
+            <span className="icon-station" aria-hidden="true">
+              <InlineSVG src={ svg } />
+            </span>
+            { playing }
           </div>
         </div>
 

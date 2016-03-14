@@ -1,5 +1,9 @@
 import React from 'react';
 import { BaseObject } from './_baseObject';
+import Rebase from 're-base';
+
+import InlineSVG from 'svg-inline-react';
+import svg from '!svg-inline!../../../assets/svg/sending.svg';
 
 class Muziek extends React.Component {
 
@@ -19,7 +23,6 @@ class Muziek extends React.Component {
       jazz: 'http://icecast.omroep.nl/radio6-bb-mp3'
     };
 
-
     this.audio = new Audio();
   }
 
@@ -28,44 +31,91 @@ class Muziek extends React.Component {
       return;
     }
 
-    if(this.props.data.object.state === this.prevState) {
+    const digibord = this.props.data.digibord.state;
+    const sendToDigibord = !digibord || digibord.length !== 6 ? false : digibord;
+
+    const stream = this.props.data.object.state;
+    if(stream + '-' + sendToDigibord  === this.prevState) {
       return;
     }
-    this.prevState = this.props.data.object.state;
+    this.prevState = stream + '-' + sendToDigibord;
 
-    switch(this.props.data.object.state){
+    switch(stream){
       case 'uit':
-        if (!this.audio.paused) this.audio.pause();
+        this.playStream(false, stream, sendToDigibord);
         break;
       case '3fm':
-        this.playStream(this.streams.pop);
+        this.playStream(this.streams.pop, stream, sendToDigibord);
         break;
       case 'sky':
-        this.playStream(this.streams.easy);
+        this.playStream(this.streams.easy, stream, sendToDigibord);
         break;
       case 'klassiek':
-        this.playStream(this.streams.classical);
+        this.playStream(this.streams.classical, stream, sendToDigibord);
         break;
       case 'jazz':
-        this.playStream(this.streams.jazz);
+        this.playStream(this.streams.jazz, stream, sendToDigibord);
         break;
     }
   }
 
-  playStream (stream) {
-    this.audio.src = stream;
-    this.audio.play();
+  connectFirebase(classId) {
+    if(this.fireBase) {
+      this.fireBase.reset();
+      delete this.fireBase;
+    }
+
+    this.fireBase = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + classId);
+  }
+
+  playStream (stream, id, sendToDigibord) {
+    if(sendToDigibord){
+      if(!this.audio.paused){
+        this.audio.pause();
+      }
+      this.connectFirebase(sendToDigibord);
+
+      if(!this.fireBase) {
+        return;
+      }
+
+      const groupName = this.props.data.naam.state;
+      const data = { stream, id, groupName };
+
+      if(!this.messageRef) {
+        this.messageRef = this.fireBase.post('display/music', { data });
+        return;
+      }
+
+      this.messageRef.set(data);
+    }else{
+      if(!stream && !this.audio.paused){
+        this.audio.pause();
+        return;
+      }
+
+      if(!stream){
+        return;
+      }
+
+      this.audio.src = stream;
+      this.audio.play();
+    }
   }
 
   render() {
+    const digibord = this.props.data.digibord.state;
+
     let classes = 'icon';
-    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state !== '0' && this.props.data.digibord.state !== 0) {
+    if(digibord  && digibord.length === 6) {
       classes += ' on-digiboard';
     }
 
     return <div className={ classes }>
       <div className="off"></div>
-      <div className="on"></div>
+      <div className="on">
+        <div className="connected"><InlineSVG src={ svg } /></div>
+      </div>
     </div>;
   }
 }

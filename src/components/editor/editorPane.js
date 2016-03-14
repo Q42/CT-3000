@@ -26,10 +26,12 @@ export default class EditorPane extends React.Component {
 
     this.state = {
       code: `// Toekenningen
-digibord = 12345
+digibord = 123456
+naam = "Naam van je groepje"
 lamp = aan
 bericht = "test"
 tijd = 10:15
+muziek = 3fm
 
 // Vergelijkingen
 als tijd > 10:14 dan lamp = aan
