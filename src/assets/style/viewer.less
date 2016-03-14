@@ -64,20 +64,23 @@
 
 .chat {
   width: ~"calc(100% - 400px)";
-  max-height: ~"calc(100% - 120px)";
+  max-height: ~"calc(100% - 70px)";
   overflow-y: auto;
-  margin: 100px 0 0 20px;
+  margin: 70px 0 0 20px;
+  padding: 20px 0 30px 0;
 }
 
 .group-message {
   position: relative;
-  //float: left;
   clear: both;
   border: 2px solid rgb(0,0,0);
   background: lighten(@border-orange,40%);
   border-radius: 4px;
   padding: 5px 10px 10px 10px;
-  margin-right: 100px;
+  margin-right: 200px;
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: appear-left 0.3s @ease-out both;
 
   &:before {
     display: block;
@@ -106,10 +109,11 @@
   }
   &:nth-child(2n) {
     margin-right: 20px;
-    margin-left: 100px;
+    margin-left: 200px;
     text-align: right;
-    //float: right;
+    transform: translateX(100%);
     background: lighten(@border-orange,45%);
+    animation: appear-right 0.5s @ease-out both;
     &:before {
       border-top-color: lighten(@border-orange,45%);
       border-left: 12px solid transparent;
@@ -201,58 +205,6 @@
     }
   }
 }
-  .message {
-    position: absolute;
-    background: rgba(118,208,59,1);
-    border: 4px solid black;
-    border-radius: 10px;
-    width: auto;
-    line-height: 1.5;
-    white-space: normal;
-    padding: 20px;
-    color: black;
-    font-size: 24px;
-    min-width: 60px;
-    max-width: 50%;
-    min-height: 80px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    &:before {
-      display: block;
-      position: absolute;
-      z-index: 1;
-      content: '';
-      width: 0;
-      height: 0;
-      border-top: 12px solid rgba(118,208,59,1);
-      border-right: 12px solid transparent;
-      bottom: -12px;
-      left: 20px;
-    }
-
-    &:after {
-      display: block;
-      position: absolute;
-      z-index: 0;
-      content: '';
-      width: 0;
-      height: 0;
-      border-top: 22px solid rgba(0,0,0,1);
-      border-right: 22px solid transparent;
-      bottom: -22px;
-      left: 16px;
-    }
-
-    p {
-      min-width: 240px;
-    }
-  }
-
-  .text {
-    padding: 20px;
-  }
 }
 
 @keyframes send {
@@ -264,11 +216,24 @@
   }
 }
 
-@keyframes appear {
+@keyframes appear-left {
   0% {
     opacity: 0;
+    transform: translateX(-100%);
   }
   100% {
     opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes appear-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }

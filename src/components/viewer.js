@@ -13,7 +13,7 @@ export default class Viewer extends React.Component {
 
     this.state = {
       display: {},
-      classId: 123456, //this.generateId(),
+      classId: this.generateId(),
     };
   }
 
