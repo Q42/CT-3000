@@ -90,10 +90,15 @@ class Bericht extends React.Component {
 
     let hideMessageClass = this.state.showMessage ? '' : ' hide-message';
 
-    return <div className="icon">
+    let classes = 'icon';
+    if(this.props.data && this.props.data.digibord  && this.props.data.digibord.state !== '0' && this.props.data.digibord.state !== 0) {
+      classes += ' on-digiboard';
+    }
+
+    return <div className={ classes }>
       <div className="on"></div>
       <div className="off"></div>
-      <div className={"message" + (state == undefined || state == '' ? ' empty' : ' set') + hideMessageClass}>
+      <div className={ "message" + (state === undefined || state === '' ? ' empty' : ' set') + hideMessageClass }>
         <p>{state}</p>
       </div>
     </div>;
