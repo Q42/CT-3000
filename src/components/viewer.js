@@ -4,6 +4,7 @@ import Rebase from 're-base';
 import InlineSVG from 'svg-inline-react';
 
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
+import svgSpot from '!svg-inline!../assets/svg/spot.svg';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 
@@ -121,7 +122,7 @@ export default class Viewer extends React.Component {
     const lights = this.state.lights.map((light, i) => {
       return (
         <div className="container" key={ i }>
-          <div className="light">{ light.name }</div>
+          <div className="light"><span className="name">{ light.name }</span></div>
           <div className="beam" />
         </div>
       );
