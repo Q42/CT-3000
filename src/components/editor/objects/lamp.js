@@ -43,7 +43,7 @@ class Lamp extends React.Component {
     if(this.lightRef) {
       this.lightRef.set(data);
     } else {
-      this.lightRef = this.fireBase.post('display/lights/' + slugify(groupName).toLowerCase(), { data });
+      this.lightRef = this.fireBase.push('display/lights', { data });
     }
   }
 
