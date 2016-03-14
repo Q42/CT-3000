@@ -41,7 +41,7 @@ export default class Viewer extends React.Component {
 
   componentDidUpdate(){
     const stream = this.state.display.music ? this.state.display.music.stream : null;
-    if(!stream || this.currentStream === stream) {
+    if(this.currentStream === stream) {
       return;
     }
     this.currentStream = stream;
