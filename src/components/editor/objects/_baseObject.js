@@ -26,6 +26,7 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
         this.setState({
           object: data.objects[type],
           digibord: data.objects.digibord || {},
+          naam: data.objects.naam || {}
         });
       }
   }
