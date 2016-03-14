@@ -7,7 +7,11 @@ import ObjectActions from '../../../actions/object';
 export let BaseObject = (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getState();
+    this.state = {
+      object: ObjectStore.getObject(type) || {},
+      digibord: ObjectStore.getObject('digibord') || {},
+      naam: ObjectStore.getObject('naam') || {}
+    };
   }
 
   componentDidMount() {
@@ -20,21 +24,15 @@ export let BaseObject = (ComposedComponent, type, status = '') => class BaseObje
     this.unsubscribe();
   }
 
-  onUpdate(data){
+  onUpdate(data) {
     if(data && data.objects && data.objects[type] &&
       data.objects[type].getValue() !== this.state.state){
         this.setState({
-          object: data.objects[type],
+          object: data.objects[type] || {},
           digibord: data.objects.digibord || {},
           naam: data.objects.naam || {}
         });
       }
-  }
-
-  getState(){
-    return {
-      object: ObjectStore.getObject(type)
-    };
   }
 
   render() {

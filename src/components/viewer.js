@@ -49,7 +49,7 @@ export default class Viewer extends React.Component {
           <div className="diagonal-thingy" aria-hidden="true"></div>
 
           <h2 className="header-init">
-            <span className="class-id">Mainframe ID: { this.state.classId }</span>
+            <span className="class-id">Digibord ID: { this.state.classId }</span>
           </h2>
 
           <div ref="chat" className="chat">
