@@ -169,10 +169,13 @@ export default class Viewer extends React.Component {
 
   renderLights() {
     const lights = this.state.display.lights || {};
+
     return Object.entries(lights).map(([key, light]) => {
+      const matches = light.groupName.match(/\b(\w)/g);
+      const acronym = matches.slice(0,2).join('');
       return (
         <div className="container" key={ key }>
-          <div className="light"><span className="name">{ light.groupName }</span></div>
+          <div className="light"><span className="name">{ acronym }</span></div>
           <div className="beam" />
         </div>
       );
