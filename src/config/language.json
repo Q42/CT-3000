@@ -6,7 +6,7 @@
     },
     {
       "name": "lamp",
-      "type": "string",
+      "type": "rgb",
       "values": ["uit", "aan", "knipper"]
     },
     {

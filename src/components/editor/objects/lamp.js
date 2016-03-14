@@ -7,7 +7,14 @@ class Lamp extends React.Component {
     if(this.props.data.object)
       state = this.props.data.object.state;
 
-    return <div className="icon">
+    let style = {};
+    if(this.props.data.object && this.props.data.object.values.indexOf(state) === -1){
+      style = {
+        backgroundColor: 'rgb(' + state.r + ',' + state.g + ',' + state.b + ')'
+      };
+    }
+
+    return <div className="icon" style={ style }>
       <div className="off"></div>
       <div className="on"></div>
     </div>;
