@@ -24,38 +24,37 @@ class Bericht extends React.Component {
   }
 
   componentDidUpdate() {
-
     if(!this.props.main) {
       // IF Object is in preview pane hide message after a few seconds unless content is being updated
-      if(this.props.data.object.state != this.prevState) {
-        this.prevState = this.props.data.object.state;
+      this.previewMessage();
 
-        clearTimeout(this.state.timer);
-        this.setState({
-          showMessage: true,
-          timer: setTimeout(this.hideMessage, 4242)
-        });
-      }
       // And do nothing more IF Object is in preview pane
       return;
     }
 
-    if(this.props.data.object.state === this.prevState) {
+    const message = this.props.data.object.state;
+    if(message === this.prevState) {
       return;
     }
-    this.prevState = this.props.data.object.state;
+    this.prevState = message;
 
-    const digibord = (this.props.data.digibord || {}).state || null;
-    if(digibord && digibord.length == 6) {
-      if(this.base) {
-        this.base.reset();
-        delete this.base;
-      }
-
-      this.base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + digibord);
-      this.postMessage();
+    if(!message) {
+      return;
     }
 
+    const digibord = this.props.data.digibord.state;
+    if(!digibord || digibord.length !== 6) {
+      return;
+    }
+
+    const groupName = this.props.data.naam.state;
+    if(!groupName || groupName.length < 1) {
+      return;
+    }
+
+    this.connectFirebase(digibord);
+
+    this.postMessage(message, groupName);
   }
 
   componentWillUnmount() {
@@ -64,16 +63,47 @@ class Bericht extends React.Component {
     this.hideMessage();
   }
 
-  postMessage() {
-    const object = this.props.data.object;
+  connectFirebase(classId) {
+    if(this.fireBase) {
+      this.fireBase.reset();
+      delete this.fireBase;
+    }
 
-    if(!object || !this.base) {
+    this.fireBase = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + classId);
+  }
+
+  postMessage(message, groupName) {
+    if(!message || !groupName || !this.fireBase) {
       return;
     }
 
-    this.ref = this.base.post('display/message', {
-      data: object.state
-    });
+    const data = { message, groupName };
+
+    if(!this.messageRef) {
+      this.messageRef = this.fireBase.push('display/messages', { data });
+      this.setRefTimeout();
+      return;
+    }
+
+    clearTimeout(this.refTimeout);
+    this.messageRef.set(data);
+    this.setRefTimeout();
+  }
+
+  setRefTimeout() {
+    this.refTimeout = setTimeout(() => this.messageRef = undefined, 4242);
+  }
+
+  previewMessage() {
+    if(this.props.data.object.state != this.prevState) {
+      this.prevState = this.props.data.object.state;
+
+      clearTimeout(this.state.timer);
+      this.setState({
+        showMessage: true,
+        timer: setTimeout(this.hideMessage, 4242)
+      });
+    }
   }
 
   hideMessage() {
