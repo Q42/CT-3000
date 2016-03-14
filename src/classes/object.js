@@ -101,6 +101,23 @@ export default class {
           ObjectActions.notifyUpdate(this.name);
         }, 60000);
         break;
+      case 'rgb':
+        this.type = 'rgb';
+
+        if(data.values && data.values.constructor === Array){
+          this.values = data.values;
+
+          if(data.default && typeof data.default === 'string' && this.values.indexOf(data.default) > -1){
+            this.state = data.default;
+          }else if(this.values.length > 0){
+            this.state = this.values[0];
+          }
+        }else{
+          if(data.default && typeof data.default === 'string')
+            this.state = data.default;
+        }
+
+        break;
     }
 
   }
@@ -132,7 +149,7 @@ export default class {
   }
 
   setValue(value){
-    if((value || this.type == 'string') && ((!this.values && this.valueMatchesType(value)) || (this.values && this.values.indexOf(value) > -1))){
+    if((value || this.type == 'string') && this.valueMatchesType(value)){
       this.state = this.formatValue(value);
       return {
         status: true,
@@ -148,8 +165,14 @@ export default class {
   valueMatchesType(value){
     switch(this.type){
       case 'string':
+        if(this.values){
+          return this.values.indexOf(value) > -1;
+        }
         return true;
       case 'int':
+        if(this.values){
+          return this.values.indexOf(value) > -1;
+        }
         return /^[0-9]+$/.test(value);
       case 'text':
         return /^\"[^\"]*\"$/i.test(value);
@@ -160,8 +183,26 @@ export default class {
           m = parseInt(m);
           return  h >= 0 && h < 24 && m >= 0 && m < 60;
         }
+        return false;
+      case 'rgb':
+        if(this.values && this.values.indexOf(value) > -1){
+          return true;
+        }
+
+        const regex = /^\(([0-9]+),([0-9]+),([0-9]+)\)$/;
+        if(!regex.test(value)){
+          return false;
+        }
+
+        const [,r,g,b] = value.match(regex);
+        if(r >= 0 && r <= 255 &&
+          g >= 0 && g <= 255 &&
+          g >= 0 && g <= 255){
+          return true;
+        }
 
         return false;
+      // no default
     }
   }
 
@@ -175,6 +216,19 @@ export default class {
         d.setHours(h);
         d.setMinutes(m);
         return d.getTime();
+      case 'rgb':
+        if(this.values && this.values.indexOf(value) > -1){
+          return value;
+        }
+
+        const regex = /^\(([0-9]+),([0-9]+),([0-9]+)\)$/;
+        const [,r,g,b] = value.match(regex);
+        
+        return {
+          r: r,
+          g: g,
+          b: b
+        };
       default:
         return value;
     }
