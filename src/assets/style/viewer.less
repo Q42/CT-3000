@@ -78,7 +78,7 @@
   border-radius: 4px;
   padding: 5px 10px 10px 10px;
   margin-right: 200px;
-  transform: translateX(-100%);
+  transform: translateX(-50%);
   opacity: 0;
   animation: appear-left 0.3s @ease-out both;
 
@@ -111,7 +111,7 @@
     margin-right: 20px;
     margin-left: 200px;
     text-align: right;
-    transform: translateX(100%);
+    transform: translateX(50%);
     background: lighten(@border-orange,45%);
     animation: appear-right 0.5s @ease-out both;
     &:before {
@@ -175,20 +175,22 @@
     left: 20px;
     height: 80px;
     width: 80px;
-      #Fill-1,
-      #Fill-3,
-      #Fill-5,
-      #Fill-7 {
-        opacity: 0;
-      }
-    &.send {
+    #Fill-1,
+    #Fill-3,
+    #Fill-5,
+    #Fill-7 {
+      opacity: 0;
+    }
+  }
+  &.send {
+    .icon-station {
       #Fill-1,
       #Fill-5 {
-        animation: send 2s infinite;
+        animation: send 1.5s infinite;
       }
       #Fill-3,
       #Fill-7 {
-        animation: send 2s 0.4s infinite;
+        animation: send 1.5s 0.5s infinite;
       }
     }
   }
@@ -219,7 +221,7 @@
 @keyframes appear-left {
   0% {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   100% {
     opacity: 1;
@@ -230,7 +232,7 @@
 @keyframes appear-right {
   0% {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateX(50%);
   }
   100% {
     opacity: 1;
