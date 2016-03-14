@@ -57,8 +57,7 @@ class Bericht extends React.Component {
   }
 
   componentWillUnmount() {
-    // CLEAN UP: Clear timer, set timer state to null
-    clearTimeout(this.state.timer);
+    clearTimeout(this.timeout);
     this.hideMessage();
   }
 
@@ -76,31 +75,26 @@ class Bericht extends React.Component {
       return;
     }
 
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => this.messageRef = undefined, 4242);
+
     const data = { message, groupName };
-
-    if(!this.messageRef) {
+    if(this.messageRef) {
+      this.messageRef.set(data);
+    } else {
       this.messageRef = this.fireBase.push('display/messages', { data });
-      this.setRefTimeout();
-      return;
     }
-
-    clearTimeout(this.refTimeout);
-    this.messageRef.set(data);
-    this.setRefTimeout();
-  }
-
-  setRefTimeout() {
-    this.refTimeout = setTimeout(() => this.messageRef = undefined, 4242);
   }
 
   previewMessage() {
     if(this.props.data.object.state != this.prevState) {
       this.prevState = this.props.data.object.state;
 
-      clearTimeout(this.state.timer);
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(this.hideMessage, 4242);
+
       this.setState({
         showMessage: true,
-        timer: setTimeout(this.hideMessage, 4242)
       });
     }
   }
