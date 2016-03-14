@@ -47,13 +47,9 @@ class Bericht extends React.Component {
       return;
     }
 
-    const groupName = this.props.data.naam.state;
-    if(!groupName || groupName.length < 1) {
-      return;
-    }
-
     this.connectFirebase(digibord);
 
+    const groupName = this.props.data.naam.state;
     this.postMessage(message, groupName);
   }
 
