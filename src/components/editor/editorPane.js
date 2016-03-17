@@ -25,18 +25,7 @@ export default class EditorPane extends React.Component {
     this.codeInterval = null;
 
     this.state = {
-      code: `// Toekenningen
-digibord = 123456
-naam = "Naam van je groepje"
-lamp = aan
-bericht = "test"
-tijd = 10:15
-muziek = 3fm
-
-// Vergelijkingen
-als tijd > 10:14 dan lamp = aan
-als weer = slecht dan lamp = aan
-als deur = open en lamp = uit dan bericht = "ALARM!"`,
+      code: ``,
       mode: '',
       executing: false,
       languageInitiated: false
