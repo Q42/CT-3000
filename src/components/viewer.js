@@ -29,6 +29,8 @@ export default class Viewer extends React.Component {
       nowPlayingID: '',
       matrix: ''
     };
+
+    this.matrixText = '';
   }
 
   componentWillMount() {
@@ -60,22 +62,24 @@ export default class Viewer extends React.Component {
   theMatrix(){
     const matrixLength = 225;
 
-    let matrix = this.state.matrix + '' + Math.round(Math.random());
+    let matrix = this.matrixText + '' + Math.round(Math.random());
     if(matrix.length > matrixLength){
       matrix = matrix.substring(matrix.length - matrixLength)
     }
-    this.setState({
-      matrix: matrix
-    });
+
+    this.matrixText = matrix;
+    this.refs.matrix.innerHTML = matrix;
   }
 
   componentDidUpdate(){
+    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
+
     const stream = this.state.display.music ? this.state.display.music.stream : null;
     if(this.currentStream === stream) {
       return;
     }
-    this.currentStream = stream;
 
+    this.currentStream = stream;
     this.playStream(stream, this.state.display.music ? this.state.display.music.id : null);
   }
 
@@ -128,16 +132,21 @@ export default class Viewer extends React.Component {
           </h2>
 
           <div ref="chat" className="chat">
-            { this.renderMessages() }
+            { Object.entries(messageList).map(([key, message]) => {
+              return (
+                <div className="group-message" key={ key }>
+                  <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
+                  <div className="group-text">{ message.message }</div>
+                </div>
+                )
+            }) }
           </div>
 
           <div className="users-total">
             <h3>999 gebruikers</h3>
           </div>
 
-          <div className="the-matrix">
-            { this.state.matrix }
-          </div>
+          <div ref="matrix" className="the-matrix"/>
 
           <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
             <span className="icon-station" aria-hidden="true">
