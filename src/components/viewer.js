@@ -12,19 +12,9 @@ export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
 
-    let test = Array.apply(null, {length: 49}).map(Number.call, Number);
-    test.shift();
-
     this.state = {
       display: {},
       classId: this.generateId(),
-      lights: test.map(x => {
-        return {
-          name: 'Lamp ' + x,
-          state: 'aan',
-          date: new Date()
-        };
-      }),
       isPlaying: false,
       nowPlayingID: '',
       matrix: ''
@@ -122,6 +112,9 @@ export default class Viewer extends React.Component {
                     <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
                     <h3><small>Geen muziek geselecteerd</small></h3>;
 
+    const nrLights = this.state.display.lights ? Object.keys(this.state.display.lights).length : 0;
+    console.log('lightd', this.state.display);
+
     return(
       <div className="viewer">
         <div className="content">
@@ -132,18 +125,11 @@ export default class Viewer extends React.Component {
           </h2>
 
           <div ref="chat" className="chat">
-            { Object.entries(messageList).map(([key, message]) => {
-              return (
-                <div className="group-message" key={ key }>
-                  <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
-                  <div className="group-text">{ message.message }</div>
-                </div>
-                )
-            }) }
+            { this.renderMessages() }
           </div>
 
           <div className="users-total">
-            <h3>999 gebruikers</h3>
+            <h3>{ nrLights } gebruiker{ nrLights !== 1 ? 's' : '' }</h3>
           </div>
 
           <div ref="matrix" className="the-matrix"/>
@@ -169,7 +155,7 @@ export default class Viewer extends React.Component {
     return Object.entries(messageList).map(([key, message]) => {
       return (
         <div className="group-message" key={ key }>
-          <div className="group-name">{ message.groupName } zegt:</div>
+          <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
           <div className="group-text">{ message.message }</div>
         </div>
       );
