@@ -180,12 +180,13 @@ export default class Viewer extends React.Component {
       }
       else if(light.light === 'uit') {
         beamClass += ' light-off';
+        borderColor = {
+          borderColor: 'rgba(180,180,180,0.5)'
+        }
       }
 
       const matches = light.groupName.match(/\b(\w)/g);
       const acronym = matches.slice(0,2).join('');
-
-
 
       return (
         <div className="container" key={ key }>
