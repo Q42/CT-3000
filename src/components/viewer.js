@@ -167,22 +167,30 @@ export default class Viewer extends React.Component {
     return Object.entries(lights).map(([key, light]) => {
       let style = {};
       let borderColor = {};
+      let beamClass = 'beam';
+
+      console.log(light.light);
       if(typeof light.light === 'object'){
         style = {
           backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
         };
         borderColor = {
-          borderColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
+          borderColor: 'rgba(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ',0.8)'
         }
+      }
+      else if(light.light === 'uit') {
+        beamClass += ' light-off';
       }
 
       const matches = light.groupName.match(/\b(\w)/g);
       const acronym = matches.slice(0,2).join('');
 
+
+
       return (
         <div className="container" key={ key }>
           <div className="light"><span className="name" style={ borderColor }>{ acronym }</span></div>
-          <div className="beam" style={ style } />
+          <div className={ beamClass } style={ style } />
         </div>
       );
     });

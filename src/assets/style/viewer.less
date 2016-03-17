@@ -261,7 +261,7 @@
           text-align: center;
           top: 15px;
           left: -8px;
-          border: 4px solid @icon-yellow;
+          border: 4px solid rgba(241,196,14,0.75);
         }
       }
 
@@ -275,6 +275,10 @@
         transform: rotateY(-45deg);
         transform-origin: left;
         left: 40px;
+        transition: opacity 0.3s @ease-out, background 0.3s @ease-out;
+        &.light-off {
+          opacity: 0;
+        }
       }
 
       &:nth-child(10n+1), &:nth-child(10n+5) {
