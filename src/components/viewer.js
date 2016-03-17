@@ -113,7 +113,6 @@ export default class Viewer extends React.Component {
                     <h3><small>Geen muziek geselecteerd</small></h3>;
 
     const nrLights = this.state.display.lights ? Object.keys(this.state.display.lights).length : 0;
-    console.log('lightd', this.state.display);
 
     return(
       <div className="viewer">
@@ -167,10 +166,14 @@ export default class Viewer extends React.Component {
 
     return Object.entries(lights).map(([key, light]) => {
       let style = {};
+      let borderColor = {};
       if(typeof light.light === 'object'){
         style = {
           backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
         };
+        borderColor = {
+          borderColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
+        }
       }
 
       const matches = light.groupName.match(/\b(\w)/g);
@@ -178,7 +181,7 @@ export default class Viewer extends React.Component {
 
       return (
         <div className="container" key={ key }>
-          <div className="light"><span className="name">{ acronym }</span></div>
+          <div className="light"><span className="name" style={ borderColor }>{ acronym }</span></div>
           <div className="beam" style={ style } />
         </div>
       );
