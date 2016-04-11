@@ -6,7 +6,6 @@ import { Router, Route, IndexRoute } from 'react-router';
 import PolyFill from 'babel-polyfill';
 
 import LandingPageComponent from './components/landing-page';
-
 import EditorComponent from './components/editor';
 import ViewerComponent from './components/viewer';
 
