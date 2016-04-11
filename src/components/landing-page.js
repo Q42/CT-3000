@@ -25,8 +25,8 @@ export default React.createClass({
             </article>
             <article>
               <h2>Het thema Smart Life</h2>
-              <p>De programmeer-tool CT3000 hoort bij het thema Smart Life, over computional thinking en programmeren. Het thema is ontwikkeld door uitgeverij <a href="http://blink.nl" className="color-red">Blink</a>, <a href="http://codeuur.nl" className="color-blue">stichting CodeUur</a> en <a href="http://q42.nl" className="color-purple">Q42</a>. Het thema omvat vijf lessen voor groep 5 tot en met 8. Vanuit de lessen wordt verwezen naar de tool.</p>
-              <p>Het thema is te bekijken en te gebruiken in de lesomgeving van Blink. Heb je al een account voor deze omgeving, log dan direct in bij <a href="http://www.blink-studio.nl" className="color-red">Blink Studio</a>. Heb je nog geen account, maak deze dan gratis aan met de knop hieronder.</p>
+              <p>De programmeer-tool CT3000 hoort bij het thema Smart Life, over computional thinking en programmeren. Het thema is ontwikkeld door uitgeverij <a href="http://blink.nl" className="inline-link">Blink</a>, <a href="http://codeuur.nl" className="inline-link">stichting CodeUur</a> en <a href="http://q42.nl" className="inline-link">Q42</a>. Het thema omvat vijf lessen voor groep 5 tot en met 8. Vanuit de lessen wordt verwezen naar de tool.</p>
+              <p>Het thema is te bekijken en te gebruiken in de lesomgeving van Blink. Heb je al een account voor deze omgeving, log dan direct in bij <a href="http://www.blink-studio.nl" className="inline-link">Blink Studio</a>. Heb je nog geen account, maak deze dan gratis aan met de knop hieronder.</p>
               <a href="http://www.blinkwereld.nl/projectthema-programmeren" className="fat-link">Naar de <em>lessen</em></a>
             </article>
           </div>
