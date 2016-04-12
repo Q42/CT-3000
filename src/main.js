@@ -21,7 +21,7 @@ render((
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={ LandingPageComponent } />
-      <Route path="programmeren" component={ EditorComponent } />
+      <Route path="tool" component={ EditorComponent } />
       <Route path="digibord" component={ ViewerComponent } />
     </Route>
   </Router>

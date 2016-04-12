@@ -1,0 +1,139 @@
+// ============ Lnding-page
+
+// TEXT-COLORS
+@intro-color-red: #ff004e;
+@intro-color-purple: #ba00ff;
+@intro-color-blue: #0f80fe;
+
+.landing-page {
+  font-family: 'Lato', sans-serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .col {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
+  header {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0 auto;
+    .col {
+      display: flex;
+      justify-content: space-between;
+    }
+    h1 {
+      text-transform: uppercase;
+      font-size: 32px;
+      line-height: 54px;
+      em {
+        color: #e0d361;
+        font-style: normal;
+      }
+    }
+    .logos {
+      display: flex;
+      a {
+        display: block;
+        text-decoration: none;
+        font-size: 36px;
+        line-height: 54px;
+        font-weight: 700;
+        color: @text-inverted;
+        img {
+          height: 54px;
+          vertical-align: middle;
+        }
+        &.codeuur img {
+          margin-top: -5px;
+        }
+        &.q42 img {
+          height: 72px;
+          margin-top: -5px;
+        }
+        & + a {
+          margin-left: 40px;
+        }
+      }
+    }
+
+
+  }
+  .intro-content {
+    background: url(../img/BG_CodeUur-index.png) no-repeat 50% 50%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    flex: 1 auto;
+    padding: 60px 30px;
+    .col {
+      display: flex;
+      flex: 1;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .color-blue {
+      color: @intro-color-blue;
+    }
+    .color-red {
+      color: @intro-color-red;
+    }
+    .color-purple {
+      color: @intro-color-purple;
+    }
+
+    article {
+      position: relative;
+      width: 45%;
+      height: 100%;
+      border: 2px solid #798587;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 30px 60px 180px 60px;
+      .inline-link {
+        font-weight: 700;
+        color:#222;
+      }
+      .fat-link {
+        display: block;
+        position: absolute;
+        bottom: 60px;
+        left: 60px;
+        right: 60px;
+        height: 60px;
+        border-radius: 5px;
+        padding: 15px 75px 15px 15px;
+        background-color: #0078ff;
+        text-decoration: none;
+        color: @text-inverted;
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        &:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 60px;
+          width: 60px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          background: #0042ff url(../img/arrow.svg) 50% 50% no-repeat;
+          background-size: 40px 40px;
+        }
+        em {
+          color: #f6ff00;
+          font-style: normal;
+        }
+      }
+    }
+  }
+}
