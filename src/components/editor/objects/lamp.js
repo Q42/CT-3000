@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseObject } from './_baseObject';
+import BaseObject from './_baseObject';
 import Rebase from 're-base';
 import InlineSVG from 'svg-inline-react';
 import slugify from 'slugify';

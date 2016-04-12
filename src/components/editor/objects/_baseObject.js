@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 
 import ObjectStore from '../../../stores/object';
 
-export let BaseObject = (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
+export default (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
