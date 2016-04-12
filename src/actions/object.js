@@ -1,16 +1,16 @@
 import Reflux from 'reflux';
 
-var Actions = Reflux.createActions({
+var ObjectActions = Reflux.createActions({
   initiate: {},
   create: {},
   parse: {},
   notifyUpdate: {}
 });
 
-Actions.initiate = function(languageConfig){
+ObjectActions.initiate = function(languageConfig){
   if(languageConfig && languageConfig.objects)
     this.create(languageConfig.objects);
 };
 
 
-export default Actions;
+export default ObjectActions;
