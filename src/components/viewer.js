@@ -112,7 +112,7 @@ export default class Viewer extends React.Component {
                     <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
                     <h3><small>Geen muziek geselecteerd</small></h3>;
 
-    const nrLights = this.state.display.lights ? Object.keys(this.state.display.lights).length : 0;
+    const nrSessions = this.state.display.sessions ? Object.keys(this.state.display.sessions).length : 0;
 
     return(
       <div className="viewer">
@@ -128,7 +128,7 @@ export default class Viewer extends React.Component {
           </div>
 
           <div className="users-total">
-            <h3>{ nrLights } gebruiker{ nrLights !== 1 ? 's' : '' }</h3>
+            <h3>{ nrSessions } gebruiker{ nrSessions !== 1 ? 's' : '' }</h3>
           </div>
 
           <div ref="matrix" className="the-matrix"/>
