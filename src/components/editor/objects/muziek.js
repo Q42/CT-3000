@@ -81,13 +81,11 @@ class Muziek extends React.Component {
 
       const groupName = this.props.data.naam.state;
       const data = { stream, id, groupName };
-
-      if(!this.messageRef) {
+      if(this.messageRef) {
+        this.messageRef.set(data);
+      } else {
         this.messageRef = this.fireBase.post('display/music', { data });
-        return;
       }
-
-      this.messageRef.set(data);
     }else{
       if(!stream && !this.audio.paused){
         this.audio.pause();

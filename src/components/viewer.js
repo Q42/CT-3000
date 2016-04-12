@@ -150,12 +150,16 @@ export default class Viewer extends React.Component {
   }
 
   renderMessages() {
-    const messageList = this.state.display.messages || {};
-    return Object.entries(messageList).map(([key, message]) => {
+    const messages = this.state.display.messages || {};
+    const sessions = this.state.display.sessions || {};
+    return Object.entries(messages).map(([key, message]) => {
+      const session = sessions[message.sessionKey] || {};
+      const userName = session.name || 'Anoniempje';
+
       return (
-        <div className="group-message" key={ key }>
-          <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
-          <div className="group-text">{ message.message }</div>
+        <div className="user-message" key={ key }>
+          <div className="user-name">{ userName } zegt:</div>
+          <div className="user-text">{ message.message }</div>
         </div>
       );
     });
@@ -163,13 +167,13 @@ export default class Viewer extends React.Component {
 
   renderLights() {
     const lights = this.state.display.lights || {};
+    const sessions = this.state.display.sessions || {};
 
     return Object.entries(lights).map(([key, light]) => {
       let style = {};
       let borderColor = {};
       let beamClass = 'beam';
 
-      console.log(light.light);
       if(typeof light.light === 'object'){
         style = {
           backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
@@ -185,8 +189,10 @@ export default class Viewer extends React.Component {
         }
       }
 
-      const matches = light.groupName.match(/\b(\w)/g);
-      const acronym = matches.slice(0,2).join('');
+      const session = sessions[light.sessionKey] || {};
+      const userName = session.name || '';
+      const matches = userName.match(/\b(\w)/g);
+      const acronym = (matches || []).slice(0,2).join('');
 
       return (
         <div className="container" key={ key }>

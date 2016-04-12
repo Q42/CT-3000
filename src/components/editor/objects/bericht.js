@@ -27,32 +27,10 @@ class Bericht extends React.Component {
 
   componentDidUpdate() {
     if(!this.props.main) {
-      // IF Object is in preview pane hide message after a few seconds unless content is being updated
+      // IF Object is in preview pane show message for some seconds
+      // unless content is being updated
       this.previewMessage();
-
-      // And do nothing more IF Object is in preview pane
-      return;
     }
-
-    const message = this.props.data.object.state;
-    if(message === this.prevState) {
-      return;
-    }
-    this.prevState = message;
-
-    if(!message) {
-      return;
-    }
-
-    const digibord = this.props.data.digibord.state;
-    if(!digibord || digibord.length !== 6) {
-      return;
-    }
-
-    this.connectFirebase(digibord);
-
-    const groupName = this.props.data.naam.state;
-    this.postMessage(message, groupName);
   }
 
   componentWillUnmount() {
@@ -60,42 +38,19 @@ class Bericht extends React.Component {
     this.hideMessage();
   }
 
-  connectFirebase(classId) {
-    if(this.fireBase) {
-      this.fireBase.reset();
-      delete this.fireBase;
-    }
-
-    this.fireBase = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + classId);
-  }
-
-  postMessage(message, groupName) {
-    if(!message || !this.fireBase) {
+  previewMessage() {
+    if(this.props.data.object.state === this.prevState) {
       return;
     }
 
+    this.prevState = this.props.data.object.state;
+
     clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => this.messageRef = undefined, 4242);
+    this.timeout = setTimeout(this.hideMessage, 4242);
 
-    const data = { message, groupName };
-    if(this.messageRef) {
-      this.messageRef.set(data);
-    } else {
-      this.messageRef = this.fireBase.push('display/messages', { data });
-    }
-  }
-
-  previewMessage() {
-    if(this.props.data.object.state != this.prevState) {
-      this.prevState = this.props.data.object.state;
-
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(this.hideMessage, 4242);
-
-      this.setState({
-        showMessage: true,
-      });
-    }
+    this.setState({
+      showMessage: true,
+    });
   }
 
   hideMessage() {

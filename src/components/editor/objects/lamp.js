@@ -8,54 +8,6 @@ import svgConnected from '!svg-inline!../../../assets/svg/sending.svg';
 import svgLamp from '!svg-inline!../../../assets/svg/lamp-aan.svg';
 
 class Lamp extends React.Component {
-  componentDidUpdate() {
-    if(!this.props.main) {
-      return;
-    }
-
-    const light = this.props.data.object.state;
-    if(light === this.prevState) {
-      return;
-    }
-    this.prevState = light;
-
-    if(!light) {
-      return;
-    }
-
-    const digibord = this.props.data.digibord.state;
-    if(!digibord || digibord.length !== 6) {
-      return;
-    }
-
-    this.connectFirebase(digibord);
-
-    const groupName = this.props.data.naam.state;
-    this.postLightState(light, groupName);
-  }
-
-  postLightState(light, groupName) {
-    if(!light || !groupName || !this.fireBase) {
-      return;
-    }
-
-    const data = { light, groupName };
-    if(this.lightRef) {
-      this.lightRef.set(data);
-    } else {
-      this.lightRef = this.fireBase.push('display/lights', { data });
-    }
-  }
-
-  connectFirebase(classId) {
-    if(this.fireBase) {
-      this.fireBase.reset();
-      delete this.fireBase;
-    }
-
-    this.fireBase = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + classId);
-  }
-
   render() {
     const object = this.props.data.object.state;
     const digibord = this.props.data.digibord.state;
