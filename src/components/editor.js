@@ -6,7 +6,6 @@ import PreviewPaneComponent from './editor/previewPane';
 import StatusBarComponent from './editor/statusBar.js';
 
 import ObjectActions from '../actions/object';
-import ObjectStore from '../stores/object';
 
 export default React.createClass({
 

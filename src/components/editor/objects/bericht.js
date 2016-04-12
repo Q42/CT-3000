@@ -13,8 +13,7 @@ class Bericht extends React.Component {
 
     this.state = {
       display: {},
-      showMessage: true,
-      timer: null
+      showMessage: true
     };
 
     this.hideMessage = this.hideMessage.bind(this);
@@ -101,8 +100,7 @@ class Bericht extends React.Component {
 
   hideMessage() {
     this.setState({
-      showMessage: false,
-      timer: null
+      showMessage: false
     });
   }
 
