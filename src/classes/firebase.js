@@ -79,8 +79,6 @@ export default class {
 
     this.name = name.state;
 
-    console.log(this.name);
-
     const data = {
       name: this.name
     };
