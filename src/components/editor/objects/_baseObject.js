@@ -23,8 +23,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
   }
 
   onUpdate(data) {
-    if(data && data.objects && data.objects[type] &&
-      data.objects[type].getValue() !== this.state.state) {
+    if(data && data.objects) {
       this.setState({
         object: data.objects[type] || {},
         digibord: data.objects.digibord || {}
