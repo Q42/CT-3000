@@ -14,7 +14,6 @@ export default class {
     this.light = null;
     this.music = null;
 
-    this.nameRef = null;
     this.messageTimeout = null;
     this.messageRef = null;
     this.lightRef = null;
@@ -83,11 +82,7 @@ export default class {
       name: this.name
     };
 
-    if(this.nameRef) {
-      this.nameRef.set(data);
-    } else {
-      this.nameRef = this.fireBase.post('display/sessions/' + this.sessionKey, { data });
-    }
+    this.fireBase.post('display/sessions/' + this.sessionKey, { data });
   }
 
   tryPostMessage(message) {
