@@ -9,8 +9,7 @@ import svgLamp from '!svg-inline!../../../assets/svg/lamp-aan.svg';
 
 class Lamp extends React.Component {
   render() {
-    const object = this.props.data.object.state;
-    const digibord = this.props.data.digibord.state;
+    const object = this.props.object.state;
 
     let style = {};
     if(typeof object === 'object'){
@@ -20,7 +19,7 @@ class Lamp extends React.Component {
     }
 
     let classes = 'icon';
-    if(digibord && digibord.length === 6) {
+    if(this.props.digibordConnected) {
       classes += ' on-digiboard';
     }
 

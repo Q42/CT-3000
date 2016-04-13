@@ -20,15 +20,14 @@ class Muziek extends React.Component {
       return;
     }
 
-    const digibord = this.props.data.digibord.state;
-    const digibordConnected = (digibord && digibord.length === 6);
+    const digibordConnected = this.props.digibordConnected;
     if(digibordConnected) {
       this.musicStream.pause();
       this.prevConnectedState = digibordConnected;
       return;
     }
 
-    const stream = this.props.data.object.state;
+    const stream = this.props.object.state;
     if(stream  === this.prevState && digibordConnected === this.prevConnectedState) {
       return;
     }
@@ -39,10 +38,8 @@ class Muziek extends React.Component {
   }
 
   render() {
-    const digibord = this.props.data.digibord.state;
-
     let classes = 'icon';
-    if(digibord  && digibord.length === 6) {
+    if(this.props.digibordConnected) {
       classes += ' on-digiboard';
     }
 

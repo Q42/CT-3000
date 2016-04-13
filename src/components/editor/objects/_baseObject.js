@@ -26,9 +26,17 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     if(data && data.objects) {
       this.setState({
         object: data.objects[type] || {},
-        digibord: data.objects.digibord || {}
+        digibordConnected: this.isDigibordConnected(data.objects.digibord)
       });
     }
+  }
+
+  isDigibordConnected(digibord) {
+    if(digibord && digibord.state && digibord.state.length === 6) {
+      return true;
+    }
+
+    return false;
   }
 
   render() {
@@ -59,7 +67,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
 
     return (
       <div className={classNames.join(' ')}>
-        <ComposedComponent { ...this.props } data={ this.state } />
+        <ComposedComponent { ...this.props } { ...this.state } />
       </div>
     );
   }

@@ -39,11 +39,11 @@ class Bericht extends React.Component {
   }
 
   previewMessage() {
-    if(this.props.data.object.state === this.prevState) {
+    if(this.props.object.state === this.prevState) {
       return;
     }
 
-    this.prevState = this.props.data.object.state;
+    this.prevState = this.props.object.state;
 
     clearTimeout(this.timeout);
     this.timeout = setTimeout(this.hideMessage, 4242);
@@ -60,11 +60,10 @@ class Bericht extends React.Component {
   }
 
   render() {
-    const object = this.props.data.object.state;
-    const digibord = this.props.data.digibord.state;
+    const object = this.props.object.state;
 
     let classes = 'icon';
-    if(digibord  && digibord.length === 6) {
+    if(this.props.digibordConnected) {
       classes += ' on-digiboard';
     }
 
