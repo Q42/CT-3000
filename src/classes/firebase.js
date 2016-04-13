@@ -123,7 +123,19 @@ export default class {
     }
   }
 
-  updateMusic() {
+  updateMusic(music) {
+    if(!music || this.music === music.state) {
+      return;
+    }
+
+    this.music = music.state;
+
+    this.displayRef.update({
+      music: {
+        value: this.music,
+        sessionKey: this.sessionKey
+      }
+    });
   }
 
   updateLight(light) {
