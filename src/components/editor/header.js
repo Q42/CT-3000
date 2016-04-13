@@ -43,7 +43,7 @@ export default class HeaderComponent extends React.Component {
     }
 
     let connectedTo;
-    if(this.state.digibord && this.state.digibord.state > 0){
+    if(this.state.digibord && this.state.digibord.state && this.state.digibord.state.length === 6){
       connectedTo = <h3 className="connected-to">{ this.state.digibord.state }</h3>;
     }
 
