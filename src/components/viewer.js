@@ -166,30 +166,28 @@ export default class Viewer extends React.Component {
   }
 
   renderLights() {
-    const lights = this.state.display.lights || {};
     const sessions = this.state.display.sessions || {};
 
-    return Object.entries(lights).map(([key, light]) => {
+    return Object.entries(sessions).map(([key, session]) => {
       let style = {};
       let borderColor = {};
       let beamClass = 'beam';
 
-      if(typeof light.light === 'object'){
+      if(typeof session.light === 'object'){
         style = {
-          backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
+          backgroundColor: 'rgb(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ')'
         };
         borderColor = {
-          borderColor: 'rgba(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ',0.8)'
+          borderColor: 'rgba(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ',0.8)'
         }
       }
-      else if(light.light === 'uit') {
+      else if(session.light === 'uit') {
         beamClass += ' light-off';
         borderColor = {
           borderColor: 'rgba(180,180,180,0.5)'
         }
       }
 
-      const session = sessions[light.sessionKey] || {};
       const userName = session.name || '';
       const matches = userName.match(/\b(\w)/g);
       const acronym = (matches || []).slice(0,2).join('');
