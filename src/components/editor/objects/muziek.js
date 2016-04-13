@@ -24,14 +24,16 @@ class Muziek extends React.Component {
     const digibordConnected = (digibord && digibord.length === 6);
     if(digibordConnected) {
       this.musicStream.pause();
+      this.prevConnectedState = digibordConnected;
       return;
     }
 
     const stream = this.props.data.object.state;
-    if(stream  === this.prevState) {
+    if(stream  === this.prevState && digibordConnected === this.prevConnectedState) {
       return;
     }
     this.prevState = stream;
+    this.prevConnectedState = digibordConnected;
 
     this.musicStream.play(stream);
   }
