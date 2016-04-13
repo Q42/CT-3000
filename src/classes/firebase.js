@@ -39,20 +39,20 @@ export default class {
 
     const { bericht, digibord, lamp, muziek, naam } = data.objects;
 
-    this.tryUpdateFirebaseConnection(digibord);
+    this.updateFirebaseConnection(digibord);
 
     if(!this.fireBase) {
       // No firebase connection, no use continuing
       return;
     }
 
-    this.tryUpdateName(naam);
-    this.tryPostMessage(bericht);
-    this.tryUpdateMusic(muziek);
-    this.tryUpdateLight(lamp);
+    this.updateName(naam);
+    this.postMessage(bericht);
+    this.updateMusic(muziek);
+    this.updateLight(lamp);
   }
 
-  tryUpdateFirebaseConnection(classId) {
+  updateFirebaseConnection(classId) {
     if(!classId || this.classId === classId.state) {
       return;
     }
@@ -71,7 +71,7 @@ export default class {
     this.name = this.message = this.light = this.music = null;
   }
 
-  tryUpdateName(name) {
+  updateName(name) {
     if(!name || this.name === name.state) {
       return;
     }
@@ -85,7 +85,7 @@ export default class {
     this.fireBase.post('display/sessions/' + this.sessionKey, { data });
   }
 
-  tryPostMessage(message) {
+  postMessage(message) {
     if(!message || this.message === message.state) {
       return;
     }
@@ -112,10 +112,10 @@ export default class {
     }
   }
 
-  tryUpdateMusic() {
+  updateMusic() {
   }
 
-  tryUpdateLight(light) {
+  updateLight(light) {
     if(!light || this.light === light.state) {
       return;
     }
@@ -138,5 +138,4 @@ export default class {
       this.lightRef = this.fireBase.push('display/lights', { data });
     }
   }
-
 }
