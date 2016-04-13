@@ -39,10 +39,17 @@ export default class {
       return;
     }
 
-    // TODO: check if we should cleanup old session in Firebase.
+    // Destroy active session
+    this.sessionRef.remove();
+
+    // Remove message we were typing
+    if(this.messageRef) {
+      this.messageRef.remove();
+      clearTimeout(this.messageTimeout);
+    }
 
     // Unset old references
-    this.classRef = this.sessionRef = this.messagesRef = null;
+    this.classRef = this.sessionRef = this.messagesRef = this.messageRef = null;
   }
 
   onObjectUpdate(data) {
