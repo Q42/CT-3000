@@ -7,7 +7,7 @@ export default class {
   constructor() {
     this.sessionKey = SessionStore.sessionKey || '';
     this.firebase = new Firebase('https://blink-ct.firebaseio.com/classes/');
-    this.classRef = null;
+    this.displayRef = null;
     this.sessionRef = null;
     this.messagesRef = null;
 
@@ -21,21 +21,21 @@ export default class {
     this.messageRef = null;
 
     this.unsubscribeObjectStore = ObjectStore.listen(this.onObjectUpdate.bind(this));
-    window.addEventListener('unload', this.disconnectClass.bind(this));
+    window.addEventListener('unload', this.disconnect.bind(this));
   }
 
-  connectClass() {
+  connect() {
     // Initialise all firebase references
-    this.classRef = this.firebase.child(this.classId);
-    this.sessionRef = this.classRef.child('display/sessions/' + this.sessionKey);
-    this.messagesRef = this.classRef.child('display/messages');
+    this.displayRef = this.firebase.child(this.classId + '/display');
+    this.sessionRef = this.displayRef.child('sessions/' + this.sessionKey);
+    this.messagesRef = this.displayRef.child('messages');
 
-    // Whipe local cache so we recreate all state on a new classroom
+    // Whipe local cache so we recreate all state on a new display
     this.name = this.message = this.light = this.music = null;
   }
 
-  disconnectClass() {
-    if(!this.classRef) {
+  disconnect() {
+    if(!this.displayRef) {
       return;
     }
 
@@ -49,7 +49,7 @@ export default class {
     }
 
     // Unset old references
-    this.classRef = this.sessionRef = this.messagesRef = this.messageRef = null;
+    this.displayRef = this.sessionRef = this.messagesRef = this.messageRef = null;
   }
 
   onObjectUpdate(data) {
@@ -59,9 +59,9 @@ export default class {
 
     const { bericht, digibord, lamp, muziek, naam } = data.objects;
 
-    this.updateClassConnection(digibord);
+    this.updateConnection(digibord);
 
-    if(!this.classRef) {
+    if(!this.displayRef) {
       // No class connection, no use continuing
       return;
     }
@@ -72,20 +72,20 @@ export default class {
     this.updateLight(lamp);
   }
 
-  updateClassConnection(classId) {
+  updateConnection(classId) {
     if(!classId || this.classId === classId.state) {
       return;
     }
 
     this.classId = classId.state;
 
-    this.disconnectClass();
+    this.disconnect();
 
     if(!this.classId || this.classId.length !== 6) {
       return;
     }
 
-    this.connectClass();
+    this.connect();
   }
 
   updateName(name) {
