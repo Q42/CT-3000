@@ -19,6 +19,7 @@ export default class {
     this.lightRef = null;
 
     this.unsubscribeObjectStore = ObjectStore.listen(this.onObjectUpdate.bind(this));
+    window.addEventListener('unload', this.disconnectFirebase.bind(this));
   }
 
   disconnectFirebase() {
