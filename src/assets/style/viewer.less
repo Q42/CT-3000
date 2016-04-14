@@ -181,6 +181,7 @@
     height: 100px;
     background: transparent url(../svg/background-station.svg) 0 0 no-repeat;
     background-size: 100% 100%;
+    transition: height 0.2s @ease-out;
     .icon-station {
       display: block;
       position: absolute;
@@ -214,12 +215,33 @@
       color: rgb(80,80,80);
       font-size:28px;
       small {
+        display:block;
         font-size: 20px;
         display: block;
         color: rgb(120,120,120);
+        margin-bottom: 8px;
       }
     }
+
+    .choice-of {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      margin: 0;
+      padding: 8px 25px 10px 25px;
+      font-size: 20px;
+      color: rgb(120,120,120);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-top:2px solid rgba(255,255,255,0.2);
+
+    }
     &.send {
+      height: 140px;
       h3 {
         padding-top: 10px;
       }
