@@ -2,9 +2,10 @@ import React from 'react';
 import Rebase from 're-base';
 
 import InlineSVG from 'svg-inline-react';
-
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
 import svgSpot from '!svg-inline!../assets/svg/spot.svg';
+
+import MusicStream from '../classes/musicStream';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 
@@ -15,8 +16,6 @@ export default class Viewer extends React.Component {
     this.state = {
       display: {},
       classId: this.generateId(),
-      isPlaying: false,
-      nowPlayingID: '',
       matrix: ''
     };
 
@@ -30,19 +29,12 @@ export default class Viewer extends React.Component {
       context: this,
       state: 'display'
     });
+
+    this.musicStream = new MusicStream();
   }
 
   componentDidMount(){
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-
-    this.streams =  {
-      pop: 'http://icecast.omroep.nl/3fm-sb-mp3',
-      easy: 'http://8573.live.streamtheworld.com:80/SKYRADIO_SC',
-      classical: 'http://icecast.omroep.nl/radio4-bb-mp3',
-      jazz: 'http://icecast.omroep.nl/radio6-bb-mp3'
-    };
-
-    this.audio = new Audio();
 
     this.matrixInterval = setInterval(() => {
       this.theMatrix();
@@ -64,36 +56,19 @@ export default class Viewer extends React.Component {
   componentDidUpdate(){
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
 
-    const stream = this.state.display.music ? this.state.display.music.stream : null;
+    // TODO: Check if music playing user diconnected.
+
+    const stream = this.getStream();
     if(this.currentStream === stream) {
       return;
     }
 
     this.currentStream = stream;
-    this.playStream(stream, this.state.display.music ? this.state.display.music.id : null);
+    this.musicStream.play(stream);
   }
 
-  playStream (stream, id) {
-    if(!stream && !this.audio.paused){
-      this.audio.pause();
-      this.setState({
-        isPlaying: false,
-        nowPlayingID: null
-      });
-      return;
-    }
-
-    if(!stream){
-      return;
-    }
-
-    this.audio.src = stream;
-    this.audio.play();
-
-    this.setState({
-      isPlaying: true,
-      nowPlayingID: id
-    });
+  getStream() {
+    return (this.state.display.music || {}).value || 'uit';
   }
 
   componentWillUnmount(){
@@ -108,11 +83,12 @@ export default class Viewer extends React.Component {
   }
 
   render() {
-    const playing = this.state.isPlaying ?
-                    <h3><small>Je luistert nu naar:</small> { this.state.nowPlayingID === 'uit' ? '' : this.state.nowPlayingID }</h3> :
+    const stream = this.getStream();
+    const playing = stream !== 'uit' ?
+                    <h3><small>Je luistert nu naar:</small> { stream }</h3> :
                     <h3><small>Geen muziek geselecteerd</small></h3>;
 
-    const nrLights = this.state.display.lights ? Object.keys(this.state.display.lights).length : 0;
+    const nrSessions = this.state.display.sessions ? Object.keys(this.state.display.sessions).length : 0;
 
     return(
       <div className="viewer">
@@ -128,12 +104,12 @@ export default class Viewer extends React.Component {
           </div>
 
           <div className="users-total">
-            <h3>{ nrLights } gebruiker{ nrLights !== 1 ? 's' : '' }</h3>
+            <h3>{ nrSessions } gebruiker{ nrSessions !== 1 ? 's' : '' }</h3>
           </div>
 
           <div ref="matrix" className="the-matrix"/>
 
-          <div className={ 'station' + (this.state.isPlaying ? ' send' : '') }>
+          <div className={ 'station' + ( stream !== 'uit' ? ' send' : '' ) }>
             <span className="icon-station" aria-hidden="true">
               <InlineSVG src={ svg } />
             </span>
@@ -150,43 +126,47 @@ export default class Viewer extends React.Component {
   }
 
   renderMessages() {
-    const messageList = this.state.display.messages || {};
-    return Object.entries(messageList).map(([key, message]) => {
+    const messages = this.state.display.messages || {};
+    const sessions = this.state.display.sessions || {};
+    return Object.entries(messages).map(([key, message]) => {
+      const session = sessions[message.sessionKey] || {};
+      const userName = session.name || 'Anoniempje';
+
       return (
-        <div className="group-message" key={ key }>
-          <div className="group-name">{ message.groupName ? message.groupName : 'Anoniempje' } zegt:</div>
-          <div className="group-text">{ message.message }</div>
+        <div className="user-message" key={ key }>
+          <div className="user-name">{ userName } zegt:</div>
+          <div className="user-text">{ message.message }</div>
         </div>
       );
     });
   }
 
   renderLights() {
-    const lights = this.state.display.lights || {};
+    const sessions = this.state.display.sessions || {};
 
-    return Object.entries(lights).map(([key, light]) => {
+    return Object.entries(sessions).map(([key, session]) => {
       let style = {};
       let borderColor = {};
       let beamClass = 'beam';
 
-      console.log(light.light);
-      if(typeof light.light === 'object'){
+      if(typeof session.light === 'object'){
         style = {
-          backgroundColor: 'rgb(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ')'
+          backgroundColor: 'rgb(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ')'
         };
         borderColor = {
-          borderColor: 'rgba(' + light.light.r + ',' + light.light.g + ',' + light.light.b + ',0.8)'
+          borderColor: 'rgba(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ',0.8)'
         }
       }
-      else if(light.light === 'uit') {
+      else if(session.light === 'uit') {
         beamClass += ' light-off';
         borderColor = {
           borderColor: 'rgba(180,180,180,0.5)'
         }
       }
 
-      const matches = light.groupName.match(/\b(\w)/g);
-      const acronym = matches.slice(0,2).join('');
+      const userName = session.name || '';
+      const matches = userName.match(/\b(\w)/g);
+      const acronym = (matches || []).slice(0,2).join('');
 
       return (
         <div className="container" key={ key }>

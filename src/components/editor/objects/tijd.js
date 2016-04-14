@@ -1,11 +1,11 @@
 import React from 'react';
-import { BaseObject } from './_baseObject';
+import BaseObject from './_baseObject';
 
 class Tijd extends React.Component {
   render() {
     let state;
-    if(this.props.data.object)
-      state = this.props.data.object.state;
+    if(this.props.object)
+      state = this.props.object.state;
 
     const d = new Date(state);
     const hourRotate = (360 / 12) * (d.getHours() % 12) + (360 / 12) * (1 / (60 / d.getMinutes()));

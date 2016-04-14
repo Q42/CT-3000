@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseObject } from './_baseObject';
+import BaseObject from './_baseObject';
 
 class Deur extends React.Component {
   render() {

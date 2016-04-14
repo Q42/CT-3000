@@ -1,29 +1,18 @@
 import React from 'react';
-import { BaseObject } from './_baseObject';
-import Rebase from 're-base';
+import BaseObject from './_baseObject';
 
 import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../../../assets/svg/sending.svg';
 
+import MusicStream from '../../../classes/musicStream';
+
 class Muziek extends React.Component {
-
-  constructor(props){
-    super(props);
-  }
-
-  componentDidMount(){
+  componentWillMount() {
     if(!this.props.main) {
       return;
     }
 
-    this.streams =  {
-      pop: 'http://icecast.omroep.nl/3fm-sb-mp3',
-      easy: 'http://8573.live.streamtheworld.com:80/SKYRADIO_SC',
-      classical: 'http://icecast.omroep.nl/radio4-bb-mp3',
-      jazz: 'http://icecast.omroep.nl/radio6-bb-mp3'
-    };
-
-    this.audio = new Audio();
+    this.musicStream = new MusicStream();
   }
 
   componentDidUpdate(){
@@ -31,83 +20,26 @@ class Muziek extends React.Component {
       return;
     }
 
-    const digibord = this.props.data.digibord.state;
-    const sendToDigibord = !digibord || digibord.length !== 6 ? false : digibord;
-
-    const stream = this.props.data.object.state;
-    if(stream + '-' + sendToDigibord  === this.prevState) {
+    const digibordConnected = this.props.digibordConnected;
+    if(digibordConnected) {
+      this.musicStream.pause();
+      this.prevConnectedState = digibordConnected;
       return;
     }
-    this.prevState = stream + '-' + sendToDigibord;
 
-    switch(stream){
-      case 'uit':
-        this.playStream(false, stream, sendToDigibord);
-        break;
-      case '3fm':
-        this.playStream(this.streams.pop, stream, sendToDigibord);
-        break;
-      case 'sky':
-        this.playStream(this.streams.easy, stream, sendToDigibord);
-        break;
-      case 'klassiek':
-        this.playStream(this.streams.classical, stream, sendToDigibord);
-        break;
-      case 'jazz':
-        this.playStream(this.streams.jazz, stream, sendToDigibord);
-        break;
+    const stream = this.props.object.state;
+    if(stream  === this.prevState && digibordConnected === this.prevConnectedState) {
+      return;
     }
-  }
+    this.prevState = stream;
+    this.prevConnectedState = digibordConnected;
 
-  connectFirebase(classId) {
-    if(this.fireBase) {
-      this.fireBase.reset();
-      delete this.fireBase;
-    }
-
-    this.fireBase = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + classId);
-  }
-
-  playStream (stream, id, sendToDigibord) {
-    if(sendToDigibord){
-      if(!this.audio.paused){
-        this.audio.pause();
-      }
-      this.connectFirebase(sendToDigibord);
-
-      if(!this.fireBase) {
-        return;
-      }
-
-      const groupName = this.props.data.naam.state;
-      const data = { stream, id, groupName };
-
-      if(!this.messageRef) {
-        this.messageRef = this.fireBase.post('display/music', { data });
-        return;
-      }
-
-      this.messageRef.set(data);
-    }else{
-      if(!stream && !this.audio.paused){
-        this.audio.pause();
-        return;
-      }
-
-      if(!stream){
-        return;
-      }
-
-      this.audio.src = stream;
-      this.audio.play();
-    }
+    this.musicStream.play(stream);
   }
 
   render() {
-    const digibord = this.props.data.digibord.state;
-
     let classes = 'icon';
-    if(digibord  && digibord.length === 6) {
+    if(this.props.digibordConnected) {
       classes += ' on-digiboard';
     }
 

@@ -23,8 +23,8 @@ export default class HeaderComponent extends React.Component {
   onUpdate(data){
     if(data && data.objects){
         this.setState({
-          digibord: data.objects.digibord && data.objects.digibord.getValue() !== this.state.digibord ? data.objects.digibord : null,
-          naam: data.objects.naam && data.objects.naam.getValue() !== this.state.naam ? data.objects.naam : null
+          digibord: data.objects.digibord,
+          naam: data.objects.naam
         });
       }
   }
@@ -43,7 +43,7 @@ export default class HeaderComponent extends React.Component {
     }
 
     let connectedTo;
-    if(this.state.digibord && this.state.digibord.state > 0){
+    if(this.state.digibord && this.state.digibord.state && this.state.digibord.state.length === 6){
       connectedTo = <h3 className="connected-to">{ this.state.digibord.state }</h3>;
     }
 

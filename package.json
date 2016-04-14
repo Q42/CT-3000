@@ -24,7 +24,9 @@
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "canto34": "0.0.2",
+    "firebase": "^2.4.2",
     "history": "^1.17.0",
+    "node-uuid": "^1.4.7",
     "promise": "^7.1.1",
     "re-base": "^1.5.1",
     "react": "^0.14.7",
