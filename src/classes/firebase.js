@@ -114,7 +114,7 @@ export default class {
     this.messageTimeout = setTimeout(() => this.messageRef = null, 4242);
 
     if(this.messageRef) {
-      this.messageRef.update({ message: message.state });
+      this.messageRef.update({ message: this.message });
     } else {
       this.messageRef = this.messagesRef.push({
         message: message.state,
