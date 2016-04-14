@@ -25,7 +25,7 @@ export default class EditorPane extends React.Component {
     this.codeInterval = null;
 
     this.state = {
-      code: ``,
+      code: '',
       mode: '',
       executing: false,
       languageInitiated: false
