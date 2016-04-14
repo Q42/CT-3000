@@ -7,7 +7,7 @@
     {
       "name": "lamp",
       "type": "rgb",
-      "values": ["uit", "aan", "knipper"]
+      "values": ["uit", "aan"]
     },
     {
       "name": "deur",

@@ -2,12 +2,15 @@ import './assets/style/main.less';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
 import PolyFill from 'babel-polyfill';
 
 import LandingPageComponent from './components/landing-page';
 import EditorComponent from './components/editor';
 import ViewerComponent from './components/viewer';
+
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 const App = React.createClass({
   render() {
@@ -18,7 +21,7 @@ const App = React.createClass({
 });
 
 render((
-  <Router>
+  <Router history={ appHistory }>
     <Route path="/" component={App}>
       <IndexRoute component={ LandingPageComponent } />
       <Route path="tool" component={ EditorComponent } />
