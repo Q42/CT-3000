@@ -105,8 +105,14 @@ export default class {
 
     this.message = message.state;
 
-    if(!this.message && !this.messageRef) {
-      // Empty message, and nothing to update, get out.
+    // Empty message, remove when having a reference
+    if(!this.message) {
+      if(this.messageRef) {
+        this.messageRef.remove();
+        this.messageRef = null;
+        clearTimeout(this.messageTimeout);
+      }
+
       return;
     }
 
