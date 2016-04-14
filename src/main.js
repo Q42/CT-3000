@@ -4,7 +4,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import { createHashHistory } from 'history';
-import PolyFill from 'babel-polyfill';
 
 import LandingPageComponent from './components/landing-page';
 import EditorComponent from './components/editor';
