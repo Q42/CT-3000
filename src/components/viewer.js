@@ -83,12 +83,16 @@ export default class Viewer extends React.Component {
   }
 
   render() {
+    const sessions = this.state.display.sessions || {};
     const stream = this.getStream();
+    const streamSessionKey = (this.state.display.music || {}).sessionKey;
+    const session = sessions[streamSessionKey] || {};
+    const userName = session.name || 'Anoniempje';
     const playing = stream !== 'uit' ?
-                    <h3><small>Je luistert nu naar:</small> { stream }</h3> :
-                    <h3><small>Geen muziek geselecteerd</small></h3>;
+                    <div><h3><small>Je luistert nu naar:</small> { stream }</h3><p className="choice-of">de keuze van <strong>{ userName }</strong></p></div> :
+                    <div><h3><small>Geen muziek geselecteerd</small></h3></div>;
 
-    const nrSessions = this.state.display.sessions ? Object.keys(this.state.display.sessions).length : 0;
+    const nrSessions = this.state.display.sessions ? Object.keys(sessions).length : 0;
 
     return(
       <div className="viewer">
