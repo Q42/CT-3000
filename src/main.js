@@ -5,6 +5,9 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import { createHashHistory } from 'history';
 
+// Polyfill default objects with ES6-like prototype methods
+import Polyfill from 'babel-polyfill';
+
 import LandingPageComponent from './components/landing-page';
 import EditorComponent from './components/editor';
 import ViewerComponent from './components/viewer';
