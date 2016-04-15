@@ -74,11 +74,12 @@ export default Reflux.createStore({
 
   /* parser methods */
 
-  parse(text){
+  parse(text, assign = false) {
     this.parser.parse(text)
       .then(result => {
-        if(!result)
+        if(!result) {
           return false;
+        }
 
         let checkedCode = {
           checks: result.checks ? result.checks.filter(x => this.objectExists(x.object)) : [],
@@ -86,30 +87,32 @@ export default Reflux.createStore({
         };
 
         let parsedCode = JSON.parse(JSON.stringify(checkedCode));
-        let ci = 0;
         let checksPassed = checkedCode.checks.reduce((x, y) => {
-          let valid = this.checkObjectValue(y.object, y.value, y.operator);
-          parsedCode.checks[ci].valid = valid === true; ci++;
+          const valid = this.checkObjectValue(y.object, y.value, y.operator);
+          parsedCode.checks[ci].valid = valid === true;
           return x && valid;
         }, true);
 
         let assignmentsDone = false;
         if(checksPassed){
-          let ai = 0;
           assignmentsDone = checkedCode.assignments.reduce((x, y) => {
             let objectValue = this.setObjectValue(y.object, y.value);
             parsedCode.assignments[ai].valid = objectValue.status === true;
             parsedCode.assignments[ai].value = objectValue.value;
-            ai++;
             return x || objectValue.status;
           }, false);
         }
 
-        if(!Object.is(this.data.parsedCode, parsedCode)){
+        if(!!assign && !Object.is(this.data.parsedCode, parsedCode)){
           this.data.parsedCode = parsedCode;
           this.trigger(this.data);
         }
-
+      })
+      .catch(error => {
+        if(!!assign) {
+          this.data.parsedCode = null;
+          this.trigger(this.data);
+        }
       });
   },
 

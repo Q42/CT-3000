@@ -18,16 +18,14 @@ export default class EditorPane extends React.Component {
     super(props);
 
     this.updateCode = this.updateCode.bind(this);
-    this.parseLine = this.parseLine.bind(this);
-    this.executeCode = this.executeCode.bind(this);
-    this.stopExecution = this.stopExecution.bind(this);
+    this.parseUntilLine = this.parseUntilLine.bind(this);
 
-    this.codeInterval = null;
+    this.lineInterval = null;
+    this.lineTimeoutDuration = 500;
 
     this.state = {
-      code: ``,
+      code: '',
       mode: '',
-      executing: false,
       languageInitiated: false
     };
   }
@@ -37,21 +35,25 @@ export default class EditorPane extends React.Component {
       this.onUpdate(data);
     });
 
-
     this.cm = this.refs.editor.getCodeMirror();
-    this.cm.on('cursorActivity', this.parseLine);
+    this.setLineInterval();
+
+    // Example 'syntax error':
+    // const doc = this.cm.getDoc();
+    // doc.addLineClass(0,"wrap","syntax-error");
   }
 
   componentWillUnmount() {
     this.unsubscribe();
   }
 
-  onUpdate(data){
-    if(!this.state.languageInitiated)
+  onUpdate(data) {
+    if(!this.state.languageInitiated) {
       this.initLanguage();
+    }
   }
 
-  initLanguage(){
+  initLanguage() {
     let availableObjects = ObjectStore.getAvailableObjects();
     let availableValues = ObjectStore.getAvailableValues();
 
@@ -69,52 +71,31 @@ export default class EditorPane extends React.Component {
     });
   }
 
-  parseLine(cm) {
-    const lineContent = cm.getLine(cm.getCursor().line);
-
-    if(lineContent !== this.lastLineContent) {
-      ObjectActions.parse(lineContent);
-    }
-
-    this.lastLineContent = lineContent;
+  setLineInterval() {
+    this.clearLineInterval();
+    this.lineInterval = setInterval(this.parseUntilLine, this.lineTimeoutDuration);
   }
 
-  executeCode() {
-    if(this.state.executing) {
-      return;
-    }
+  clearLineInterval() {
+    clearInterval(this.lineInterval);
+  }
 
-    this.setState({
-      executing: true
+  parseUntilLine() {
+    const currentLineNr = this.cm.getCursor().line;
+    this.cm.eachLine(0, currentLineNr, (handle) => {
+      this.parseLine(this.cm.getLineNumber(handle));
     });
 
-    this.cm.setCursor(0, 0);
-
-    let lineCount = this.cm.lineCount();
-    let line = 1;
-    this.codeInterval = setInterval(() => {
-      this.cm.setCursor(line, 0);
-      line++;
-
-      if(line > lineCount) {
-        clearInterval(this.codeInterval);
-
-        this.cm.setCursor(0, 0);
-        this.setState({
-          executing: false
-        });
-      }
-    }, 3000);
+    this.parseLine(currentLineNr, true);
   }
 
-  stopExecution() {
-    this.setState({
-      executing: false
-    });
-    clearInterval(this.codeInterval);
+  parseLine(lineNr, assign = false) {
+    const lineContent = this.cm.getLine(lineNr);
+
+    ObjectActions.parse(lineContent, assign);
   }
 
-  render () {
+  render() {
     var options = {
       lineNumbers: true,
       lineWrapping: true,
@@ -122,19 +103,13 @@ export default class EditorPane extends React.Component {
       tabSize: 2,
       theme: 'monokai',
       styleActiveLine: true,
-      mode: this.state.mode,
-      readOnly: this.state.executing
+      mode: this.state.mode
     };
 
-    let classNames = 'pane editor-pane';
-    if(this.state.executing) {
-      classNames += ' executing';
-    }
-
     return (
-      <div className={ classNames }>
+      <div className="pane editor-pane">
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
-        <button className="play" onClick={ this.state.executing ? this.stopExecution : this.executeCode }><span className="icon-btn" aria="hidden"></span>{ this.state.executing ? 'Stop test' : 'Test code' }</button>
+        <div className="message-bar"></div>
       </div>
     );
   }
