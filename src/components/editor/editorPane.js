@@ -113,6 +113,7 @@ export default class EditorPane extends React.Component {
     return (
       <div className="pane editor-pane">
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
+        <div className="message-bar"></div>
       </div>
     );
   }
