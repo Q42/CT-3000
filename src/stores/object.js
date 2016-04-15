@@ -109,7 +109,12 @@ export default Reflux.createStore({
           this.data.parsedCode = parsedCode;
           this.trigger(this.data);
         }
-
+      })
+      .catch(error => {
+        if(!!assign) {
+          this.data.parsedCode = null;
+          this.trigger(this.data);
+        }
       });
   },
 
