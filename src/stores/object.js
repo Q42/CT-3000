@@ -74,7 +74,7 @@ export default Reflux.createStore({
 
   /* parser methods */
 
-  parse(text){
+  parse(text, assign = false) {
     this.parser.parse(text)
       .then(result => {
         if(!result)
@@ -105,7 +105,7 @@ export default Reflux.createStore({
           }, false);
         }
 
-        if(!Object.is(this.data.parsedCode, parsedCode)){
+        if(!!assign && !Object.is(this.data.parsedCode, parsedCode)){
           this.data.parsedCode = parsedCode;
           this.trigger(this.data);
         }
