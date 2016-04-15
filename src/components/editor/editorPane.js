@@ -92,11 +92,7 @@ export default class EditorPane extends React.Component {
   parseLine(lineNr, assign = false) {
     const lineContent = this.cm.getLine(lineNr);
 
-    if(lineContent !== this.lastLineContent) {
-      ObjectActions.parse(lineContent, assign);
-    }
-
-    this.lastLineContent = lineContent;
+    ObjectActions.parse(lineContent, assign);
   }
 
   render() {
