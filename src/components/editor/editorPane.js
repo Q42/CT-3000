@@ -26,7 +26,6 @@ export default class EditorPane extends React.Component {
     this.state = {
       code: '',
       mode: '',
-      executing: false,
       languageInitiated: false
     };
   }
@@ -44,12 +43,13 @@ export default class EditorPane extends React.Component {
     this.unsubscribe();
   }
 
-  onUpdate(data){
-    if(!this.state.languageInitiated)
+  onUpdate(data) {
+    if(!this.state.languageInitiated) {
       this.initLanguage();
+    }
   }
 
-  initLanguage(){
+  initLanguage() {
     let availableObjects = ObjectStore.getAvailableObjects();
     let availableValues = ObjectStore.getAvailableValues();
 
@@ -95,7 +95,7 @@ export default class EditorPane extends React.Component {
     this.lastLineContent = lineContent;
   }
 
-  render () {
+  render() {
     var options = {
       lineNumbers: true,
       lineWrapping: true,
@@ -103,8 +103,7 @@ export default class EditorPane extends React.Component {
       tabSize: 2,
       theme: 'monokai',
       styleActiveLine: true,
-      mode: this.state.mode,
-      readOnly: this.state.executing
+      mode: this.state.mode
     };
 
     return (
