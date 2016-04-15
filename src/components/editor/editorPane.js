@@ -37,6 +37,10 @@ export default class EditorPane extends React.Component {
 
     this.cm = this.refs.editor.getCodeMirror();
     this.setLineInterval();
+
+    // Example 'syntax error':
+    // const doc = this.cm.getDoc();
+    // doc.addLineClass(0,"wrap","syntax-error");
   }
 
   componentWillUnmount() {
