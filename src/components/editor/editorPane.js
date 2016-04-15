@@ -21,7 +21,7 @@ export default class EditorPane extends React.Component {
     this.parseUntilLine = this.parseUntilLine.bind(this);
 
     this.lineInterval = null;
-    this.lineTimeoutDuration = 1000;
+    this.lineTimeoutDuration = 500;
 
     this.state = {
       code: '',
