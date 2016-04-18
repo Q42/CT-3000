@@ -3,11 +3,8 @@ import Rebase from 're-base';
 
 import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
-import svgSpot from '!svg-inline!../assets/svg/spot.svg';
 
 import MusicStream from '../classes/musicStream';
-
-const springSetting1 = {stiffness: 164, damping: 10};
 
 export default class Viewer extends React.Component {
   constructor(props) {
