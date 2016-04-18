@@ -16,7 +16,6 @@ export default class Viewer extends React.Component {
     this.state = {
       display: {},
       classId: this.generateId(),
-      matrix: ''
     };
 
     this.matrixText = '';
