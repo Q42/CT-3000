@@ -2,6 +2,7 @@ import React from 'react';
 import Rebase from 're-base';
 
 import LightsComponent from './viewer/lights';
+import TheMatrixComponent from './viewer/theMatrix';
 
 import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
@@ -16,8 +17,6 @@ export default class Viewer extends React.Component {
       display: {},
       classId: this.generateId(),
     };
-
-    this.matrixText = '';
   }
 
   componentWillMount() {
@@ -33,10 +32,6 @@ export default class Viewer extends React.Component {
 
   componentDidMount(){
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-
-    this.matrixInterval = setInterval(() => {
-      this.theMatrix();
-    }, 100);
   }
 
   componentDidUpdate(){
@@ -62,18 +57,6 @@ export default class Viewer extends React.Component {
     const num = Math.floor(Math.random() * 1000000).toString();
     const pad = '000000';
     return pad.slice(num.length) + num;
-  }
-
-  theMatrix() {
-    const matrixLength = 225;
-
-    let matrix = this.matrixText + '' + Math.round(Math.random());
-    if(matrix.length > matrixLength){
-      matrix = matrix.substring(matrix.length - matrixLength)
-    }
-
-    this.matrixText = matrix;
-    this.refs.matrix.innerHTML = matrix;
   }
 
   getStream() {
@@ -109,7 +92,7 @@ export default class Viewer extends React.Component {
             <h3>{ nrSessions } gebruiker{ nrSessions !== 1 ? 's' : '' }</h3>
           </div>
 
-          <div ref="matrix" className="the-matrix"/>
+          <TheMatrixComponent />
 
           <div className={ 'station' + ( stream !== 'uit' ? ' send' : '' ) }>
             <span className="icon-station" aria-hidden="true">
