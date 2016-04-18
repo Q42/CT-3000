@@ -88,7 +88,7 @@ export default Reflux.createStore({
 
         let parsedCode = JSON.parse(JSON.stringify(checkedCode));
         let ci = 0;
-        let checksPassed = checkedCode.checks.reduce((x, y) => {
+        const checksPassed = checkedCode.checks.reduce((x, y) => {
           const valid = this.checkObjectValue(y.object, y.value, y.operator);
           parsedCode.checks[ci].valid = valid === true;
           ci++;
@@ -99,7 +99,7 @@ export default Reflux.createStore({
         if(checksPassed){
           let ai = 0;
           assignmentsDone = checkedCode.assignments.reduce((x, y) => {
-            let objectValue = this.setObjectValue(y.object, y.value);
+            const objectValue = this.setObjectValue(y.object, y.value);
             parsedCode.assignments[ai].valid = objectValue.status === true;
             parsedCode.assignments[ai].value = objectValue.value;
             ai++;
