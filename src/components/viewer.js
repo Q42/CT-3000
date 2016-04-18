@@ -1,6 +1,8 @@
 import React from 'react';
 import Rebase from 're-base';
 
+import LightsComponent from './viewer/lights';
+
 import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../assets/svg/radio-station.svg';
 
@@ -117,9 +119,7 @@ export default class Viewer extends React.Component {
           </div>
         </div>
 
-        <div className="lights">
-          { this.renderLights() }
-        </div>
+        <LightsComponent sessions={ this.state.display.sessions || {} }></LightsComponent>
 
       </div>
     );
@@ -136,42 +136,6 @@ export default class Viewer extends React.Component {
         <div className="user-message" key={ key }>
           <div className="user-name">{ userName } zegt:</div>
           <div className="user-text">{ message.message }</div>
-        </div>
-      );
-    });
-  }
-
-  renderLights() {
-    const sessions = this.state.display.sessions || {};
-
-    return Object.entries(sessions).map(([key, session]) => {
-      let style = {};
-      let borderColor = {};
-      let beamClass = 'beam';
-
-      if(typeof session.light === 'object'){
-        style = {
-          backgroundColor: 'rgb(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ')'
-        };
-        borderColor = {
-          borderColor: 'rgba(' + session.light.r + ',' + session.light.g + ',' + session.light.b + ',0.8)'
-        }
-      }
-      else if(session.light === 'uit') {
-        beamClass += ' light-off';
-        borderColor = {
-          borderColor: 'rgba(180,180,180,0.5)'
-        }
-      }
-
-      const userName = session.name || '';
-      const matches = userName.match(/\b(\w)/g);
-      const acronym = (matches || []).slice(0,2).join('');
-
-      return (
-        <div className="container" key={ key }>
-          <div className="light"><span className="name" style={ borderColor }>{ acronym }</span></div>
-          <div className={ beamClass } style={ style } />
         </div>
       );
     });
