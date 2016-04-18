@@ -18,6 +18,10 @@ export default class TheMatrixComponent extends React.Component {
     }, 100);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.matrixInterval);
+  }
+
   theMatrix() {
     const matrixLength = 225;
 

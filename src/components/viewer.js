@@ -50,7 +50,6 @@ export default class Viewer extends React.Component {
 
   componentWillUnmount() {
     this.base.removeBinding(this.ref);
-    clearInterval(this.matrixInterval);
   }
 
   generateId() {
