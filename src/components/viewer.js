@@ -30,11 +30,11 @@ export default class Viewer extends React.Component {
     this.musicStream = new MusicStream();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
 
     // TODO: Check if music playing user diconnected.
@@ -102,8 +102,7 @@ export default class Viewer extends React.Component {
           </div>
         </div>
 
-        <LightsComponent sessions={ this.state.display.sessions || {} }></LightsComponent>
-
+        <LightsComponent sessions={ this.state.display.sessions || {} } />
       </div>
     );
   }
@@ -111,6 +110,7 @@ export default class Viewer extends React.Component {
   renderMessages() {
     const messages = this.state.display.messages || {};
     const sessions = this.state.display.sessions || {};
+
     return Object.entries(messages).map(([key, message]) => {
       const session = sessions[message.sessionKey] || {};
       const userName = session.name || 'Anoniempje';

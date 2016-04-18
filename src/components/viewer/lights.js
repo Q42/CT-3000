@@ -3,7 +3,6 @@ import React from 'react';
 const lightCount = 48;
 
 export default class LightsComponent extends React.Component {
-
   constructor(props) {
     super(props);
 
