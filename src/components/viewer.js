@@ -37,18 +37,6 @@ export default class Viewer extends React.Component {
     }, 100);
   }
 
-  theMatrix(){
-    const matrixLength = 225;
-
-    let matrix = this.matrixText + '' + Math.round(Math.random());
-    if(matrix.length > matrixLength){
-      matrix = matrix.substring(matrix.length - matrixLength)
-    }
-
-    this.matrixText = matrix;
-    this.refs.matrix.innerHTML = matrix;
-  }
-
   componentDidUpdate(){
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
 
@@ -63,11 +51,7 @@ export default class Viewer extends React.Component {
     this.musicStream.play(stream);
   }
 
-  getStream() {
-    return (this.state.display.music || {}).value || 'uit';
-  }
-
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.base.removeBinding(this.ref);
     clearInterval(this.matrixInterval);
   }
@@ -76,6 +60,22 @@ export default class Viewer extends React.Component {
     const num = Math.floor(Math.random() * 1000000).toString();
     const pad = '000000';
     return pad.slice(num.length) + num;
+  }
+
+  theMatrix() {
+    const matrixLength = 225;
+
+    let matrix = this.matrixText + '' + Math.round(Math.random());
+    if(matrix.length > matrixLength){
+      matrix = matrix.substring(matrix.length - matrixLength)
+    }
+
+    this.matrixText = matrix;
+    this.refs.matrix.innerHTML = matrix;
+  }
+
+  getStream() {
+    return (this.state.display.music || {}).value || 'uit';
   }
 
   render() {
