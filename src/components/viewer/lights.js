@@ -59,8 +59,6 @@ export default class LightsComponent extends React.Component {
         return <div className="placeholder" key={ key }></div>;
       }
 
-      console.log(key, sessionKey);
-
       const session = sessions[sessionKey];
       let style = {};
       let borderColor = {};

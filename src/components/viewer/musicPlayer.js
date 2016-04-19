@@ -15,8 +15,6 @@ export default class TheMatrixComponent extends React.Component {
   }
 
   componentDidUpdate() {
-    this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-
     // TODO: Check if music playing user diconnected.
 
     const stream = this.getStream();
