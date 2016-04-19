@@ -3,11 +3,7 @@ import Rebase from 're-base';
 
 import LightsComponent from './viewer/lights';
 import TheMatrixComponent from './viewer/theMatrix';
-
-import InlineSVG from 'svg-inline-react';
-import svg from '!svg-inline!../assets/svg/radio-station.svg';
-
-import MusicStream from '../classes/musicStream';
+import MusicPlayerComponent from './viewer/musicPlayer';
 
 export default class Viewer extends React.Component {
   constructor(props) {
@@ -26,8 +22,6 @@ export default class Viewer extends React.Component {
       context: this,
       state: 'display'
     });
-
-    this.musicStream = new MusicStream();
   }
 
   componentDidMount() {
@@ -36,16 +30,6 @@ export default class Viewer extends React.Component {
 
   componentDidUpdate() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-
-    // TODO: Check if music playing user diconnected.
-
-    const stream = this.getStream();
-    if(this.currentStream === stream) {
-      return;
-    }
-
-    this.currentStream = stream;
-    this.musicStream.play(stream);
   }
 
   componentWillUnmount() {
@@ -58,20 +42,8 @@ export default class Viewer extends React.Component {
     return pad.slice(num.length) + num;
   }
 
-  getStream() {
-    return (this.state.display.music || {}).value || 'uit';
-  }
-
   render() {
     const sessions = this.state.display.sessions || {};
-    const stream = this.getStream();
-    const streamSessionKey = (this.state.display.music || {}).sessionKey;
-    const session = sessions[streamSessionKey] || {};
-    const userName = session.name || 'Anoniempje';
-    const playing = stream !== 'uit' ?
-                    <div><h3><small>Je luistert nu naar:</small> { stream }</h3><p className="choice-of">de keuze van <strong>{ userName }</strong></p></div> :
-                    <div><h3><small>Geen muziek geselecteerd</small></h3></div>;
-
     const nrSessions = this.state.display.sessions ? Object.keys(sessions).length : 0;
 
     return(
@@ -93,12 +65,7 @@ export default class Viewer extends React.Component {
 
           <TheMatrixComponent />
 
-          <div className={ 'station' + ( stream !== 'uit' ? ' send' : '' ) }>
-            <span className="icon-station" aria-hidden="true">
-              <InlineSVG src={ svg } />
-            </span>
-            { playing }
-          </div>
+          <MusicPlayerComponent music={ this.state.display.music || {} } sessions={ this.state.display.sessions || {} } />
         </div>
 
         <LightsComponent sessions={ this.state.display.sessions || {} } />
