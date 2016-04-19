@@ -82,16 +82,21 @@ export default class EditorPane extends React.Component {
 
   parseUntilLine() {
     const currentLineNr = this.cm.getCursor().line;
+
     this.cm.eachLine(0, currentLineNr, (handle) => {
-      this.parseLine(this.cm.getLineNumber(handle));
+      const lineNr = this.cm.getLineNumber(handle);
+      setTimeout(() => {
+        this.parseLine(this.cm.getLineNumber(handle));
+      }, 10 * lineNr);
     });
 
-    this.parseLine(currentLineNr, true);
+    setTimeout(() => {
+      this.parseLine(currentLineNr, true);
+    }, 10 * currentLineNr);
   }
 
   parseLine(lineNr, assign = false) {
     const lineContent = this.cm.getLine(lineNr);
-
     ObjectActions.parse(lineContent, assign);
   }
 
