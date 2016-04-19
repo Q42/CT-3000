@@ -31,7 +31,7 @@ export default class {
     this.messagesRef = this.displayRef.child('messages');
 
     // Whipe local cache so we recreate all state on a new display
-    this.name = this.message = this.light = this.music = null;
+    this.name = this.light = null;
   }
 
   disconnect() {
