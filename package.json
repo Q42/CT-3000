@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/*",
     "release": "npm run clean && npm run build",
-    "deploy": "cp -r dist/* gh-pages/ && cd gh-pages && git add . && git commit -m \"Release at $(date)\" && git push"
+    "deploy": "gsutil -m rsync -d -r dist gs://www.ct3000.nl"
   },
   "repository": {
     "type": "git",
