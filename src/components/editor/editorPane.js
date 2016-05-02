@@ -21,7 +21,7 @@ export default class EditorPane extends React.Component {
     this.parseUntilLine = this.parseUntilLine.bind(this);
 
     this.lineInterval = null;
-    this.lineTimeoutDuration = 500;
+    this.lineTimeoutDuration = 5000;
 
     this.state = {
       code: '',
@@ -36,6 +36,9 @@ export default class EditorPane extends React.Component {
     });
 
     this.cm = this.refs.editor.getCodeMirror();
+    this.cm.on('cursorActivity', () => {
+      this.parseUntilLine();
+    });
     this.setLineInterval();
 
     // Example 'syntax error':
@@ -44,6 +47,7 @@ export default class EditorPane extends React.Component {
   }
 
   componentWillUnmount() {
+    this.clearLineInterval();
     this.unsubscribe();
   }
 
@@ -82,22 +86,23 @@ export default class EditorPane extends React.Component {
 
   parseUntilLine() {
     const currentLineNr = this.cm.getCursor().line;
+    let lines = {};
 
-    this.cm.eachLine(0, currentLineNr, (handle) => {
+    this.cm.eachLine(0, currentLineNr + 1, (handle) => {
       const lineNr = this.cm.getLineNumber(handle);
-      setTimeout(() => {
-        this.parseLine(this.cm.getLineNumber(handle));
-      }, 10 * lineNr);
+      const line = this.cm.getLine(lineNr);
+
+      if(line && line.length > 0) {
+        lines[lineNr] = {
+          code: line,
+          current: currentLineNr === lineNr
+        }
+      }
     });
 
-    setTimeout(() => {
-      this.parseLine(currentLineNr, true);
-    }, 10 * currentLineNr);
-  }
-
-  parseLine(lineNr, assign = false) {
-    const lineContent = this.cm.getLine(lineNr);
-    ObjectActions.parse(lineContent, assign);
+    if(Object.keys(lines).length > 0) {
+      ObjectActions.parseMulti(lines);
+    }
   }
 
   render() {

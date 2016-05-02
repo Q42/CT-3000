@@ -4,6 +4,7 @@ var ObjectActions = Reflux.createActions({
   initiate: {},
   create: {},
   parse: {},
+  parseMulti: {},
   notifyUpdate: {}
 });
 
