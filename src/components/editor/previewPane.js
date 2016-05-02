@@ -203,6 +203,7 @@ export default class PreviewPane extends React.Component {
       <div className="pane preview-pane">
         { output }
         { this.state.lines }
+        { /*<div className="cpu syntax-error"></div>*/ }
       </div>
     );
   }
