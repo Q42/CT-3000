@@ -138,7 +138,7 @@ export default Reflux.createStore({
           }, true);
 
           let assignmentsDone = false;
-          if(checksPassed){
+          if(checksPassed) {
             let ai = 0;
             assignmentsDone = checkedCode.assignments.reduce((x, y) => {
               const objectValue = this.setObjectValue(y.object, y.value);
