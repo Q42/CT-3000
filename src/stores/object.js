@@ -108,7 +108,7 @@ export default Reflux.createStore({
         this.parseMultiHandle(lines);
       })
       .catch(error => {
-        this.data.failedLines.push(key);
+        this.data.failedLines.push(parseInt(nextKey));
 
         delete lines[nextKey];
         this.parseMultiHandle(lines);
