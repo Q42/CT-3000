@@ -9,6 +9,7 @@ import LanguageObject from '../classes/object';
 export default Reflux.createStore({
   listenables: [ObjectActions],
   parser: new LanguageParser(),
+  tempParsedCode: '',
 
   data:{
     objects: {},
@@ -74,50 +75,86 @@ export default Reflux.createStore({
 
   /* parser methods */
 
-  parse(text, assign = false) {
-    this.parser.parse(text)
+  parseMulti(lines) {
+    this.tempParsedCode = null;
+    this.data.failedLines = [];
+
+    this.parseMultiHandle(lines);
+  },
+
+  parseMultiHandle(lines) {
+    const keys = Object.keys(lines);
+
+    if(keys.length === 0) {
+      if(this.data.failedLines.length > 0 || !Object.is(this.data.parsedCode, this.tempParsedCode)){
+        this.data.parsedCode = this.tempParsedCode;
+        this.trigger(this.data);
+      }
+
+      return;
+    }
+
+    const nextKey = keys[0];
+    const line = lines[nextKey];
+
+    this.parse(line.code)
       .then(result => {
-        if(!result) {
-          return false;
+        if(line.current) {
+          this.tempParsedCode = result;
         }
 
-        let checkedCode = {
-          checks: result.checks ? result.checks.filter(x => this.objectExists(x.object)) : [],
-          assignments: result.assignments ? result.assignments.filter(x => this.objectExists(x.object)) : []
-        };
-
-        let parsedCode = JSON.parse(JSON.stringify(checkedCode));
-        let ci = 0;
-        const checksPassed = checkedCode.checks.reduce((x, y) => {
-          const valid = this.checkObjectValue(y.object, y.value, y.operator);
-          parsedCode.checks[ci].valid = valid === true;
-          ci++;
-          return x && valid;
-        }, true);
-
-        let assignmentsDone = false;
-        if(checksPassed){
-          let ai = 0;
-          assignmentsDone = checkedCode.assignments.reduce((x, y) => {
-            const objectValue = this.setObjectValue(y.object, y.value);
-            parsedCode.assignments[ai].valid = objectValue.status === true;
-            parsedCode.assignments[ai].value = objectValue.value;
-            ai++;
-            return x || objectValue.status;
-          }, false);
-        }
-
-        if(!!assign && !Object.is(this.data.parsedCode, parsedCode)){
-          this.data.parsedCode = parsedCode;
-          this.trigger(this.data);
-        }
+        delete lines[nextKey];
+        this.parseMultiHandle(lines);
       })
       .catch(error => {
-        if(!!assign) {
-          this.data.parsedCode = null;
-          this.trigger(this.data);
-        }
+        this.data.failedLines.push(key);
+
+        delete lines[nextKey];
+        this.parseMultiHandle(lines);
       });
+
+  },
+
+  parse(text) {
+    return new Promise((resolve, reject) => {
+      this.parser.parse(text)
+        .then(result => {
+          if(!result) {
+            return reject();
+          }
+
+          let checkedCode = {
+            checks: result.checks ? result.checks.filter(x => this.objectExists(x.object)) : [],
+            assignments: result.assignments ? result.assignments.filter(x => this.objectExists(x.object)) : []
+          };
+
+          let parsedCode = JSON.parse(JSON.stringify(checkedCode));
+          let ci = 0;
+          const checksPassed = checkedCode.checks.reduce((x, y) => {
+            const valid = this.checkObjectValue(y.object, y.value, y.operator);
+            parsedCode.checks[ci].valid = valid === true;
+            ci++;
+            return x && valid;
+          }, true);
+
+          let assignmentsDone = false;
+          if(checksPassed){
+            let ai = 0;
+            assignmentsDone = checkedCode.assignments.reduce((x, y) => {
+              const objectValue = this.setObjectValue(y.object, y.value);
+              parsedCode.assignments[ai].valid = objectValue.status === true;
+              parsedCode.assignments[ai].value = objectValue.value;
+              ai++;
+              return x || objectValue.status;
+            }, false);
+          }
+          return resolve(parsedCode);
+        })
+        .catch(error => {
+          return reject(error);
+        });
+    });
+
   },
 
   /* helper methods */
