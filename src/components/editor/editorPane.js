@@ -20,9 +20,6 @@ export default class EditorPane extends React.Component {
     this.updateCode = this.updateCode.bind(this);
     this.parseUntilLine = this.parseUntilLine.bind(this);
 
-    this.lineInterval = null;
-    this.lineTimeoutDuration = 500;
-
     this.state = {
       code: '',
       mode: '',
@@ -36,7 +33,9 @@ export default class EditorPane extends React.Component {
     });
 
     this.cm = this.refs.editor.getCodeMirror();
-    this.setLineInterval();
+    this.cm.on('cursorActivity', () => {
+      this.parseUntilLine();
+    });
 
     // Example 'syntax error':
     // const doc = this.cm.getDoc();
@@ -71,33 +70,25 @@ export default class EditorPane extends React.Component {
     });
   }
 
-  setLineInterval() {
-    this.clearLineInterval();
-    this.lineInterval = setInterval(this.parseUntilLine, this.lineTimeoutDuration);
-  }
-
-  clearLineInterval() {
-    clearInterval(this.lineInterval);
-  }
-
   parseUntilLine() {
     const currentLineNr = this.cm.getCursor().line;
+    let lines = {};
 
-    this.cm.eachLine(0, currentLineNr, (handle) => {
+    this.cm.eachLine(0, currentLineNr + 1, (handle) => {
       const lineNr = this.cm.getLineNumber(handle);
-      setTimeout(() => {
-        this.parseLine(this.cm.getLineNumber(handle));
-      }, 10 * lineNr);
+      const line = this.cm.getLine(lineNr);
+
+      if(line && line.length > 0) {
+        lines[lineNr] = {
+          code: line,
+          current: currentLineNr === lineNr
+        }
+      }
     });
 
-    setTimeout(() => {
-      this.parseLine(currentLineNr, true);
-    }, 10 * currentLineNr);
-  }
-
-  parseLine(lineNr, assign = false) {
-    const lineContent = this.cm.getLine(lineNr);
-    ObjectActions.parse(lineContent, assign);
+    if(Object.keys(lines).length > 0) {
+      ObjectActions.parseMulti(lines);
+    }
   }
 
   render() {
