@@ -20,6 +20,9 @@ export default class EditorPane extends React.Component {
     this.updateCode = this.updateCode.bind(this);
     this.parseUntilLine = this.parseUntilLine.bind(this);
 
+    this.lineInterval = null;
+    this.lineTimeoutDuration = 5000;
+
     this.state = {
       code: '',
       mode: '',
@@ -36,6 +39,7 @@ export default class EditorPane extends React.Component {
     this.cm.on('cursorActivity', () => {
       this.parseUntilLine();
     });
+    this.setLineInterval();
 
     // Example 'syntax error':
     // const doc = this.cm.getDoc();
@@ -43,7 +47,17 @@ export default class EditorPane extends React.Component {
   }
 
   componentWillUnmount() {
+    this.clearLineInterval();
     this.unsubscribe();
+  }
+
+  setLineInterval() {
+    this.clearLineInterval();
+    this.lineInterval = setInterval(this.parseUntilLine, this.lineTimeoutDuration);
+  }
+
+  clearLineInterval() {
+    clearInterval(this.lineInterval);
   }
 
   onUpdate(data) {
