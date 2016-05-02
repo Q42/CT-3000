@@ -13,7 +13,8 @@ export default Reflux.createStore({
 
   data:{
     objects: {},
-    parsedCode: null
+    parsedCode: null,
+    failedLines: []
   },
 
   getDefaultData() {
