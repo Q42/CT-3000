@@ -92,7 +92,7 @@ export default class EditorPane extends React.Component {
       const lineNr = this.cm.getLineNumber(handle);
       const line = this.cm.getLine(lineNr);
 
-      if(line && line.length > 0) {
+      if(line && line.trim().length > 0) {
         lines[lineNr] = {
           code: line,
           current: currentLineNr === lineNr
