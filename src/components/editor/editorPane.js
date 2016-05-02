@@ -51,15 +51,6 @@ export default class EditorPane extends React.Component {
     this.unsubscribe();
   }
 
-  setLineInterval() {
-    this.clearLineInterval();
-    this.lineInterval = setInterval(this.parseUntilLine, this.lineTimeoutDuration);
-  }
-
-  clearLineInterval() {
-    clearInterval(this.lineInterval);
-  }
-
   onUpdate(data) {
     if(!this.state.languageInitiated) {
       this.initLanguage();
@@ -82,6 +73,15 @@ export default class EditorPane extends React.Component {
     this.setState({
       code: newCode
     });
+  }
+
+  setLineInterval() {
+    this.clearLineInterval();
+    this.lineInterval = setInterval(this.parseUntilLine, this.lineTimeoutDuration);
+  }
+
+  clearLineInterval() {
+    clearInterval(this.lineInterval);
   }
 
   parseUntilLine() {
