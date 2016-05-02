@@ -88,7 +88,7 @@ export default class EditorPane extends React.Component {
     const currentLineNr = this.cm.getCursor().line;
     let lines = {};
 
-    this.cm.eachLine(0, currentLineNr + 1, (handle) => {
+    this.cm.eachLine(handle => {
       const lineNr = this.cm.getLineNumber(handle);
       const line = this.cm.getLine(lineNr);
 
