@@ -13,6 +13,7 @@ export default class PreviewPane extends React.Component {
     super(props);
     this.state = {
       rowResult: null,
+      failedLines: [],
       lines: [],
       linesDrawForObjectStructureId: ''
     };
@@ -41,7 +42,8 @@ export default class PreviewPane extends React.Component {
 
   onUpdate(data){
     this.setState({
-      rowResult: data.parsedCode
+      rowResult: data.parsedCode,
+      failedLines: data.failedLines
     });
   }
 
@@ -139,6 +141,14 @@ export default class PreviewPane extends React.Component {
   }
 
   render() {
+    if(this.state.failedLines.length > 0) {
+      return (
+        <div className="pane preview-pane">
+          <div className="cpu syntax-error"></div>
+        </div>
+      );
+    }
+
     if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
         return false;
     }
@@ -203,7 +213,6 @@ export default class PreviewPane extends React.Component {
       <div className="pane preview-pane">
         { output }
         { this.state.lines }
-        { /*<div className="cpu syntax-error"></div>*/ }
       </div>
     );
   }
