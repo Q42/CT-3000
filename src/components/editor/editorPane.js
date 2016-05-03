@@ -23,6 +23,8 @@ export default class EditorPane extends React.Component {
     this.lineInterval = null;
     this.lineTimeoutDuration = 5000;
 
+    this.previouslyFailedLines = [];
+
     this.state = {
       code: '',
       mode: '',
@@ -36,14 +38,11 @@ export default class EditorPane extends React.Component {
     });
 
     this.cm = this.refs.editor.getCodeMirror();
+    this.cmDoc = this.cm.getDoc();
     this.cm.on('cursorActivity', () => {
       this.parseUntilLine();
     });
     this.setLineInterval();
-
-    // Example 'syntax error':
-    // const doc = this.cm.getDoc();
-    // doc.addLineClass(0,"wrap","syntax-error");
   }
 
   componentWillUnmount() {
@@ -55,6 +54,21 @@ export default class EditorPane extends React.Component {
     if(!this.state.languageInitiated) {
       this.initLanguage();
     }
+
+    // Remove previous syntax errors
+    this.previouslyFailedLines.map(line => {
+      this.cmDoc.removeLineClass(line, 'wrap', 'syntax-error');
+    });
+
+    // Highlight current syntax errors
+    if(data.failedLines.length > 0) {
+      data.failedLines.map(line => {
+        this.cmDoc.addLineClass(line, 'wrap', 'syntax-error');
+      });
+    }
+
+    // Store for the next parse round
+    this.previouslyFailedLines = data.failedLines;
   }
 
   initLanguage() {
