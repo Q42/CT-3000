@@ -56,13 +56,15 @@ export default class EditorPane extends React.Component {
     }
 
     // Remove previous syntax errors
-    this.previouslyFailedLines.map(line => {
+    const linesToClear = this.previouslyFailedLines.filter(line => !data.failedLines.includes(line));
+    linesToClear.map(line => {
       this.cmDoc.removeLineClass(line, 'wrap', 'syntax-error');
     });
 
     // Highlight current syntax errors
     if(data.failedLines.length > 0) {
-      data.failedLines.map(line => {
+      const linesToAdd = data.failedLines.filter(line => !this.previouslyFailedLines.includes(line));
+      linesToAdd.map(line => {
         this.cmDoc.addLineClass(line, 'wrap', 'syntax-error');
       });
     }
