@@ -26,9 +26,15 @@ export default React.createClass({
             </article>
             <article>
               <h2>Het thema Smart Life</h2>
-              <p>De programmeer-tool CT3000 hoort bij het thema Smart Life, over computional thinking en programmeren. Het thema is ontwikkeld door uitgeverij <a href="http://blink.nl" className="inline-link">Blink</a>, <a href="http://codeuur.nl" className="inline-link">stichting CodeUur</a> en <a href="http://q42.nl" className="inline-link">Q42</a>. Het thema omvat vijf lessen voor groep 5 tot en met 8. Vanuit de lessen wordt verwezen naar de tool.</p>
-              <p>Het thema is te bekijken en te gebruiken in de lesomgeving van Blink. Heb je al een account voor deze omgeving, log dan direct in bij <a href="http://www.blink-studio.nl" className="inline-link">Blink Studio</a>. Heb je nog geen account, maak deze dan gratis aan met de knop hieronder.</p>
-              <a href="http://www.blinkwereld.nl/projectthema-programmeren" className="fat-link"><span>Naar de <em>lessen</em></span></a>
+              <p>De programmeer-tool CT3000 hoort bij het thema Smart Life, over computional thinking en programmeren.
+                Het thema is ontwikkeld door uitgeverij <a href="http://blink.nl" className="inline-link">Blink</a>
+                , <a href="http://codeuur.nl" className="inline-link">stichting CodeUur</a> en <a href="http://q42.nl" className="inline-link">Q42</a>.</p>
+              <p>Het thema Smart Life omvat vijf lessen en is ontwikkeld voor groep 5/6 en
+                7/8. Vanuit de lessen wordt verwezen naar de tool. De lessen en de tool
+                zijn gratis beschikbaar voor alle scholen.</p>
+              <p><i>De lessen zijn gratis beschikbaar via onderstaande de knop. Het thema is
+                ook toegankelijk in de lesomgeving van Blink: <a href="http://www.blink-studio.nl/" className="inline-link">Blink Studio</a>.</i></p>
+              <a href="https://wereld.blink.nl/7-8/smart-life" className="fat-link"><span>Naar de <em>lessen</em></span></a>
             </article>
           </div>
         </div>
