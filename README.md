@@ -44,3 +44,19 @@ gsutil web set -m index.html -e 404.html gs://www.ct3000.nl
 ```
 
 meta redirect van gh-pages to gcs hosting.
+
+## How the parser works
+
+All parsing is handled in the `classes/parser.js` file. A string is tokenized by the `canto34` packages and the tokens are inserted in a promise-tree for parsing. This tree recognizes the following language:
+
+```
+sentence =  statements || if-else-construct
+statements = statement || statement :: and :: statements
+statement = object :: operator :: value
+object = STRING
+operator = '=' || '>' || '<'
+value = STRING || 'string'
+if-else-construct = if :: statements :: then :: statements
+```
+
+The resulting parsed object (if valid) is returned and evaluated. Based on the objects and rules in `classes/parser.js` the new value is assigned (Redux store) and propagated to the corresponding components for rendering.
