@@ -1,8 +1,8 @@
 export default class{
 
   getMode(availableObjects, availableValues){
-    let objectsRegex = new RegExp('(?:' + availableObjects.join('|') + ')\\b');
-    let valuesRegex = new RegExp('(?:' + availableValues.join('|') + ')\\b');
+    let objectsRegex = new RegExp('(?:' + availableObjects.join('|') + ')\\b', 'i');
+    let valuesRegex = new RegExp('(?:' + availableValues.join('|') + ')\\b', 'i');
 
     return {
       // The start state contains the rules that are intially used
