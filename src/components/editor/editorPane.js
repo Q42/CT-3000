@@ -19,6 +19,7 @@ export default class EditorPane extends React.Component {
 
     this.updateCode = this.updateCode.bind(this);
     this.parseUntilLine = this.parseUntilLine.bind(this);
+    this.initAudio = this.initAudio.bind(this);
 
     this.lineInterval = null;
     this.lineTimeoutDuration = 5000;
@@ -28,7 +29,8 @@ export default class EditorPane extends React.Component {
     this.state = {
       code: '',
       mode: '',
-      languageInitiated: false
+      languageInitiated: false,
+      audioIsInitialized : false
     };
   }
 
@@ -85,9 +87,20 @@ export default class EditorPane extends React.Component {
     });
   }
 
+  initAudio() {
+    if(this.state.audioIsInitialized) {
+      return;
+    }
+
+    window.
+    console.log('initAudio');
+
+
+  }
+
   updateCode(newCode) {
     this.setState({
-      code: newCode
+      code: newCode.toLowerCase()
     });
   }
 
@@ -133,7 +146,7 @@ export default class EditorPane extends React.Component {
     };
 
     return (
-      <div className="pane editor-pane">
+      <div className="pane editor-pane" onTouchStart={ this.props.initAudio } onClick={ this.props.initAudio }>
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
       </div>
     );
