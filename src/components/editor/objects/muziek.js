@@ -4,13 +4,15 @@ import BaseObject from './_baseObject';
 import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../../../assets/svg/sending.svg';
 
+import MusicStream from '../../../classes/musicStream';
+
 class Muziek extends React.Component {
   componentWillMount() {
     if(!this.props.main) {
       return;
     }
 
-    this.musicStream = this.props.audio;
+    this.musicStream = new MusicStream();
   }
 
   componentDidUpdate(){

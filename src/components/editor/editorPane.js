@@ -28,8 +28,7 @@ export default class EditorPane extends React.Component {
     this.state = {
       code: '',
       mode: '',
-      languageInitiated: false,
-      audioIsInitialized : false
+      languageInitiated: false
     };
   }
 
@@ -134,7 +133,7 @@ export default class EditorPane extends React.Component {
     };
 
     return (
-      <div className="pane editor-pane" onTouchStart={ this.props.initAudio } onClick={ this.props.initAudio }>
+      <div className="pane editor-pane">
         <Codemirror ref="editor" value={ this.state.code } onChange={ this.updateCode } options={ options } />
       </div>
     );

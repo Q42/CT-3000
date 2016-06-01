@@ -52,7 +52,7 @@ export default React.createClass ({
                 const ObjectInstance = Objects[this.state.elements[i].name];
                 return (
                   <div key={i} style={{ transform: 'scale(' + style.scale + ') translateY(' + style.x + 'px)'}} >
-                    <ObjectInstance main={ true } audio={ this.props.audio } />
+                    <ObjectInstance main={ true } />
                   </div>);
               })}
             </div>

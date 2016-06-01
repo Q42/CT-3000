@@ -7,7 +7,6 @@ import StatusBarComponent from './editor/statusBar.js';
 
 import ObjectActions from '../actions/object';
 import Firebase from '../classes/firebase';
-import MusicStream from '../classes/musicStream';
 
 export default React.createClass({
 
@@ -16,7 +15,6 @@ export default React.createClass({
     ObjectActions.initiate(languageConfig);
 
     this.firebase = new Firebase();
-    this.audio = new MusicStream();
   },
 
   render() {
@@ -24,10 +22,10 @@ export default React.createClass({
       <div className="editor">
         <HeaderComponent />
         <div className="panes">
-          <EditorPaneComponent initAudio={ () => this.audio.init() }/>
+          <EditorPaneComponent />
           <PreviewPaneComponent />
         </div>
-        <StatusBarComponent audio={ this.audio } />
+        <StatusBarComponent />
       </div>
     );
   }
