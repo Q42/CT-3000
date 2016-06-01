@@ -19,7 +19,6 @@ export default class EditorPane extends React.Component {
 
     this.updateCode = this.updateCode.bind(this);
     this.parseUntilLine = this.parseUntilLine.bind(this);
-    this.initAudio = this.initAudio.bind(this);
 
     this.lineInterval = null;
     this.lineTimeoutDuration = 5000;
@@ -87,20 +86,9 @@ export default class EditorPane extends React.Component {
     });
   }
 
-  initAudio() {
-    if(this.state.audioIsInitialized) {
-      return;
-    }
-
-    window.
-    console.log('initAudio');
-
-
-  }
-
   updateCode(newCode) {
     this.setState({
-      code: newCode.toLowerCase()
+      code: newCode
     });
   }
 
