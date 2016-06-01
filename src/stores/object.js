@@ -161,7 +161,10 @@ export default Reflux.createStore({
   /* helper methods */
 
   getAvailableObjects(){
-    return Object.keys(this.data.objects).sort();
+    const keys = Object.keys(this.data.objects).sort();
+    const keysToUpper = keys.map(x => x.toUpperCase());
+
+    return keys.concat(keysToUpper);
   },
 
   getAvailableValues(){
@@ -169,9 +172,12 @@ export default Reflux.createStore({
     for(let key in this.data.objects){
       objects.push(this.data.objects[key]);
     }
-    return objects.reduce((x, y) => {
+    const values = objects.reduce((x, y) => {
       return x.concat(y.getPossibleValues());
     }, []);
+    const valuesToUpper = values.map(x => x.toUpperCase());
+
+    return values.concat(valuesToUpper);
   },
 
   getValuesForObject(key){
