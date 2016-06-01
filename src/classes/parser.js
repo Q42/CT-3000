@@ -13,7 +13,7 @@ export default class {
   parse(text){
     let tokens;
     try{
-      tokens = this.lexer.tokenize(text);
+      tokens = this.lexer.tokenize(text.toLowerCase());
     }catch(e){
       return new Promise.reject();
     }
