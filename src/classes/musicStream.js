@@ -1,3 +1,5 @@
+import emptySound from '!file!../assets/sound/empty.mp3';
+
 export default class {
   constructor() {
     this.audio = new Audio();
@@ -9,6 +11,16 @@ export default class {
       'klassiek'  : 'http://icecast.omroep.nl/radio4-bb-mp3',
       'jazz'      : 'http://icecast.omroep.nl/radio6-bb-mp3'
     };
+
+    this.init = this.init.bind(this);
+    document.addEventListener('touchstart', this.init);
+  }
+
+  init() {
+    this.audio.src = emptySound;
+    this.audio.play();
+
+    document.removeEventListener('touchstart', this.init);
   }
 
   play(streamKey) {
