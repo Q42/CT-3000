@@ -1,3 +1,3 @@
-export default config = {
-  language: 'nl'
+export default {
+  language: 'en'
 }
