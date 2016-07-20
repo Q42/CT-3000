@@ -55,7 +55,7 @@ When the door opens at night, welcome home!
 als deur = open en tijd > 17:00 dan lamp = aan en muziek = jazz en bericht = "Welkom thuis!"
 ```
 
-## Installing
+## Developing
 
 Clone the repo, cd into it and install dependencies:
 ```
@@ -63,8 +63,6 @@ git clone git@github.com:q42/ct-3000.git
 cd ct-3000
 npm install
 ```
-
-## Developing
 
 Start your development environment on http://localhost:8000:
 ```
