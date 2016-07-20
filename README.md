@@ -68,3 +68,7 @@ Step 2: serve index.html (when root is accessed) and 404.html (when page not fou
 ```
 gsutil web set -m index.html -e 404.html gs://www.ct3000.nl
 ```
+
+## License
+
+This project is licensed under the terms of the MIT license.
