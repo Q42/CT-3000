@@ -1,7 +1,7 @@
 # CT-3000
-Tool for Computational Thinking classes for children age 8 to 12. See it working at [www.ct3000.nl](http://www.ct3000.nl/#/tool). Built by [Q42](https://www.q42.com) together with [Blink](https://www.blink.nl/educatie) and [CodeUur](http://www.codeuur.nl).
+Tool for Computational Thinking classes for children age 8 to 12.  Built by [Q42](https://www.q42.com) together with [Blink](https://www.blink.nl/educatie) and [CodeUur](http://www.codeuur.nl).
 
-Accompanying classroom material is available for free at https://wereld.blink.nl/7-8/smart-life. It contains preparation material, handouts and digibord presentations to fill five hours of class. Be aware it's all in Dutch!
+At the moment it's built as a tool to accompany classroom material that explains the working in handouts and on the smartboard. That material is also available for free, at https://wereld.blink.nl/7-8/smart-life. It contains preparation material, handouts and digibord presentations to fill five hours of class. Be aware it's all in Dutch!
 
 Interested in this project? Mail  [lukas@q42.nl](mailto:lukas@q42.nl).
 
@@ -14,6 +14,8 @@ On the other hand, getting into Javascript, Python, Ruby or whatever other progr
 So we set out to build a tool that's in between. Children are introduced to the concept of variables and IF-THEN statements. In their own language, with minimal syntax difficulties. That makes it limiting, but also powerful in a classroom setting where the teacher doesn't necessarily know programming, but can give the class anyway.
 
 ## Working with CT-3000
+
+You can see it working at [www.ct3000.nl](http://www.ct3000.nl/#/tool). Mind you, there is no explanation of how it works, that's given in [the accompanying classroom material](https://wereld.blink.nl/7-8/smart-life). Here's a short summary so you don't have to plough through it.
 
 When you open the editor, at the bottom you see all your variables and their state after running your code.
 
