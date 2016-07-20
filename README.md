@@ -1,5 +1,5 @@
 # CT-3000
-Tool for Computational Thinking classes for children age 8 to 12. Built by [Q42](https://www.q42.com) together with [Blink](https://www.blink.nl/educatie) and [CodeUur](http://www.codeuur.nl).
+Tool for Computational Thinking classes for children age 8 to 12. See it working at [www.ct3000.nl](http://www.ct3000.nl/#/tool). Built by [Q42](https://www.q42.com) together with [Blink](https://www.blink.nl/educatie) and [CodeUur](http://www.codeuur.nl).
 
 Accompanying classroom material is available for free at https://wereld.blink.nl/7-8/smart-life. It contains preparation material, handouts and digibord presentations to fill five hours of class. Be aware it's all in Dutch!
 
@@ -23,7 +23,7 @@ In the code editor, type `deur = open`. As you can see in the variables, the doo
 
 Now on the next line, type `als deur = open dan kat = buiten`. In the preview, you'll see that the computer notices that the door is open, and let's the cat outside.
 
-There are a lot more options, just try out the cheat sheet below. You can even play internet radio! 
+There are a lot more options, just try out the cheat sheet below. You can even play internet radio!
 
 ### Cheat sheet
 ```
