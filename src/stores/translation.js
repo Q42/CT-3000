@@ -1,38 +1,27 @@
+import Reflux from 'reflux';
+import Promise from 'promise';
 import Config from '../config/config'
 
-export default class {
+export default Reflux.createStore({
+  // defaults
 
-  constructor() {
+  // {'deur': 'door',...}
+  mappingClassToUI: {},
+
+  // {'door': 'deur',...}
+  mappingUIToClass: {},
+
+  //{'if':'als',...}
+  mappingKeywords: {},
+
+  init() {
     this.language = Config.language;
     this.languageConfig = require('json!../config/language-' + this.language);
     this.languageConfigNL = require('json!../config/language-nl');
-    // maps keywords if, then, and
-    //{'if':'als',...}
     this.mappingKeywords = this.languageConfig.keywords
     this.fillMappings();
-  }
+  },
 
-  getConfig() {
-    return this.languageConfig;
-  }
-
-  translateClassToUI(input) {
-    console.log('class to ui', input, this.mappingClassToUI[input]);
-    return this.mappingClassToUI[input];
-  }
-
-  translateUIToClass(input) {
-    console.log('ui to class', input, this.mappingUIToClass[input]);
-    return this.mappingUIToClass[input];
-  }
-
-  translateKeywordToUI(input) {
-    return this.mappingKeywords[input];
-  }
-
-  // maps UI words to classnames, and vice versa
-  // {'deur': 'door',...}
-  // {'door': 'deur',...}
   fillMappings() {
     let mappingClassToUI = [];
     let mappingUIToClass = [];
@@ -51,4 +40,4 @@ export default class {
     this.mappingUIToClass = mappingUIToClass;
   }
 
-}
+});
