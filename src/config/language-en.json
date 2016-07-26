@@ -1,4 +1,12 @@
 {
+  "keywords": {
+    "if": "if",
+    "then": "then",
+    "and": "and",
+    "equals": "=",
+    "greater": ">",
+    "smaller": "<"
+  },
   "objects": [
     {
       "name": "digibord",

@@ -1,44 +1,54 @@
+import Config from '../config/config'
 
-export function translateToUI(input, language) {
-  if (language == "nl") return input;
-  return translations[language][input];
-}
+export default class {
 
-export function translateFromUI(input, language) {
-  if (language == "nl") return input;
-  const translation = translations[language];
-  for (var key in translation) {
-    if (typeof key == 'string' && translation[key] == input)
-      return key;
+  constructor() {
+    this.language = Config.language;
+    this.languageConfig = require('json!../config/language-' + this.language);
+    this.languageConfigNL = require('json!../config/language-nl');
+    // maps keywords if, then, and
+    //{'if':'als',...}
+    this.mappingKeywords = this.languageConfig.keywords
+    this.fillMappings();
   }
-  return null;
-}
 
-const translations = {
-  'en': {
-    'lamp': 'lamp',
-    'deur': 'door',
-    'bericht': 'message',
-    'tijd': 'time',
-    'muziek': 'music',
-    'kat': 'cat',
-    'weer': 'weather',
-    'goed': 'good',
-    'slecht': 'bad',
-    'binnen': 'inside',
-    'buiten': 'outside',
-    'aan': 'on',
-    'uit': 'off',
-    'klassiek': 'classical',
-    'open': 'open',
-    'dicht': 'closed',
-    'sky': 'sky',
-    'jazz': 'jazz',
-    '3fm': '3fm',
-    '=': '=',
-    '>': '>',
-    '<': '<',
-    'als': 'als',
-    'en': 'en'
+  getConfig() {
+    return this.languageConfig;
   }
+
+  translateClassToUI(input) {
+    console.log('class to ui', input, this.mappingClassToUI[input]);
+    return this.mappingClassToUI[input];
+  }
+
+  translateUIToClass(input) {
+    console.log('ui to class', input, this.mappingUIToClass[input]);
+    return this.mappingUIToClass[input];
+  }
+
+  translateKeywordToUI(input) {
+    return this.mappingKeywords[input];
+  }
+
+  // maps UI words to classnames, and vice versa
+  // {'deur': 'door',...}
+  // {'door': 'deur',...}
+  fillMappings() {
+    let mappingClassToUI = [];
+    let mappingUIToClass = [];
+    this.languageConfigNL.objects.forEach((nl, i) => {
+      let translation = this.languageConfig.objects[i];
+      mappingClassToUI[nl.name] = translation.name;
+      mappingUIToClass[translation.name] = nl.name;
+      nl.values && nl.values.forEach((v, j) => {
+        let translationValue = translation.values[j];
+        mappingClassToUI[v] = translationValue;
+        mappingUIToClass[translationValue] = v;
+      })
+    });
+    console.log('filled mappings', mappingClassToUI);
+    this.mappingClassToUI = mappingClassToUI;
+    this.mappingUIToClass = mappingUIToClass;
+  }
+
 }
