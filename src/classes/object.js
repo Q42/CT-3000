@@ -223,7 +223,7 @@ export default class {
 
         const regex = /^\(([0-9]+),([0-9]+),([0-9]+)\)$/;
         const [,r,g,b] = value.match(regex);
-        
+
         return {
           r: r,
           g: g,
