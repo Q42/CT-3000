@@ -7,6 +7,7 @@ import * as Objects from './objects/_index';
 
 import ObjectActions from '../../actions/object';
 import ObjectStore from '../../stores/object';
+import TranslationStore from '../../stores/translation'
 
 export default class PreviewPane extends React.Component {
   constructor(props) {
@@ -150,12 +151,12 @@ export default class PreviewPane extends React.Component {
     }
 
     if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
-        return false;
+      return false;
     }
 
     let allChecksValid = true;
     const checks = this.state.rowResult.checks.map((check, i) => {
-      const ObjectRef = Objects[this.capitalizeFirstLetter(check.object)];
+      const ObjectRef = Objects[this.capitalizeFirstLetter(TranslationStore.mappingUIToClass[check.object])];
       if(!ObjectRef) return false;
 
       if(!check.valid)
@@ -166,7 +167,7 @@ export default class PreviewPane extends React.Component {
     });
 
     const assignments = this.state.rowResult.assignments.map((assignment, i) => {
-      const ObjectRef = Objects[this.capitalizeFirstLetter(assignment.object)];
+      const ObjectRef = Objects[this.capitalizeFirstLetter(TranslationStore.mappingUIToClass[assignment.object])];
       if(!ObjectRef) return false;
 
       const classNames = 'assignment' + (assignment.valid ? ' valid' : '');
