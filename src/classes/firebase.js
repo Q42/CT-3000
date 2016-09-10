@@ -6,7 +6,7 @@ import SessionStore from '../stores/session';
 export default class {
   constructor() {
     this.sessionKey = SessionStore.sessionKey || '';
-    this.firebase = new Firebase('https://blink-ct.firebaseio.com/classes/');
+    this.firebase = null;
     this.displayRef = null;
     this.sessionRef = null;
     this.messagesRef = null;
@@ -20,15 +20,20 @@ export default class {
     this.messageTimeout = null;
     this.messageRef = null;
 
+    // listen to updated objects, activating firebase when digibord is used
     this.unsubscribeObjectStore = ObjectStore.listen(this.onObjectUpdate.bind(this));
     window.addEventListener('unload', this.disconnect.bind(this));
   }
 
   connect() {
-    // Initialise all firebase references
-    this.displayRef = this.firebase.child(this.classId + '/display');
-    this.sessionRef = this.displayRef.child('sessions/' + this.sessionKey);
-    this.messagesRef = this.displayRef.child('messages');
+    if (!this.firebase) {
+      this.firebase = new Firebase('https://blink-ct.firebaseio.com/classes/')
+
+      // Initialise all firebase references
+      this.displayRef = this.firebase.child(this.classId + '/display');
+      this.sessionRef = this.displayRef.child('sessions/' + this.sessionKey);
+      this.messagesRef = this.displayRef.child('messages');
+    }
 
     // Whipe local cache so we recreate all state on a new display
     this.name = this.light = null;
