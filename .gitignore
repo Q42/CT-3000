@@ -5,3 +5,4 @@ dist/
 
 // OS X junk
 .DS_Store
+npm-debug.log
