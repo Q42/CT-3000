@@ -8,6 +8,7 @@ import MusicPlayerComponent from './viewer/musicPlayer';
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
+    TranslationStore.setLanguage(props.params.language);
 
     this.state = {
       display: {},

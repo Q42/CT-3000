@@ -1,6 +1,5 @@
 import Reflux from 'reflux';
 import Promise from 'promise';
-import Config from '../config/config'
 
 export default Reflux.createStore({
   // defaults
@@ -15,11 +14,30 @@ export default Reflux.createStore({
   mappingKeywords: {},
 
   init() {
-    this.language = Config.language;
-    this.languageConfig = require('json!../config/language-' + this.language);
+    this.language = null;
     this.languageConfigNL = require('json!../config/language-nl');
-    this.mappingKeywords = this.languageConfig.keywords
-    this.fillMappings();
+  },
+
+  setLanguage(language) {
+    if (language != this.language) {
+      this.language = language;
+      this.languageConfig = require('json!../config/language-' + this.language);
+      this.mappingKeywords = this.languageConfig.keywords
+      this.fillMappings();
+    }
+  },
+
+  getLanguage() {
+    return new Promise((resolve, reject) => {
+      let checkIt = () => {
+        if (!this.language){
+          setTimeout(checkIt, 200);
+        } else {
+          resolve(this.language);
+        }
+      }
+      checkIt()
+    });
   },
 
   fillMappings() {

@@ -8,7 +8,13 @@ export default class {
     this.lexer = new canto34.Lexer();
     this.parser = new canto34.Parser();
 
-    this.setupTokens();
+    TranslationStore.getLanguage()
+      .then(result => {
+        this.setupTokens();
+      })
+      .catch(error => {
+        console.error('No language', error);
+      });
   }
 
   parse(text){
@@ -24,7 +30,7 @@ export default class {
     }
   }
 
-  setupTokens(){
+  setupTokens() {
     let types = canto34.StandardTokenTypes;
 
     this.lexer.addTokenType(types.whitespace('ws'));

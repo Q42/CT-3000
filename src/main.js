@@ -26,8 +26,8 @@ render((
   <Router history={ appHistory }>
     <Route path="/" component={App}>
       <IndexRoute component={ LandingPageComponent } />
-      <Route path="tool" component={ EditorComponent } />
-      <Route path="digibord" component={ ViewerComponent } />
+      <Route path=":language/tool" component={ EditorComponent } />
+      <Route path=":language/digibord" component={ ViewerComponent } />
     </Route>
   </Router>
 ), document.getElementById('container'));
