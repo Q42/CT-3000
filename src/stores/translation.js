@@ -2,7 +2,11 @@ import Reflux from 'reflux';
 import Promise from 'promise';
 
 export default Reflux.createStore({
-  // defaults
+  languages : [
+    {code: 'nl', flag: require('../assets/img/flags/NL.png') },
+    {code: 'en', flag: require('../assets/img/flags/GB.png') },
+    {code: 'de', flag: require('../assets/img/flags/DE.png') }
+  ],
 
   // {'deur': 'door',...}
   mappingClassToUI: {},
@@ -53,7 +57,6 @@ export default Reflux.createStore({
         mappingUIToClass[translationValue] = v;
       })
     });
-    console.log('filled mappings', mappingClassToUI);
     this.mappingClassToUI = mappingClassToUI;
     this.mappingUIToClass = mappingUIToClass;
   }
