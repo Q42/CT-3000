@@ -5,7 +5,14 @@
     "and": "und",
     "equals": "=",
     "greater": ">",
-    "smaller": "<"
+    "smaller": "<",
+    "user": "TODO",
+    "users": "TODO",
+    "noMusic": "TODO",
+    "nowListeningTo": "TODO",
+    "musicChosenBy": "TODO",
+    "anonymousUser": "TODO",
+    "says": "TODO"
   },
   "objects": [
     {

@@ -26,7 +26,7 @@ export default Reflux.createStore({
     if (language != this.language) {
       this.language = language;
       this.languageConfig = require('json!../config/language-' + this.language);
-      this.mappingKeywords = this.languageConfig.keywords
+      this.mappingKeywords = this.languageConfig.keywords;
       this.fillMappings();
     }
   },

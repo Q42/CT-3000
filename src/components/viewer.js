@@ -5,6 +5,8 @@ import LightsComponent from './viewer/lights';
 import TheMatrixComponent from './viewer/theMatrix';
 import MusicPlayerComponent from './viewer/musicPlayer';
 
+import TranslationStore from '../stores/translation';
+
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ export default class Viewer extends React.Component {
           <div className="diagonal-thingy" aria-hidden="true"></div>
 
           <h2 className="header-init">
-            <span className="class-id">Digibord ID: { this.state.classId }</span>
+            <span className="class-id">{ TranslationStore.mappingClassToUI.digibord } = { this.state.classId }</span>
           </h2>
 
           <div ref="chat" className="chat">
@@ -61,7 +63,7 @@ export default class Viewer extends React.Component {
           </div>
 
           <div className="users-total">
-            <h3>{ nrSessions } gebruiker{ nrSessions !== 1 ? 's' : '' }</h3>
+            <h3>{ nrSessions } { nrSessions == 1 ? TranslationStore.mappingKeywords.user : TranslationStore.mappingKeywords.users }</h3>
           </div>
 
           <TheMatrixComponent />
@@ -80,11 +82,11 @@ export default class Viewer extends React.Component {
 
     return Object.entries(messages).map(([key, message]) => {
       const session = sessions[message.sessionKey] || {};
-      const userName = session.name || 'Anoniempje';
+      const userName = session.name || TranslationStore.mappingKeywords.anonymousUser;
 
       return (
         <div className="user-message" key={ key }>
-          <div className="user-name">{ userName } zegt:</div>
+          <div className="user-name">{ userName } { TranslationStore.mappingKeywords.says }:</div>
           <div className="user-text">{ message.message }</div>
         </div>
       );
