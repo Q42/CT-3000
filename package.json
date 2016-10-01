@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/*",
     "release": "npm run clean && npm run build",
-    "deploy":"mv dist/* ../blink-ct-release && cd ../blink-ct-release && git add * && git commit -m 'new deploy' && git push origin gh-pages",
+    "deploy": "mv dist/* ../blink-ct-release && cd ../blink-ct-release && git add * && git commit -m 'new deploy' && git push origin gh-pages",
     "deployToCT3000": "gsutil -m rsync -d -r dist gs://www.ct3000.nl"
   },
   "repository": {
@@ -42,6 +42,7 @@
     "svg-inline-react": "^1.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^6.5.0",
     "babel-core": "^6.5.1",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.2",
