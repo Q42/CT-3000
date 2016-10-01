@@ -10,11 +10,11 @@
     "musicChosenBy": "de keuze van",
     "anonymousUser": "Anoniempje",
     "says": "zegt",
-    "tooltipValues": "kies uit",
-    "tooltipNumber": "een getal",
-    "tooltipText": "tekst omsingeld door \"",
-    "tooltipTime": "voor of na een tijdstip",
-    "tooltipRgb": "een kleur in (rood,groen,blauw), waar elke kleur tussen 0 en 255 ligt"
+    "tooltipValues": "Kies uit",
+    "tooltipNumber": "Een getal",
+    "tooltipText": "Tekst omsingeld door \"",
+    "tooltipTime": "Voor of na een tijdstip",
+    "tooltipRgb": "Een kleur in (rood,groen,blauw), waar elke kleur tussen 0 en 255 ligt. aan en uit mogen ook."
   },
   "objects": [
     {
