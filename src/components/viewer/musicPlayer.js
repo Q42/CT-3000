@@ -9,6 +9,9 @@ import TranslationStore from '../../stores/translation';
 export default class MusicPlayerComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      valueOff: TranslationStore.mappingClassToUI['uit']
+    }
   }
 
   componentWillMount() {
@@ -28,14 +31,14 @@ export default class MusicPlayerComponent extends React.Component {
   }
 
   getStream() {
-    return this.props.music.value || 'uit';
+    return this.props.music.value || this.state.valueOff;
   }
 
   render() {
     const stream = this.getStream();
 
     return(
-      <div className={ 'station' + ( stream !== 'uit' ? ' send' : '' ) }>
+      <div className={ 'station' + ( stream !== this.state.valueOff ? ' send' : '' ) }>
         <span className="icon-station" aria-hidden="true">
           <InlineSVG src={ svg } />
         </span>
@@ -45,7 +48,7 @@ export default class MusicPlayerComponent extends React.Component {
   }
 
   renderNowPlaying(stream) {
-    if(stream === 'uit') {
+    if(stream === this.state.valueOff) {
       return (
         <div>
           <h3>

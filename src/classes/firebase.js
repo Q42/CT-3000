@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 
 import ObjectStore from '../stores/object';
 import SessionStore from '../stores/session';
+import TranslationStore from '../stores/translation';
 
 export default class {
   constructor() {
@@ -62,7 +63,11 @@ export default class {
       return;
     }
 
-    const { bericht, digibord, lamp, muziek, naam } = data.objects;
+    const digibord = data.objects[TranslationStore.mappingClassToUI['digibord']];
+    const naam = data.objects[TranslationStore.mappingClassToUI['naam']];
+    const bericht = data.objects[TranslationStore.mappingClassToUI['bericht']];
+    const muziek = data.objects[TranslationStore.mappingClassToUI['muziek']];
+    const lamp = data.objects[TranslationStore.mappingClassToUI['lamp']];
 
     this.updateConnection(digibord);
 
