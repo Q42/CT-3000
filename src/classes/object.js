@@ -1,4 +1,5 @@
 import ObjectActions from '../actions/object';
+import TranslationStore from '../stores/translation';
 
 export default class {
 
@@ -30,7 +31,7 @@ export default class {
           }
 
           if (!this.tooltip) {
-            this.tooltip = "kies uit " + data.values.join(', ');
+            this.tooltip = TranslationStore.mappingKeywords.tooltipValues + " " + data.values.join(', ');
           }
           if (!this.example) {
             this.example = data.values[1];
@@ -59,7 +60,7 @@ export default class {
         }
 
         if (!this.tooltip) {
-          this.tooltip = "een getal";
+          this.tooltip = TranslationStore.mappingKeywords.tooltipNumber;
         }
         if (!this.example) {
           this.example = "123456";
@@ -74,7 +75,7 @@ export default class {
           this.state = data.default;
 
         if (!this.tooltip) {
-          this.tooltip = "tekst omsingeld door \"";
+          this.tooltip = TranslationStore.mappingKeywords.tooltipText;
         }
         if (!this.example) {
           this.example = "\"hallo\"";
@@ -120,7 +121,7 @@ export default class {
         };
 
         if (!this.tooltip) {
-          this.tooltip = "voor of na een tijdstip";
+          this.tooltip = TranslationStore.mappingKeywords.tooltipTime;
         }
         if (!this.example) {
           this.example = "12:00";
@@ -148,7 +149,7 @@ export default class {
         }
 
         if (!this.tooltip) {
-          this.tooltip = "een kleur in (rood,groen,blauw), waar welke kleur tussen 0 en 255 ligt";
+          this.tooltip = TranslationStore.mappingKeywords.tooltipRgb;
         }
         if (!this.example) {
           this.example = "(255,100,0)";

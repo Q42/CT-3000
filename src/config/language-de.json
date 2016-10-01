@@ -9,7 +9,12 @@
     "nowListeningTo": "TODO",
     "musicChosenBy": "TODO",
     "anonymousUser": "TODO",
-    "says": "TODO"
+    "says": "TODO",
+    "tooltipValues": "TODO",
+    "tooltipNumber": "TODO",
+    "tooltipText": "TODO",
+    "tooltipTime": "TODO",
+    "tooltipRgb": "TODO"
   },
   "objects": [
     {
