@@ -10,11 +10,11 @@
     "musicChosenBy": "chosen by",
     "anonymousUser": "Anonymous",
     "says": "says",
-    "tooltipValues": "choose from",
-    "tooltipNumber": "a number",
-    "tooltipText": "text between quotes",
-    "tooltipTime": "before or after a time",
-    "tooltipRgb": "a color in (red, green, blue), where each color is between 0 and 255"
+    "tooltipValues": "Choose from",
+    "tooltipNumber": "A number",
+    "tooltipText": "Text between quotes",
+    "tooltipTime": "Before or after a time",
+    "tooltipRgb": "A color in (red, green, blue), where each color is between 0 and 255. on and off are also possible"
   },
   "objects": [
     {
