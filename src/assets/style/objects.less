@@ -75,6 +75,33 @@
     display: block;
   }
 
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100px;
+    padding: 10px;
+    text-align: left;
+    left: 30px;
+    width: 270px;
+    line-height: normal;
+    background-color: #272822;
+    color: #f8f8f2;
+    border: 4px solid #636363;
+    border-radius: 8px;
+    line-height: 1.8;
+    z-index: 99;
+    .object-name {
+      color: #66d9ef;
+    }
+    .object-value {
+      color: #ae81ff;
+    }
+  }
+  &:hover .tooltip, &.hover .tooltip {
+    display: block;
+  }
+
+
   &.lamp {
     background: @icon-orange;
     &.rgb {
@@ -123,6 +150,9 @@
     background: @icon-yellow;
     position: relative;
     z-index: 10;
+    .tooltip .object-value {
+      color: #e6db74;
+    }
     .message .connected {
       right: -32px;
       top: -32px;

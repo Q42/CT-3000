@@ -7,6 +7,8 @@ export default class {
       return;
 
     this.name = data.name;
+    this.tooltip = data.tooltip;
+    this.example = data.example;
     this.allowedOperators = ['='];
 
     this.equals = (value) => {
@@ -25,6 +27,13 @@ export default class {
             this.state = data.default;
           }else if(this.values.length > 0){
             this.state = this.values[0];
+          }
+
+          if (!this.tooltip) {
+            this.tooltip = "kies uit " + data.values.join(', ');
+          }
+          if (!this.example) {
+            this.example = data.values[1];
           }
         }else{
           if(data.default && typeof data.default === 'string')
@@ -49,6 +58,13 @@ export default class {
             this.state = data.default;
         }
 
+        if (!this.tooltip) {
+          this.tooltip = "een getal";
+        }
+        if (!this.example) {
+          this.example = "123456";
+        }
+
         break;
       case 'text':
         this.type = 'text';
@@ -56,6 +72,13 @@ export default class {
 
         if(data.default && typeof data.default === 'string')
           this.state = data.default;
+
+        if (!this.tooltip) {
+          this.tooltip = "tekst omsingeld door \"";
+        }
+        if (!this.example) {
+          this.example = "\"hallo\"";
+        }
 
         break;
       case 'time':
@@ -96,6 +119,13 @@ export default class {
           return d.getHours() < h || (d.getHours() === h && d.getMinutes() < m);
         };
 
+        if (!this.tooltip) {
+          this.tooltip = "voor of na een tijdstip";
+        }
+        if (!this.example) {
+          this.example = "12:00";
+        }
+
         setInterval(() => {
           this.state += 60000;
           ObjectActions.notifyUpdate(this.name);
@@ -115,6 +145,13 @@ export default class {
         }else{
           if(data.default && typeof data.default === 'string')
             this.state = data.default;
+        }
+
+        if (!this.tooltip) {
+          this.tooltip = "een kleur in (rood,groen,blauw), waar welke kleur tussen 0 en 255 ligt";
+        }
+        if (!this.example) {
+          this.example = "(255,100,0)";
         }
 
         break;

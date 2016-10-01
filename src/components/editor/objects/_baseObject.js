@@ -48,6 +48,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     ];
 
     const object = this.state.object;
+    let exampleOperator = "="
     if(object) {
       const state = object.state;
       if(object.type == 'rgb' && typeof state === 'object') {
@@ -65,10 +66,22 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
       {
         classNames.push('int-' + state);
       }
+      else if(object.type == 'time')
+      {
+        exampleOperator = "<";
+      }
     }
+    // console.log(object);
 
     return (
       <div className={classNames.join(' ')}>
+        <div className="tooltip">
+          <div className="object-name">{ object.name }</div>
+          { object.tooltip }
+          <div className="object-example">
+            <span className="object-name">{ object.name }</span> { exampleOperator } <span className="object-value">{ object.example }</span>
+          </div>
+        </div>
         <ComposedComponent { ...this.props } { ...this.state } />
       </div>
     );
