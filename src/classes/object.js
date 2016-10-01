@@ -78,7 +78,7 @@ export default class {
           this.tooltip = TranslationStore.mappingKeywords.tooltipText;
         }
         if (!this.example) {
-          this.example = "\"hallo\"";
+          this.example = "\"hello world\"";
         }
 
         break;
