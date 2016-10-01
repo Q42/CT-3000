@@ -1,7 +1,6 @@
 // Excluded project dirs
 gh-pages/
 node_modules/
-dist/
 
 // OS X junk
 .DS_Store
