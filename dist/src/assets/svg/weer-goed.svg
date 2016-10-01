@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
+    <title>weer-goed</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="weer-goed" sketch:type="MSArtboardGroup">
+            <path d="M58.5,21.617 C58.721,27.985 62.015,31.279 68.383,31.5 C65.39,37.125 66.596,41.625 72,45 C66.596,48.375 65.39,52.875 68.383,58.5 C62.015,58.72 58.721,62.015 58.5,68.382 C52.875,65.389 48.375,66.595 45,72 C41.625,66.595 37.125,65.389 31.5,68.382 C31.279,62.015 27.985,58.72 21.617,58.5 C24.61,52.875 23.404,48.375 18,45 C23.404,41.625 24.61,37.125 21.617,31.5 C27.985,31.279 31.279,27.985 31.5,21.617 C37.125,24.61 41.625,23.404 45,18 C48.375,23.404 52.875,24.61 58.5,21.617" id="Fill-3" fill="#FC982B" sketch:type="MSShapeGroup"></path>
+            <path d="M58.5,21.617 C58.721,27.985 62.015,31.279 68.383,31.5 C65.39,37.125 66.596,41.625 72,45 C66.596,48.375 65.39,52.875 68.383,58.5 C62.015,58.72 58.721,62.015 58.5,68.382 C52.875,65.389 48.375,66.595 45,72 C41.625,66.595 37.125,65.389 31.5,68.382 C31.279,62.015 27.985,58.72 21.617,58.5 C24.61,52.875 23.404,48.375 18,45 C23.404,41.625 24.61,37.125 21.617,31.5 C27.985,31.279 31.279,27.985 31.5,21.617 C37.125,24.61 41.625,23.404 45,18 C48.375,23.404 52.875,24.61 58.5,21.617 L58.5,21.617 Z" id="Stroke-5" stroke="#383128" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M62,44.9996 C62,54.3886 54.389,61.9996 45,61.9996 C35.611,61.9996 28,54.3886 28,44.9996 C28,35.6106 35.611,27.9996 45,27.9996 C54.389,27.9996 62,35.6106 62,44.9996" id="Fill-7" fill="#FFCC00" sketch:type="MSShapeGroup"></path>
+            <path d="M62,44.9996 C62,54.3886 54.389,61.9996 45,61.9996 C35.611,61.9996 28,54.3886 28,44.9996 C28,35.6106 35.611,27.9996 45,27.9996 C54.389,27.9996 62,35.6106 62,44.9996 L62,44.9996 Z" id="Stroke-9" stroke="#383128" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M32,44.9996 C32,37.8196 37.82,31.9996 45,31.9996" id="Stroke-11" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

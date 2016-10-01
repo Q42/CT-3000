@@ -1,0 +1,340 @@
+.object {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 90px;
+  line-height: 90px;
+  text-align: center;
+
+  .much-objects & {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    line-height: 60px;
+    .icon, .on, .off {
+      border-radius: 60px;
+      width: 60px;
+      height: 60px;
+      background-size: 60px 60px;
+    }
+    &.tijd {
+      background-size: 60px 60px;
+    }
+  }
+
+  .icon, .on, .off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 90px;
+    width: 90px;
+    height: 90px;
+    transition: all 0.5s @ease-out;
+    background: transparent none 50% 50% no-repeat;
+  }
+  .on, .off {
+    opacity: 0;
+  }
+
+  .connected {
+    display: none;
+    position: absolute;
+    top: -21px;
+    right: -30px;
+    height: 42px;
+    width: 42px;
+    transform: rotate(45deg);
+
+    .preview-pane & {
+      top: -24px;
+      right: -36px;
+    }
+    #layer-1,
+    #layer-2,
+    #layer-3,
+    #layer-4 {
+      opacity: 0;
+    }
+
+    #layer-1 {
+      opacity: 1;
+    }
+    #layer-2 {
+      animation: connect 2s 0.5s infinite;
+    }
+    #layer-3 {
+      animation: connect 2s 1s infinite;
+    }
+    #layer-4 {
+      animation: connect 2s 1.5s infinite;
+    }
+  }
+  .on-digiboard .connected {
+    display: block;
+  }
+
+  &.lamp {
+    background: @icon-orange;
+    &.rgb {
+      #Fill-11 {
+        transition: all 0.3s linear;
+        fill: white;
+        opacity: 0.3;
+      }
+    }
+    .on {
+      opacity: 0;
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/lamp-uit.svg);
+    }
+    &.aan {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
+  }
+  &.deur {
+    background: @icon-blue;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/deur-open.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/deur-dicht.svg);
+    }
+    &.open {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
+  }
+  &.bericht {
+    background: @icon-yellow;
+    position: relative;
+    z-index: 10;
+    .message .connected {
+      right: -32px;
+      top: -32px;
+    }
+    .preview-pane .checks &,
+    .preview-pane .assignment:not(.valid) & {
+      .message {
+        display: none;
+      }
+    }
+    .preview-pane & {
+      .message {
+        transform: translate(40px, -90%);
+        position: absolute;
+        background: rgba(118,208,59,1);
+        border: 2px solid black;
+        border-radius: 10px;
+        width: auto;
+        line-height: 1.5;
+        white-space: normal;
+        transition: all 0.3s @ease-out;
+        &.set {
+          opacity: 0;
+          animation: show-message 300ms @ease-out both;
+          &.hide-message {
+            animation: hide-message 300ms ease-in both;
+          }
+        }
+        &.empty {
+          opacity: 0;
+          animation: hide-message 300ms ease-in both;
+        }
+        &:before {
+          display: block;
+          position: absolute;
+          z-index: 1;
+          content: '';
+          width: 0;
+          height: 0;
+          border-top: 12px solid rgba(118,208,59,1);
+          border-right: 12px solid transparent;
+          bottom: -12px;
+          left: 20px;
+        }
+         &:after {
+          display: block;
+          position: absolute;
+          z-index: 0;
+          content: '';
+          width: 0;
+          height: 0;
+          border-top: 16px solid rgba(0,0,0,1);
+          border-right: 16px solid transparent;
+          bottom: -16px;
+          left: 18px;
+        }
+        p {
+          min-width: 220px;
+          min-height: 24px;
+          padding: 0 10px;
+        }
+      }
+    }
+    .on {
+      opacity: 0;
+      background-image: url(../svg/bericht-aan.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/bericht-uit.svg);
+    }
+    &.set {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+        //transform: scale(0.825) translate(-11px, 8px);
+      }
+      .preview-pane .assignments & {
+        .on {
+          opacity: 0;
+        }
+        .off {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &.tijd {
+    background: @icon-teal url(../svg/tijd.svg) 50% 50% no-repeat;
+    .hourHandContainer, .minuteHandContainer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .hourHand {
+      height: 15%;
+      width: 3%;
+      background: black;
+      left: 48.5%;
+      position: absolute;
+      top: 36%;
+      transform-origin: 50% 100%;
+    }
+    .minuteHand {
+      height: 25%;
+      width: 3%;
+      background: black;
+      left: 48.5%;
+      position: absolute;
+      top: 26%;
+      transform-origin: 50% 100%;
+    }
+  }
+  &.muziek {
+    background: @icon-aqua;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/muziek-aan.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/muziek-uit.svg);
+    }
+    &:not(.uit) {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    }
+  }
+  &.kat {
+    background: @icon-grey;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/kat-binnen.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/kat-buiten.svg);
+    }
+    &.binnen {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    };
+  }
+  &.weer {
+    background: @icon-red;
+    .on {
+      opacity: 0;
+      background-image: url(../svg/weer-goed.svg);
+    }
+    .off {
+      opacity: 1;
+      background-image: url(../svg/weer-slecht.svg);
+    }
+    &.goed {
+      .on {
+        opacity: 1;
+      }
+      .off{
+        opacity: 0;
+      }
+    };
+  }
+}
+
+@keyframes show-message {
+  0% {
+    opacity: 0;
+    transform: translate(-30px, 0%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(40px, -90%)  scale(1);
+  }
+}
+
+@keyframes hide-message {
+  0% {
+    opacity: 1;
+    transform: translate(40px, -90%) scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(-50px, 0%) scale(0);
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes connect {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
