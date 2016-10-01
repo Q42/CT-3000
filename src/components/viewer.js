@@ -14,7 +14,7 @@ export default class Viewer extends React.Component {
 
     this.state = {
       display: {},
-      classId: this.generateId(),
+      classId: props.params.digibordId || this.generateId(),
     };
   }
 
