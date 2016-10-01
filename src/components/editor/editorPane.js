@@ -26,8 +26,18 @@ export default class EditorPane extends React.Component {
 
     this.previouslyFailedLines = [];
 
+    let template = '';
+    if (this.props.template) {
+      const templateFilename = '/config/template-' + TranslationStore.language + '-' + this.props.template + '.txt';
+      try {
+        template = require('raw!../..' + templateFilename);
+      } catch (ex) {
+        console.warn('Cannot find template file ' + templateFilename);
+      }
+    }
+
     this.state = {
-      code: '',
+      code: template,
       mode: '',
       languageInitiated: false
     };

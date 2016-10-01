@@ -1,0 +1,7 @@
+lamp = uit
+deur = dicht
+muziek = uit
+kat = binnen
+weer = goed
+
+bericht = "Hallo! Links kun je programmeren, en rechts zie je wat er gebeurt. Probeer het maar!"
