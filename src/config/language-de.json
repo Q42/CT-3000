@@ -6,13 +6,13 @@
     "equals": "=",
     "greater": ">",
     "smaller": "<",
-    "user": "TODO",
-    "users": "TODO",
-    "noMusic": "TODO",
-    "nowListeningTo": "TODO",
-    "musicChosenBy": "TODO",
-    "anonymousUser": "TODO",
-    "says": "TODO"
+    "user": "Benutzer",
+    "users": "Benutzer",
+    "noMusic": "Keine Musik ausgewählt.",
+    "nowListeningTo": "Jetzt wird gespielt",
+    "musicChosenBy": "ausgewählt von",
+    "anonymousUser": "Anonym",
+    "says": "sagt"
   },
   "objects": [
     {
