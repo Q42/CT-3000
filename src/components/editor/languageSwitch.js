@@ -13,7 +13,7 @@ export default class LanguageSwitch extends React.Component {
   }
 
   switchLanguage(languageCode) {
-    window.location.href = '/#/' + languageCode + '/tool';
+    window.location.href = '#/' + languageCode + '/tool';
     window.location.reload();
   }
 
@@ -24,7 +24,7 @@ export default class LanguageSwitch extends React.Component {
         {this.state.languages.filter((l) => l.code != that.state.language).map(function(l) {
           return (
             <li key={ l.code }>
-              <a onClick={ () => that.switchLanguage(l.code) } href={'/#/' + l.code + '/tool'}>
+              <a onClick={ () => that.switchLanguage(l.code) } href={'#/' + l.code + '/tool'}>
                 <img src={ l.flag } />
               </a>
             </li>

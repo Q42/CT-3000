@@ -3,16 +3,18 @@
     "if": "als",
     "then": "dan",
     "and": "en",
-    "equals": "=",
-    "greater": ">",
-    "smaller": "<",
     "user": "gebruiker",
     "users": "gebruikers",
     "noMusic": "Geen muziek geselecteerd",
     "nowListeningTo": "Je luistert nu naar",
     "musicChosenBy": "de keuze van",
     "anonymousUser": "Anoniempje",
-    "says": "zegt"
+    "says": "zegt",
+    "tooltipValues": "Kies uit",
+    "tooltipNumber": "Een getal",
+    "tooltipText": "Tekst omsingeld door \"",
+    "tooltipTime": "Voor of na een tijdstip",
+    "tooltipRgb": "Een kleur in (rood,groen,blauw), waar elke kleur tussen 0 en 255 ligt. aan en uit mogen ook."
   },
   "objects": [
     {

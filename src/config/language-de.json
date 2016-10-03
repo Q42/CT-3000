@@ -3,16 +3,18 @@
     "if": "wenn",
     "then": "dann",
     "and": "und",
-    "equals": "=",
-    "greater": ">",
-    "smaller": "<",
     "user": "Benutzer",
     "users": "Benutzer",
     "noMusic": "Keine Musik ausgewählt.",
     "nowListeningTo": "Jetzt wird gespielt",
     "musicChosenBy": "ausgewählt von",
     "anonymousUser": "Anonym",
-    "says": "sagt"
+    "says": "sagt",
+    "tooltipValues": "TODO",
+    "tooltipNumber": "TODO",
+    "tooltipText": "TODO",
+    "tooltipTime": "TODO",
+    "tooltipRgb": "TODO"
   },
   "objects": [
     {

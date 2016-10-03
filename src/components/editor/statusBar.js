@@ -16,7 +16,7 @@ export default React.createClass ({
 
   setStroomAan(){
     this.setState({
-        stroom: true
+      stroom: true
     });
   },
 

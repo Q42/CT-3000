@@ -1,4 +1,5 @@
 import ObjectActions from '../actions/object';
+import TranslationStore from '../stores/translation';
 
 export default class {
 
@@ -7,6 +8,8 @@ export default class {
       return;
 
     this.name = data.name;
+    this.tooltip = data.tooltip;
+    this.example = data.example;
     this.allowedOperators = ['='];
 
     this.equals = (value) => {
@@ -25,6 +28,13 @@ export default class {
             this.state = data.default;
           }else if(this.values.length > 0){
             this.state = this.values[0];
+          }
+
+          if (!this.tooltip) {
+            this.tooltip = TranslationStore.mappingKeywords.tooltipValues + " " + data.values.join(', ');
+          }
+          if (!this.example) {
+            this.example = data.values[1];
           }
         }else{
           if(data.default && typeof data.default === 'string')
@@ -49,6 +59,13 @@ export default class {
             this.state = data.default;
         }
 
+        if (!this.tooltip) {
+          this.tooltip = TranslationStore.mappingKeywords.tooltipNumber;
+        }
+        if (!this.example) {
+          this.example = "123456";
+        }
+
         break;
       case 'text':
         this.type = 'text';
@@ -56,6 +73,13 @@ export default class {
 
         if(data.default && typeof data.default === 'string')
           this.state = data.default;
+
+        if (!this.tooltip) {
+          this.tooltip = TranslationStore.mappingKeywords.tooltipText;
+        }
+        if (!this.example) {
+          this.example = "\"hello world\"";
+        }
 
         break;
       case 'time':
@@ -96,6 +120,13 @@ export default class {
           return d.getHours() < h || (d.getHours() === h && d.getMinutes() < m);
         };
 
+        if (!this.tooltip) {
+          this.tooltip = TranslationStore.mappingKeywords.tooltipTime;
+        }
+        if (!this.example) {
+          this.example = "12:00";
+        }
+
         setInterval(() => {
           this.state += 60000;
           ObjectActions.notifyUpdate(this.name);
@@ -115,6 +146,13 @@ export default class {
         }else{
           if(data.default && typeof data.default === 'string')
             this.state = data.default;
+        }
+
+        if (!this.tooltip) {
+          this.tooltip = TranslationStore.mappingKeywords.tooltipRgb;
+        }
+        if (!this.example) {
+          this.example = "(255,100,0)";
         }
 
         break;

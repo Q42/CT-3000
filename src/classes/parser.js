@@ -20,7 +20,10 @@ export default class {
   parse(text){
     let tokens;
     try{
-      tokens = this.lexer.tokenize(text.toLowerCase());
+      /* Messages shouldn't be lowercased, but on iPads there's an all-caps issue in codemirror... */
+      tokens = this.lexer.tokenize(text.indexOf('"') > -1 ?
+        text.split('=')[0].toLowerCase() + '=' + text.split('=')[1] : 
+        text.toLowerCase());
     }catch(e){
       return new Promise.reject();
     }
@@ -37,9 +40,9 @@ export default class {
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['if'],'if'));
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['then'],'then'));
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['and'],'and'));
-    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['equals'],'equals'));
-    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['greater'],'greater'));
-    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['smaller'],'smaller'));
+    this.lexer.addTokenType(types.constant('=','equals'));
+    this.lexer.addTokenType(types.constant('>','greater'));
+    this.lexer.addTokenType(types.constant('<','smaller'));
     this.lexer.addTokenType({ name: 'item', regexp: /^[a-z0-9:\(\)\,]+/i });
     this.lexer.addTokenType({ name: 'string', regexp: /^\"[^\"]*\"/i });
   }
