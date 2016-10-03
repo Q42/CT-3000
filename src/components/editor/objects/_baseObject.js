@@ -10,8 +10,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     this.type = TranslationStore.mappingClassToUI[type];
     this.state = {
       object: ObjectStore.getObject(this.type) || {},
-      digibord: ObjectStore.getObject('digibord') || {},
-      hover: false
+      digibord: ObjectStore.getObject('digibord') || {}
     };
   }
 
@@ -42,19 +41,11 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     return false;
   }
 
-  handleClick() {
-    this.setState({ hover: !this.state.hover });
-  }
-
   render() {
     let classNames = [
       'object',
       type
     ];
-
-    if (this.state.hover) {
-      classNames.push('hover');
-    }
 
     const object = this.state.object;
     let exampleOperator = "="
@@ -82,7 +73,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     }
 
     return (
-      <div className={classNames.join(' ')} onClick={ this.handleClick.bind(this) }>
+      <div className={classNames.join(' ')}>
         <div className="tooltip">
           <div className="object-name">{ object.name }</div>
           { object.tooltip }
