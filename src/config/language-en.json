@@ -1,0 +1,62 @@
+{
+  "keywords": {
+    "if": "if",
+    "then": "then",
+    "and": "and",
+    "equals": "=",
+    "greater": ">",
+    "smaller": "<",
+    "user": "user",
+    "users": "users",
+    "noMusic": "No music selected",
+    "nowListeningTo": "Now listening to",
+    "musicChosenBy": "chosen by",
+    "anonymousUser": "Anonymous",
+    "says": "says"
+  },
+  "objects": [
+    {
+      "name": "digibord",
+      "type": "int"
+    },
+    {
+      "name": "lamp",
+      "type": "rgb",
+      "values": ["off", "on"]
+    },
+    {
+      "name": "door",
+      "type": "string",
+      "values": ["closed", "open"]
+    },
+    {
+      "name": "message",
+      "type": "text"
+    },
+    {
+      "name": "time",
+      "type": "time"
+    },
+    {
+      "name": "music",
+      "type": "string",
+      "values": ["off", "3fm", "sky", "classic", "jazz"]
+    },
+    {
+      "name": "cat",
+      "type": "string",
+      "values": ["inside", "outside"]
+    },
+    {
+      "name": "weather",
+      "type": "string",
+      "values": ["good", "bad"]
+    },
+    {
+      "name": "name",
+      "type": "text"
+    }
+
+  ]
+
+}

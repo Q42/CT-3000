@@ -1,5 +1,6 @@
 import canto34 from 'canto34/src/canto34';
 import Promise from 'promise';
+import TranslationStore from '../stores/translation';
 
 export default class {
 
@@ -7,7 +8,13 @@ export default class {
     this.lexer = new canto34.Lexer();
     this.parser = new canto34.Parser();
 
-    this.setupTokens();
+    TranslationStore.getLanguage()
+      .then(result => {
+        this.setupTokens();
+      })
+      .catch(error => {
+        console.error('No language', error);
+      });
   }
 
   parse(text){
@@ -23,16 +30,16 @@ export default class {
     }
   }
 
-  setupTokens(){
+  setupTokens() {
     let types = canto34.StandardTokenTypes;
 
     this.lexer.addTokenType(types.whitespace('ws'));
-    this.lexer.addTokenType(types.constant('als','if'));
-    this.lexer.addTokenType(types.constant('dan','then'));
-    this.lexer.addTokenType(types.constant('=','equals'));
-    this.lexer.addTokenType(types.constant('>','greater'));
-    this.lexer.addTokenType(types.constant('<','smaller'));
-    this.lexer.addTokenType(types.constant('en','and'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['if'],'if'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['then'],'then'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['and'],'and'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['equals'],'equals'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['greater'],'greater'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['smaller'],'smaller'));
     this.lexer.addTokenType({ name: 'item', regexp: /^[a-z0-9:\(\)\,]+/i });
     this.lexer.addTokenType({ name: 'string', regexp: /^\"[^\"]*\"/i });
   }

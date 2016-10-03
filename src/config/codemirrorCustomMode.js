@@ -1,8 +1,9 @@
 export default class{
 
-  getMode(availableObjects, availableValues){
+  getMode(availableObjects, availableValues, keywords){
     let objectsRegex = new RegExp('(?:' + availableObjects.join('|') + ')\\b', 'i');
     let valuesRegex = new RegExp('(?:' + availableValues.join('|') + ')\\b', 'i');
+    let keywordsRegex = new RegExp('(?:' + keywords.join('|') + ')\\b', 'i');
 
     return {
       // The start state contains the rules that are intially used
@@ -10,7 +11,7 @@ export default class{
         // Prop names
         {regex: objectsRegex, token: 'variable-3'},
         // Keywords
-        {regex: /(?:als|dan|en)\b/, token: 'keyword'},
+        {regex: keywordsRegex, token: 'keyword'},
         // Value enums
         {regex: valuesRegex, token: 'atom'},
 

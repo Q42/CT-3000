@@ -3,6 +3,8 @@ import React from 'react';
 import ObjectStore from '../../stores/object';
 import ObjectActions from '../../actions/object';
 
+import LanguageSwitch from './languageSwitch.js';
+
 export default class HeaderComponent extends React.Component {
 
   constructor(props) {
@@ -52,6 +54,7 @@ export default class HeaderComponent extends React.Component {
         <h1>CT-3000</h1>
         { name }
         { connectedTo }
+        <LanguageSwitch />
       </header>
     );
   }

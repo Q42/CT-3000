@@ -4,10 +4,14 @@ import InlineSVG from 'svg-inline-react';
 import svg from '!svg-inline!../../assets/svg/radio-station.svg';
 
 import MusicStream from '../../classes/musicStream';
+import TranslationStore from '../../stores/translation';
 
-export default class TheMatrixComponent extends React.Component {
+export default class MusicPlayerComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      valueOff: TranslationStore.mappingClassToUI['uit']
+    }
   }
 
   componentWillMount() {
@@ -15,7 +19,7 @@ export default class TheMatrixComponent extends React.Component {
   }
 
   componentDidUpdate() {
-    // TODO: Check if music playing user diconnected.
+    // TODO: Check if music playing user disconnected.
 
     const stream = this.getStream();
     if(this.currentStream === stream) {
@@ -27,14 +31,14 @@ export default class TheMatrixComponent extends React.Component {
   }
 
   getStream() {
-    return this.props.music.value || 'uit';
+    return this.props.music.value || this.state.valueOff;
   }
 
   render() {
     const stream = this.getStream();
 
     return(
-      <div className={ 'station' + ( stream !== 'uit' ? ' send' : '' ) }>
+      <div className={ 'station' + ( stream !== this.state.valueOff ? ' send' : '' ) }>
         <span className="icon-station" aria-hidden="true">
           <InlineSVG src={ svg } />
         </span>
@@ -44,11 +48,11 @@ export default class TheMatrixComponent extends React.Component {
   }
 
   renderNowPlaying(stream) {
-    if(stream === 'uit') {
+    if(stream === this.state.valueOff) {
       return (
         <div>
           <h3>
-            <small>Geen muziek geselecteerd</small>
+            <small>{ TranslationStore.mappingKeywords.noMusic }</small>
           </h3>
         </div>
       );
@@ -56,15 +60,15 @@ export default class TheMatrixComponent extends React.Component {
 
     const streamSessionKey = this.props.music.sessionKey;
     const session = this.props.sessions[streamSessionKey] || {};
-    const userName = session.name || 'Anoniempje';
+    const userName = session.name || TranslationStore.mappingKeywords.anonymousUser;
 
     return (
       <div>
         <h3>
-          <small>Je luistert nu naar:</small> { stream }
+          <small>{TranslationStore.mappingKeywords.nowListeningTo}:</small> { stream }
         </h3>
         <p className="choice-of">
-          de keuze van <strong>{ userName }</strong>
+          {TranslationStore.mappingKeywords.musicChosenBy} <strong>{ userName }</strong>
         </p>
       </div>
     );

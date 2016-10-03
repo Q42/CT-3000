@@ -2,12 +2,14 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import ObjectStore from '../../../stores/object';
+import TranslationStore from '../../../stores/translation';
 
 export default (ComposedComponent, type, status = '') => class BaseObject extends React.Component {
   constructor(props) {
     super(props);
+    this.type = TranslationStore.mappingClassToUI[type];
     this.state = {
-      object: ObjectStore.getObject(type) || {},
+      object: ObjectStore.getObject(this.type) || {},
       digibord: ObjectStore.getObject('digibord') || {}
     };
   }
@@ -25,7 +27,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
   onUpdate(data) {
     if(data && data.objects) {
       this.setState({
-        object: data.objects[type] || {},
+        object: data.objects[this.type] || {},
         digibordConnected: this.isDigibordConnected(data.objects.digibord)
       });
     }
@@ -53,7 +55,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
         classNames.push('rgb'); // Hardcoded, ugh...
       }
       else if(object.values) {
-        classNames.push(state);
+        classNames.push(TranslationStore.mappingUIToClass[state]);
       }
       else if(object.type == 'string' || object.type == 'text')
       {

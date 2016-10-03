@@ -7,15 +7,16 @@ import StatusBarComponent from './editor/statusBar.js';
 
 import ObjectActions from '../actions/object';
 import Firebase from '../classes/firebase';
+import TranslationStore from '../stores/translation';
 
-export default React.createClass({
+export default class Editor extends React.Component {
 
   componentWillMount(){
-    var languageConfig = require('json!../config/language');
-    ObjectActions.initiate(languageConfig);
+    TranslationStore.setLanguage(this.props.params.language);
+    ObjectActions.initiate(TranslationStore.languageConfig);
 
     this.firebase = new Firebase();
-  },
+  }
 
   render() {
     return(
@@ -29,4 +30,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

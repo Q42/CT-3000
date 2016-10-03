@@ -1,0 +1,62 @@
+{
+  "keywords": {
+    "if": "wenn",
+    "then": "dann",
+    "and": "und",
+    "equals": "=",
+    "greater": ">",
+    "smaller": "<",
+    "user": "Benutzer",
+    "users": "Benutzer",
+    "noMusic": "Keine Musik ausgewählt.",
+    "nowListeningTo": "Jetzt wird gespielt",
+    "musicChosenBy": "ausgewählt von",
+    "anonymousUser": "Anonym",
+    "says": "sagt"
+  },
+  "objects": [
+    {
+      "name": "digibord",
+      "type": "int"
+    },
+    {
+      "name": "lampe",
+      "type": "rgb",
+      "values": ["aus", "ein"]
+    },
+    {
+      "name": "tür",
+      "type": "string",
+      "values": ["geschlossen", "offen"]
+    },
+    {
+      "name": "nachricht",
+      "type": "text"
+    },
+    {
+      "name": "zeit",
+      "type": "time"
+    },
+    {
+      "name": "musik",
+      "type": "string",
+      "values": ["aus", "3fm", "sky", "classic", "jazz"]
+    },
+    {
+      "name": "katze",
+      "type": "string",
+      "values": ["drinnen", "draussen"]
+    },
+    {
+      "name": "wetter",
+      "type": "string",
+      "values": ["gut", "schlecht"]
+    },
+    {
+      "name": "name",
+      "type": "text"
+    }
+
+  ]
+
+}

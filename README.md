@@ -71,6 +71,16 @@ Start your development environment on http://localhost:8000:
 npm run start
 ```
 
+### Adding a new language translation
+
+Thanks for volunteering! :)
+
+It's pretty easy. Make a copy of one of the `config/language-xx.json` files, and rename it to the language code that you want to add. Then, translate every value without changing the order (it's translated based on the order...).
+
+Finally, in `stores/translation.js` add your language to the list of available languages. The appropriate flag should already be included in the repository, otherwise add it.
+
+Now open a browser and switch to your added language via the switch on the top right!
+
 ### How the parser works
 
 All parsing is handled in the `classes/parser.js` file. A string is tokenized by the `canto34` packages and the tokens are inserted in a promise-tree for parsing. This tree recognizes the following language:

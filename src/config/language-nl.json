@@ -1,4 +1,19 @@
 {
+  "keywords": {
+    "if": "als",
+    "then": "dan",
+    "and": "en",
+    "equals": "=",
+    "greater": ">",
+    "smaller": "<",
+    "user": "gebruiker",
+    "users": "gebruikers",
+    "noMusic": "Geen muziek geselecteerd",
+    "nowListeningTo": "Je luistert nu naar",
+    "musicChosenBy": "de keuze van",
+    "anonymousUser": "Anoniempje",
+    "says": "zegt"
+  },
   "objects": [
     {
       "name": "digibord",

@@ -11,6 +11,7 @@ import 'codemirror/addon/selection/active-line';
 
 import ObjectActions from '../../actions/object';
 import ObjectStore from '../../stores/object';
+import TranslationStore from '../../stores/translation'
 
 export default class EditorPane extends React.Component {
 
@@ -76,9 +77,10 @@ export default class EditorPane extends React.Component {
   initLanguage() {
     let availableObjects = ObjectStore.getAvailableObjects();
     let availableValues = ObjectStore.getAvailableValues();
+    let keywords = [TranslationStore.mappingKeywords['if'], TranslationStore.mappingKeywords['then'], TranslationStore.mappingKeywords['and']];
 
     var language = new CT3000();
-    CMInstance.defineSimpleMode('ct-3000', language.getMode(availableObjects, availableValues));
+    CMInstance.defineSimpleMode('ct-3000', language.getMode(availableObjects, availableValues, keywords));
     this.setState({
       mode: 'ct-3000',
       languageInitiated: true
