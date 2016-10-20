@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router'
 
 import TranslationStore from '../../stores/translation';
 
@@ -24,9 +25,9 @@ export default class LanguageSwitch extends React.Component {
         {this.state.languages.filter((l) => l.code != that.state.language).map(function(l) {
           return (
             <li key={ l.code }>
-              <a onClick={ () => that.switchLanguage(l.code) } href={'#/' + l.code + '/tool'}>
+              <Link to={"/" + l.code + "/tool"} onClick={ () => that.switchLanguage(l.code) }>
                 <img src={ l.flag } />
-              </a>
+              </Link>
             </li>
           );
         })}

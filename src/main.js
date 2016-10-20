@@ -2,8 +2,7 @@ import './assets/style/main.less';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
-import { createHashHistory } from 'history';
+import { Router, Route, IndexRoute, useRouterHistory, browserHistory } from 'react-router';
 
 // Polyfill default objects with ES6-like prototype methods
 import Polyfill from 'babel-polyfill';
@@ -11,8 +10,6 @@ import Polyfill from 'babel-polyfill';
 import LandingPageComponent from './components/landing-page';
 import EditorComponent from './components/editor';
 import ViewerComponent from './components/viewer';
-
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 const App = React.createClass({
   render() {
@@ -23,7 +20,7 @@ const App = React.createClass({
 });
 
 render((
-  <Router history={ appHistory }>
+  <Router history={ browserHistory }>
     <Route path="/" component={App}>
       <IndexRoute component={ LandingPageComponent } />
       <Route path=":language/tool" component={ EditorComponent } />
