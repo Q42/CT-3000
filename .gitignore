@@ -5,3 +5,4 @@ node_modules/
 // OS X junk
 .DS_Store
 npm-debug.log
+firebase-debug.log
