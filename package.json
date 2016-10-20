@@ -1,5 +1,5 @@
 {
-  "name": "blink-ct",
+  "name": "CT-3000",
   "version": "1.0.0",
   "description": "Blink Computational Thinking",
   "scripts": {
@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Q42/blink-ct.git"
+    "url": "git+https://github.com/Q42/CT-3000.git"
   },
   "author": "Q42",
   "license": "ISC",
   "private": true,
   "bugs": {
-    "url": "https://github.com/Q42/blink-ct/issues"
+    "url": "https://github.com/Q42/CT-3000/issues"
   },
-  "homepage": "https://github.com/Q42/blink-ct#readme",
+  "homepage": "https://github.com/Q42/CT-3000#readme",
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "canto34": "0.0.2",
