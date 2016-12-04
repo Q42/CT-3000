@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Blink Computational Thinking",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot --inline --host 0.0.0.0 --port 8000",
+    "start": "node devserver.js",
     "build": "webpack --optimize-minimize --progress --hide-modules",
     "clean": "rm -rf dist/*",
     "release": "npm run clean && npm run build",
