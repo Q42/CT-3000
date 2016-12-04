@@ -14,14 +14,15 @@ module.exports = {
     filename: 'bundle.js'
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin()
-  ],
+  // only use on production
+  // plugins: [
+  //   new webpack.DefinePlugin({
+  //     'process.env': {
+  //       NODE_ENV: JSON.stringify('production')
+  //     }
+  //   }),
+  //   new webpack.optimize.UglifyJsPlugin()
+  // ],
 
   module: {
     loaders: [
