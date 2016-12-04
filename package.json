@@ -53,6 +53,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
+    "opn": "^4.0.2",
     "postcss-loader": "^1.1.1",
     "style-loader": "^0.13.0",
     "svg-inline-loader": "^0.7.1",
