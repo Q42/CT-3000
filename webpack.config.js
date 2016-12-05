@@ -5,7 +5,10 @@ var webpack = require('webpack');
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    javascript: './main.js',
+    javascript: [
+      'webpack-dev-server/client?http://localhost:8000',
+      './main.js'
+    ],
     html: './index.html',
   },
 
