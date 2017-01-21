@@ -55,6 +55,7 @@
     "less-loader": "^2.2.2",
     "opn": "^4.0.2",
     "postcss-loader": "^1.1.1",
+    "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
     "svg-inline-loader": "^0.7.1",
     "webpack": "^1.12.13",

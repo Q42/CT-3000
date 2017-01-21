@@ -25,7 +25,7 @@ export default class Editor extends React.Component {
       <div className="editor">
         <HeaderComponent />
         <div className="panes">
-          <EditorPaneComponent />
+          <EditorPaneComponent template={this.props.params.template} />
           <PreviewPaneComponent />
         </div>
         <StatusBarComponent />
