@@ -22,7 +22,7 @@ export default class {
     this.messageRef = null;
 
     // listen to updated objects, activating firebase when digibord is used
-    this.unsubscribeObjectStore = ObjectStore.listen(this.onObjectUpdate.bind(this));
+    ObjectStore.listen(this.onObjectUpdate.bind(this));
     window.addEventListener('unload', this.disconnect.bind(this));
   }
 
