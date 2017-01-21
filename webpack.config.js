@@ -56,6 +56,6 @@ module.exports = {
     ],
   },
   postcss: function () {
-      return [autoprefixer];
+    return [autoprefixer];
   }
 };
