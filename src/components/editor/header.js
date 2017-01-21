@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router'
 
 import ObjectStore from '../../stores/object';
 import ObjectActions from '../../actions/object';
@@ -51,7 +52,7 @@ export default class HeaderComponent extends React.Component {
 
     return(
       <header>
-        <h1>CT-3000</h1>
+        <h1><Link to="/">CT-3000</Link></h1>
         { name }
         { connectedTo }
         <LanguageSwitch />
