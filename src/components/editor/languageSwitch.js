@@ -25,7 +25,7 @@ export default class LanguageSwitch extends React.Component {
         {this.state.languages.filter((l) => l.code != that.state.language).map(function(l) {
           return (
             <li key={ l.code }>
-              <Link to={"/" + l.code + "/tool"} onClick={ () => that.switchLanguage(l.code) }>
+              <Link to={`/${l.code}/tool`} onClick={ () => that.switchLanguage(l.code) }>
                 <img src={ l.flag } />
               </Link>
             </li>

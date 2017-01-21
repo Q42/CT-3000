@@ -31,7 +31,7 @@ export default class {
           }
 
           if (!this.tooltip) {
-            this.tooltip = TranslationStore.mappingKeywords.tooltipValues + " " + data.values.join(', ');
+            this.tooltip = TranslationStore.mappingKeywords.tooltipValues + ' ' + data.values.join(', ');
           }
           if (!this.example) {
             this.example = data.values[1];
@@ -63,7 +63,7 @@ export default class {
           this.tooltip = TranslationStore.mappingKeywords.tooltipNumber;
         }
         if (!this.example) {
-          this.example = "123456";
+          this.example = '123456';
         }
 
         break;
@@ -78,7 +78,7 @@ export default class {
           this.tooltip = TranslationStore.mappingKeywords.tooltipText;
         }
         if (!this.example) {
-          this.example = "\"hello world\"";
+          this.example = '\"hello world\"';
         }
 
         break;
@@ -124,7 +124,7 @@ export default class {
           this.tooltip = TranslationStore.mappingKeywords.tooltipTime;
         }
         if (!this.example) {
-          this.example = "12:00";
+          this.example = '12:00';
         }
 
         setInterval(() => {
@@ -152,7 +152,7 @@ export default class {
           this.tooltip = TranslationStore.mappingKeywords.tooltipRgb;
         }
         if (!this.example) {
-          this.example = "(255,100,0)";
+          this.example = '(255,100,0)';
         }
 
         break;

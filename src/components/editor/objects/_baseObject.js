@@ -48,7 +48,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     ];
 
     const object = this.state.object;
-    let exampleOperator = "="
+    let exampleOperator = '=';
     if(object) {
       const state = object.state;
       if(object.type == 'rgb' && typeof state === 'object') {
@@ -68,7 +68,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
       }
       else if(object.type == 'time')
       {
-        exampleOperator = "<";
+        exampleOperator = '<';
       }
     }
 
