@@ -37,6 +37,7 @@
     "react-router": "^3.0.0",
     "reflux": "^5.0.3",
     "slugify": "^1.0.2",
+    "superagent": "^3.3.2",
     "svg-inline-react": "^1.0.0"
   },
   "devDependencies": {
