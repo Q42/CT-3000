@@ -43,17 +43,21 @@ export default class {
         return resolve(this.status);
       }
 
-      console.log('ipaddress changed, reauthenticating...');
       this.ipaddress = ipaddress.state;
+      console.log('ipaddress changed, reauthenticating', this.ipaddress);
       this.state = 'pending';
 
-      return this.authenticate()
+      return this.getUsername()
+        .then((username) => username ? this.getLights() : null)
         .then((lights) => {
           if (lights) {
-            this.state = 'online';
             console.log('hue is online!');
+            return this.state = 'online';
           }
+          console.error('no lights received, hue is offline');
+          return this.state = 'offline';
         })
+        .then(this.syncHueBulb.bind(this))
         .catch((err) => {
           console.error('error authenticating', err);
           this.state = 'offline';
@@ -69,13 +73,21 @@ export default class {
     // aan, uit or { r: 255, g: 255, b: 255 }
     this.lamp = lamp.state;
 
+    this.syncHueBulb();
+  }
+
+  syncHueBulb() {
+    if (this.state !== 'online') {
+      return;
+    }
+
     const query = {
       on: this.lamp !== 'uit',
       bri: 254,
       // alert: 'select'
     }
     if (typeof this.lamp === 'object') {
-      query.xy = toXY(this.lamp);
+      query.xy = this.toXY(this.lamp);
     } else {
       query.ct = 400;
     }
@@ -83,15 +95,17 @@ export default class {
     request
       .put(`http://${this.ipaddress}/api/${this.username}/groups/0/action`)
       .send(query)
-      .then((res) => console.log(res))
+      .then((res) => {
+        res.body.forEach((cmd) => {
+          if (cmd.success) {
+            console.log('success', cmd.success)
+          }
+          if (cmd.error) {
+            console.error('error', cmd.error);
+          }
+        })
+      })
       .catch((err) => console.error(err));
-  }
-
-  authenticate() {
-    console.log('connecting to hue at', this.ipaddress);
-
-    return this.getUsername()
-      .then((username) => username ? this.getLights() : null);
   }
 
   getUsername() {
@@ -122,7 +136,7 @@ export default class {
       .catch((err) => console.error('Error getting lights', err));
   }
 
-  toXY({ r, g, b }) {
+  static toXY({ r, g, b }) {
     // Gamma correctie
     r = (r > 0.04045) ? Math.pow((r + 0.055) / (1.0 + 0.055), 2.4) : (r / 12.92);
     g = (g > 0.04045) ? Math.pow((g + 0.055) / (1.0 + 0.055), 2.4) : (g / 12.92);
