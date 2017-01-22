@@ -44,19 +44,8 @@ export default class {
       }
 
       this.ipaddress = ipaddress.state;
-      console.log('ipaddress changed, reauthenticating', this.ipaddress);
-      this.state = 'pending';
 
-      return this.getUsername()
-        .then((username) => username ? this.getLights() : null)
-        .then((lights) => {
-          if (lights) {
-            console.log('hue is online!');
-            return this.state = 'online';
-          }
-          console.error('no lights received, hue is offline');
-          return this.state = 'offline';
-        })
+      return this.authenticate()
         .then(this.syncHueBulb.bind(this))
         .catch((err) => {
           console.error('error authenticating', err);
@@ -107,6 +96,25 @@ export default class {
         })
       })
       .catch((err) => console.error(err));
+  }
+
+  authenticate() {
+    console.log('authenticating', this.ipaddress, this.username);
+    this.state = 'pending';
+
+    return this.getUsername()
+      .then(() => this.username ? this.getLights() : null)
+      .then((lights) => {
+        if (!lights)
+          return this.state = 'offline';
+        if (lights[0] && lights[0].error && lights[0].error.description === 'unauthorized user') {
+          console.log('unauthorized user, getting new one');
+          this.username = null;
+          return this.authenticate();
+        }
+        console.log('hue is online!', lights);
+        return this.state = 'online';
+      })
   }
 
   getUsername() {
