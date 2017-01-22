@@ -2,6 +2,7 @@ import TranslationStore from '../stores/translation';
 import ObjectStore from '../stores/object';
 import request from 'superagent';
 import sleep from './sleep';
+import equal from 'deep-equal';
 
 export default class {
   constructor() {
@@ -24,7 +25,6 @@ export default class {
     if(!data || !data.objects) {
       return;
     }
-
     const ipaddress = {state: '192.168.4.21'};
     const lamp = data.objects[TranslationStore.mappingClassToUI['lamp']];
 
@@ -66,7 +66,7 @@ export default class {
   }
 
   updateLamp(lamp) {
-    if(!lamp || this.lamp === lamp.state) {
+    if(!lamp || equal(this.lamp, lamp.state)){
       return;
     }
 
@@ -86,6 +86,7 @@ export default class {
       bri: 254,
       // alert: 'select'
     }
+
     if (typeof this.lamp === 'object') {
       query.xy = this.toXY(this.lamp);
     } else {
@@ -136,7 +137,7 @@ export default class {
       .catch((err) => console.error('Error getting lights', err));
   }
 
-  static toXY({ r, g, b }) {
+  toXY({ r, g, b }) {
     // Gamma correctie
     r = (r > 0.04045) ? Math.pow((r + 0.055) / (1.0 + 0.055), 2.4) : (r / 12.92);
     g = (g > 0.04045) ? Math.pow((g + 0.055) / (1.0 + 0.055), 2.4) : (g / 12.92);
@@ -149,14 +150,14 @@ export default class {
 
     var fx = X / (X + Y + Z);
     var fy = Y / (X + Y + Z);
-    if (isnan(fx)) {
+    if (isNaN(fx)) {
       fx = 0.0;
     }
-    if (isnan(fy)) {
+    if (isNaN(fy)) {
       fy = 0.0;
     }
 
-    return [fx.toPrecision(4),fy.toPrecision(4)];
+    return [parseFloat(fx.toPrecision(4)),parseFloat(fy.toPrecision(4))];
   }
 
 }
