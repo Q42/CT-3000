@@ -57,8 +57,11 @@
     {
       "name": "name",
       "type": "text"
+    },
+    {
+      "name": "hue",
+      "type": "text"
     }
-
   ]
 
 }

@@ -14,7 +14,8 @@
     "tooltipNumber": "Een getal",
     "tooltipText": "Tekst omsingeld door \"",
     "tooltipTime": "Voor of na een tijdstip",
-    "tooltipRgb": "Een kleur in (rood,groen,blauw), waar elke kleur tussen 0 en 255 ligt. aan en uit mogen ook."
+    "tooltipRgb": "Een kleur in (rood,groen,blauw), waar elke kleur tussen 0 en 255 ligt. aan en uit mogen ook.",
+    "tooltipIpaddress": "Het adres van een apparaat op het internet"
   },
   "objects": [
     {
@@ -57,8 +58,11 @@
     {
       "name": "naam",
       "type": "text"
+    },
+    {
+      "name": "hue",
+      "type": "text"
     }
-
   ]
 
 }

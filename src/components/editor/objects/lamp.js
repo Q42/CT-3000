@@ -22,6 +22,10 @@ class Lamp extends React.Component {
     if(this.props.digibordConnected) {
       classes += ' on-digiboard';
     }
+    if(this.props.hueConnected) {
+      // TODO do something with this thing
+      classes += ' on-hue';
+    }
 
     return <div className={ classes } style={ style }>
       <div className="off"></div>

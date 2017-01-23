@@ -7,7 +7,9 @@ import equal from 'deep-equal';
 export default class {
   constructor() {
     this.status = 'offline';
+    // TODO get from code
     this.ipaddress = null;
+    // TODO get from cookie
     this.username = 'p5G0zZYB8Xxry1HJkVXfbKSqDCok3VS2oIJLu2Ar';
     this.lamp = 'uit';
 
@@ -25,7 +27,8 @@ export default class {
     if(!data || !data.objects) {
       return;
     }
-    const ipaddress = {state: '192.168.4.21'};
+
+    const ipaddress = data.objects[TranslationStore.mappingClassToUI['hue']];
     const lamp = data.objects[TranslationStore.mappingClassToUI['lamp']];
 
     Promise.resolve(this.updateConnection(ipaddress));
@@ -34,11 +37,11 @@ export default class {
 
   updateConnection(ipaddress) {
     return new Promise((resolve, reject) => {
-      if (!ipaddress || !ipaddress.state || !ipaddress.state.match(/\d+\.\d+\.\d+\.\d+/gi)) {
+      if (!ipaddress || !ipaddress.state || !ipaddress.state.match(/^\d+\.\d+\.\d+\.\d+$/)) {
         return resolve(this.status = 'offline');
       }
 
-      // ip address changed, reauthenticate
+      // only if ip address changed
       if (this.ipaddress === ipaddress.state) {
         return resolve(this.status);
       }
@@ -122,6 +125,7 @@ export default class {
       return Promise.resolve(this.username);
     }
 
+    // first request, set timeout!
     return request
       .post(`http://${this.ipaddress}/api`)
       .send({ devicetype: 'CT-3000' })
@@ -145,6 +149,7 @@ export default class {
       .catch((err) => console.error('Error getting lights', err));
   }
 
+  // TODO this is crappy!
   toXY({ r, g, b }) {
     // Gamma correctie
     r = (r > 0.04045) ? Math.pow((r + 0.055) / (1.0 + 0.055), 2.4) : (r / 12.92);

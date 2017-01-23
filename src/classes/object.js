@@ -156,6 +156,8 @@ export default class {
         }
 
         break;
+      default:
+        console.error('unknown type', data);
     }
 
   }
@@ -240,7 +242,8 @@ export default class {
         }
 
         return false;
-      // no default
+      default:
+        console.error('Unknown type', this.type);
     }
   }
 
