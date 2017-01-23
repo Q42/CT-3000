@@ -1,11 +1,12 @@
 {
-  "name": "blink-ct",
+  "name": "CT-3000",
   "version": "1.0.0",
   "description": "Blink Computational Thinking",
   "scripts": {
-    "start": "node devserver.js",
+    "dev": "node devserver.js",
     "build": "webpack --optimize-minimize --progress --hide-modules",
     "clean": "rm -rf dist/*",
+    "eslint": "eslint .",
     "release": "npm run clean && npm run build",
     "deploy": "npm run release && firebase deploy",
     "deployToCT3000": "gsutil -m rsync -d -r dist gs://www.ct3000.nl",
@@ -13,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Q42/blink-ct.git"
+    "url": "git+https://github.com/Q42/CT-3000.git"
   },
   "author": "Q42",
   "license": "ISC",
   "private": true,
   "bugs": {
-    "url": "https://github.com/Q42/blink-ct/issues"
+    "url": "https://github.com/Q42/CT-3000/issues"
   },
-  "homepage": "https://github.com/Q42/blink-ct#readme",
+  "homepage": "https://github.com/Q42/CT-3000#readme",
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "canto34": "0.0.2",
