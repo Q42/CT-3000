@@ -7,7 +7,6 @@ import equal from 'deep-equal';
 export default class {
   constructor() {
     this.status = 'offline';
-    // TODO get from code
     this.ipaddress = null;
     // TODO get from cookie
     this.username = 'p5G0zZYB8Xxry1HJkVXfbKSqDCok3VS2oIJLu2Ar';
@@ -48,12 +47,8 @@ export default class {
 
       this.ipaddress = ipaddress.state;
 
-      return this.authenticate()
-        .then(this.syncHueBulb.bind(this))
-        .catch((err) => {
-          console.error('error authenticating', err);
-          this.state = 'offline';
-        });
+      return this.authenticate(ipaddress.state)
+        .then(this.syncHueBulb.bind(this));
     });
   }
 
@@ -101,26 +96,38 @@ export default class {
       .catch((err) => console.error(err));
   }
 
-  authenticate() {
-    console.log('authenticating', this.ipaddress, this.username);
+  authenticate(ipaddress) {
+    console.log('authenticating', ipaddress, this.username);
     this.state = 'pending';
+    let outerUsername = null;
 
-    return this.getUsername()
-      .then(() => this.username ? this.getLights() : null)
+    return this.getUsername(ipaddress)
+      .then((username) => {
+        if (!username) return null;
+        outerUsername = username;
+        return this.getLights(ipaddress, username);
+      })
       .then((lights) => {
-        if (!lights)
-          return this.state = 'offline';
+        if (!lights) {
+          console.error('no lights gotten from bridge');
+          return this.state === 'pending' ? this.state = 'offline' : this.state;
+        }
         if (lights[0] && lights[0].error && lights[0].error.description === 'unauthorized user') {
           console.log('unauthorized user, getting new one');
           this.username = null;
-          return this.authenticate();
+          return this.authenticate(ipaddress);
         }
-        console.log('hue is online!', lights);
+        this.ipaddress = ipaddress;
+        this.username = outerUsername;
+        console.log('hue is online at', this.ipaddress, this.username);
         return this.state = 'online';
-      })
+      }).catch((err) => {
+        console.error('error authenticating', err);
+        this.state = 'offline';
+      });
   }
 
-  getUsername() {
+  getUsername(ipaddress) {
     if (this.username) {
       return Promise.resolve(this.username);
     }
@@ -134,17 +141,19 @@ export default class {
           resp.body[0].error.description === 'link button not pressed') {
             return sleep(1000)().then(this.getUsername.bind(this))
         } else if (resp.body[0] && resp.body[0].success) {
-          return this.username = resp.body[0].success.username;
+          return resp.body[0].success.username;
         } else {
           console.error('Error getting username', resp);
+          return null;
         }
       })
       .catch((err) => console.error('Error getting username', err));
   }
 
-  getLights() {
+  getLights(ipaddress, username) {
+    console.log('getLights', ipaddress, username);
     return request
-      .get(`http://${this.ipaddress}/api/${this.username}/lights`)
+      .get(`http://${ipaddress}/api/${username}/lights`)
       .then((lights) => lights.body)
       .catch((err) => console.error('Error getting lights', err));
   }
