@@ -1,7 +1,7 @@
 # CT-3000
 Tool for Computational Thinking classes for children age 8 to 12.  Built by [Q42](https://www.q42.com) together with [Blink](https://www.blink.nl/educatie) and [CodeUur](http://www.codeuur.nl).
 
-At the moment it's built as a tool to accompany classroom material that explains the working in handouts and on the smartboard. That material is also available for free, at https://wereld.blink.nl/7-8/smart-life. It contains preparation material, handouts and digibord presentations to fill five hours of class. Be aware it's all in Dutch!
+At the moment it's built as a tool to accompany classroom material that explains the working in handouts and on the smartboard. That material is also available for free, at https://smart-life.blink.nl/wereldorientatie. It contains preparation material, handouts and digibord presentations to fill five hours of class. Be aware it's all in Dutch!
 
 Interested in this project? Mail  [lukas@q42.nl](mailto:lukas@q42.nl).
 
