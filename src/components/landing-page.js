@@ -34,7 +34,7 @@ export default React.createClass({
                 zijn gratis beschikbaar voor alle scholen.</p>
               <p><i>De lessen zijn gratis beschikbaar via onderstaande de knop. Het thema is
                 ook toegankelijk in de lesomgeving van Blink: <a href="http://www.blink-studio.nl/" className="inline-link">Blink Studio</a>.</i></p>
-              <a href="https://wereld.blink.nl/7-8/smart-life" className="fat-link"><span>Naar de <em>lessen</em></span></a>
+              <a href=" https://smart-life.blink.nl" className="fat-link"><span>Naar de <em>lessen</em></span></a>
             </article>
           </div>
         </div>
