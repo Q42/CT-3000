@@ -63,12 +63,12 @@ Clone the repo, cd into it and install dependencies:
 ```
 git clone git@github.com:q42/ct-3000.git
 cd ct-3000
-npm install
+yarn
 ```
 
 Start your development environment on http://localhost:8000:
 ```
-npm run start
+npm run dev
 ```
 
 ### Adding a new language translation
