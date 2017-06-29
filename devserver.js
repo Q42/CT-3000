@@ -16,5 +16,5 @@ new WebpackDevServer(webpack(config), {
 
   var uri = 'http://localhost:' + port + '/nl/tool';
   console.log('Listening at ' + uri);
-  opn(uri)
+  // opn(uri)
 });
