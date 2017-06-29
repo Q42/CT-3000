@@ -7,6 +7,7 @@ import StatusBarComponent from './editor/statusBar.js';
 
 import ObjectActions from '../actions/object';
 import Firebase from '../classes/firebase';
+import Hue from '../classes/hue';
 import TranslationStore from '../stores/translation';
 
 export default class Editor extends React.Component {
@@ -16,6 +17,7 @@ export default class Editor extends React.Component {
     ObjectActions.initiate(TranslationStore.languageConfig);
 
     this.firebase = new Firebase();
+    this.hue = new Hue();
   }
 
   render() {
@@ -23,7 +25,7 @@ export default class Editor extends React.Component {
       <div className="editor">
         <HeaderComponent />
         <div className="panes">
-          <EditorPaneComponent />
+          <EditorPaneComponent template={this.props.params.template} />
           <PreviewPaneComponent />
         </div>
         <StatusBarComponent />

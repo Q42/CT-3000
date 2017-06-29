@@ -19,15 +19,15 @@ export default class {
 
   parse(text){
     let tokens;
-    try{
+    try {
       /* Messages shouldn't be lowercased, but on iPads there's an all-caps issue in codemirror... */
       tokens = this.lexer.tokenize(text.indexOf('"') > -1 ?
-        text.split('=')[0].toLowerCase() + '=' + text.split('=')[1] : 
+        text.split('=')[0].toLowerCase() + '=' + text.split('=')[1] :
         text.toLowerCase());
-    }catch(e){
+    } catch(e) {
       return new Promise.reject();
     }
-    if(tokens){
+    if(tokens) {
       this.parser.initialize(tokens);
       return this.runParser();
     }

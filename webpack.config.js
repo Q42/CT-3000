@@ -1,17 +1,32 @@
 var path = require('path');
 var autoprefixer = require('autoprefixer');
+var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    javascript: './main.js',
+    javascript: [
+      'webpack-dev-server/client?http://localhost:8000',
+      './main.js'
+    ],
     html: './index.html',
   },
 
   output: {
     path: path.resolve(__dirname + '/dist'),
+    publicPath: '/',
     filename: 'bundle.js'
   },
+
+  // only use on production
+  // plugins: [
+  //   new webpack.DefinePlugin({
+  //     'process.env': {
+  //       NODE_ENV: JSON.stringify('production')
+  //     }
+  //   }),
+  //   new webpack.optimize.UglifyJsPlugin()
+  // ],
 
   module: {
     loaders: [
@@ -42,6 +57,6 @@ module.exports = {
     ],
   },
   postcss: function () {
-      return [autoprefixer];
+    return [autoprefixer];
   }
 };
