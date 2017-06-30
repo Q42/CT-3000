@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import ObjectStore from '../../stores/object';
 import ObjectActions from '../../actions/object';

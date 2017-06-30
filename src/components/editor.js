@@ -13,7 +13,7 @@ import TranslationStore from '../stores/translation';
 export default class Editor extends React.Component {
 
   componentWillMount(){
-    TranslationStore.setLanguage(this.props.params.language);
+    TranslationStore.setLanguage(this.props.match.params.language);
     ObjectActions.initiate(TranslationStore.languageConfig);
 
     this.firebase = new Firebase();
@@ -25,7 +25,7 @@ export default class Editor extends React.Component {
       <div className="editor">
         <HeaderComponent />
         <div className="panes">
-          <EditorPaneComponent template={this.props.params.template} />
+          <EditorPaneComponent template={this.props.match.params.template} />
           <PreviewPaneComponent />
         </div>
         <StatusBarComponent />

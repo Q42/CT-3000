@@ -12,11 +12,11 @@ import TranslationStore from '../stores/translation';
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
-    TranslationStore.setLanguage(props.params.language);
+    TranslationStore.setLanguage(props.match.params.language);
 
     this.state = {
       display: {},
-      classId: props.params.digibordId || this.generateId(),
+      classId: props.match.params.digibordId,
     };
   }
 
@@ -42,12 +42,6 @@ export default class Viewer extends React.Component {
 
   componentDidUpdate() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-  }
-
-  generateId() {
-    const num = Math.floor(Math.random() * 1000000).toString();
-    const pad = '000000';
-    return pad.slice(num.length) + num;
   }
 
   render() {
