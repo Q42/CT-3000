@@ -2066,9 +2066,9 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase@^3.5.2, firebase@^3.6.2:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.9.0.tgz#c4237f50f58eeb25081b1839d6cbf175f8f7ed9b"
+firebase@^4.0.0, firebase@^4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.1.3.tgz#e5d7327366c854dc12461633ba8bfeea2f5c7358"
   dependencies:
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
@@ -4042,11 +4042,11 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-base@^2.4.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/re-base/-/re-base-2.8.0.tgz#f911a431b997bfaefd55fcfa012ba948eff20884"
+re-base@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.2.tgz#d054f8487735a890fd3b6b42aa5ecf184d874588"
   dependencies:
-    firebase "^3.5.2"
+    firebase "^4.0.0"
 
 react-addons-css-transition-group@^15.4.1:
   version "15.6.0"
