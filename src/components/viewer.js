@@ -1,4 +1,6 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import firebasedb from 'firebase/database';
 import Rebase from 're-base';
 
 import LightsComponent from './viewer/lights';
@@ -19,11 +21,18 @@ export default class Viewer extends React.Component {
   }
 
   componentWillMount() {
-    this.base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + this.state.classId);
+    const app = firebase.initializeApp({ databaseURL: 'https://ct-3000.firebaseio.com/' });
+    this.base = Rebase.createClass(firebasedb(app));
 
-    this.ref = this.base.syncState('display', {
+    this.ref = this.base.syncState(`classes/${this.state.classId}`, {
       context: this,
-      state: 'display'
+      state: 'display',
+      then: () => {
+        console.log('Synced with firebase database...');
+      },
+      onFailure: (err) => {
+        console.error('Error connecting to firebase', err);
+      }
     });
   }
 
@@ -33,10 +42,6 @@ export default class Viewer extends React.Component {
 
   componentDidUpdate() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-  }
-
-  componentWillUnmount() {
-    this.base.removeBinding(this.ref);
   }
 
   generateId() {
