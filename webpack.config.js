@@ -1,6 +1,7 @@
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 process.traceDeprecation = true;
 
@@ -11,13 +12,12 @@ module.exports = {
       'webpack-dev-server/client?http://localhost:8000',
       './main.js'
     ],
-    html: './index.html',
   },
 
   output: {
     path: path.resolve(__dirname + '/dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: 'bundle.js'
   },
 
   // only use on production
@@ -72,7 +72,14 @@ module.exports = {
       }
     ],
   },
-  // postcss: function () {
-  //   return [autoprefixer];
-  // }
+
+  plugins: [ 
+    new HtmlWebpackPlugin({
+      title: 'CT-3000 - Learn to code',
+      favicon: 'favicon.ico',
+      hash: true,
+      template: 'index-template.ejs',
+    })
+  ]
+
 };
