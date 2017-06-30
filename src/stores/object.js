@@ -1,5 +1,4 @@
 import Reflux from 'reflux';
-import Promise from 'promise';
 
 import ObjectActions from '../actions/object';
 
