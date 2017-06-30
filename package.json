@@ -24,7 +24,6 @@
   "homepage": "https://github.com/Q42/CT-3000#readme",
   "dependencies": {
     "babel-polyfill": "^6.5.0",
-    "canto34": "0.0.2",
     "deep-equal": "^1.0.1",
     "firebase": "^4.1.3",
     "node-uuid": "^1.4.7",

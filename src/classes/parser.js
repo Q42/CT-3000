@@ -1,5 +1,5 @@
-import canto34 from 'canto34/src/canto34';
 import Promise from 'promise';
+import canto34 from './canto34';
 import TranslationStore from '../stores/translation';
 
 export default class {
