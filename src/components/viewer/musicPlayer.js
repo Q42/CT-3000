@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InlineSVG from 'svg-inline-react';
-import svg from '!svg-inline!../../assets/svg/radio-station.svg';
+import svg from '!svg-inline-loader!../../assets/svg/radio-station.svg';
 
 import MusicStream from '../../classes/musicStream';
 import TranslationStore from '../../stores/translation';
