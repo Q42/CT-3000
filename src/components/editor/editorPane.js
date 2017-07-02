@@ -127,9 +127,7 @@ export default class EditorPane extends React.Component {
       }
     });
 
-    if(Object.keys(lines).length > 0) {
-      ObjectActions.parseMulti(lines);
-    }
+    ObjectActions.parseMulti(lines);
   }
 
   render() {
