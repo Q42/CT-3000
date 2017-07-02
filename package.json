@@ -1,7 +1,7 @@
 {
   "name": "CT-3000",
   "version": "1.0.0",
-  "description": "Blink Computational Thinking",
+  "description": "CT-3000 - Learn coding!",
   "scripts": {
     "dev": "node devserver.js",
     "build": "webpack --optimize-minimize --progress --hide-modules",
