@@ -153,7 +153,10 @@ export default class PreviewPane extends React.Component {
     }
 
     if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
-      return false;
+      return (
+        <div className="pane preview-pane">
+        </div>
+      );
     }
 
     let allChecksValid = true;
