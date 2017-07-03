@@ -1,7 +1,5 @@
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 
@@ -11,7 +9,7 @@ var _createClass = function () {
 			var descriptor = props[i];
 			descriptor.enumerable = descriptor.enumerable || false;
 			descriptor.configurable = true;
-			if ("value" in descriptor) descriptor.writable = true;
+			if ('value' in descriptor) descriptor.writable = true;
 			Object.defineProperty(target, descriptor.key, descriptor);
 		}
 	}
@@ -25,21 +23,21 @@ var _createClass = function () {
 
 function _classCallCheck(instance, Constructor) {
 	if (!(instance instanceof Constructor)) {
-		throw new TypeError("Cannot call a class as a function");
+		throw new TypeError('Cannot call a class as a function');
 	}
 }
 
 function _possibleConstructorReturn(self, call) {
 	if (!self) {
-		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+		throw new ReferenceError('this hasn\'t been initialised - super() hasn\'t been called');
 	}
 
-	return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	return call && (typeof call === 'object' || typeof call === 'function') ? call : self;
 }
 
 function _inherits(subClass, superClass) {
-	if (typeof superClass !== "function" && superClass !== null) {
-		throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	if (typeof superClass !== 'function' && superClass !== null) {
+		throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
 	}
 
 	subClass.prototype = Object.create(superClass && superClass.prototype, {
@@ -56,7 +54,7 @@ function _inherits(subClass, superClass) {
 var util = {
 	lang: {
 		isNullOrUndefined: function isNullOrUndefined(x) {
-			if (typeof x === "undefined") {
+			if (typeof x === 'undefined') {
 				return true;
 			}
 
@@ -118,18 +116,18 @@ var Lexer = function () {
 		_classCallCheck(this, Lexer);
 
 		var defaults = {
-			languageName: "unnamedlanguage"
+			languageName: 'unnamedlanguage'
 		};
 		this.options = util.extend({}, defaults, options);
 		this.tokenTypes = [];
 	}
 
 	_createClass(Lexer, [{
-		key: "addTokenType",
+		key: 'addTokenType',
 		value: function addTokenType(tokenType) {
 
 			if (!tokenType.name) {
-				throw new PatternDefinitionException("Token types must have a 'name' property");
+				throw new PatternDefinitionException('Token types must have a \'name\' property');
 			}
 
 			// FOR CONSIDERATION: for some tokens, the full 'consume' is required for correct interpretation
@@ -140,31 +138,31 @@ var Lexer = function () {
 			// }
 
 			if (!tokenType.regexp && !tokenType.consume) {
-				throw new PatternDefinitionException("Token types must have a 'regexp' property or a 'consume' function");
+				throw new PatternDefinitionException('Token types must have a \'regexp\' property or a \'consume\' function');
 			}
 
 			if (tokenType.regexp && !(tokenType.regexp instanceof RegExp)) {
-				throw new PatternDefinitionException("Token types 'regexp' property must be an instance of RegExp");
+				throw new PatternDefinitionException('Token types \'regexp\' property must be an instance of RegExp');
 			}
 
-			if (tokenType.consume && typeof tokenType.consume !== "function") {
-				throw new PatternDefinitionException("Token types 'consume' property must be a function");
+			if (tokenType.consume && typeof tokenType.consume !== 'function') {
+				throw new PatternDefinitionException('Token types \'consume\' property must be a function');
 			}
 
-			if (tokenType.interpret && typeof tokenType.interpret !== "function") {
-				throw new PatternDefinitionException("Token types 'interpret' property must be a function");
+			if (tokenType.interpret && typeof tokenType.interpret !== 'function') {
+				throw new PatternDefinitionException('Token types \'interpret\' property must be a function');
 			}
 			this.tokenTypes.push(tokenType);
 		}
 	}, {
-		key: "tokenize",
+		key: 'tokenize',
 		value: function tokenize(content) {
 			if (content === undefined) {
-				throw new LexerException("No content provided");
+				throw new LexerException('No content provided');
 			}
 
 			if (this.tokenTypes.length === 0) {
-				throw new LexerException("No token types defined");
+				throw new LexerException('No token types defined');
 			}
 
 			var result = [];
@@ -187,7 +185,7 @@ var Lexer = function () {
 						// should have told us what it consumed;
 						if (consumeResult.success) {
 							if (remaining.indexOf(consumeResult.consumed) !== 0) {
-								throw new LexerException("The consume function for " + tokenType.name + " failed to return the start of the remaining content at " + tracker.line + "." + tracker.character + " and instead returned " + consumeResult.consumed);
+								throw new LexerException('The consume function for ' + tokenType.name + ' failed to return the start of the remaining content at ' + tracker.line + '.' + tracker.character + ' and instead returned ' + consumeResult.consumed);
 							} else {
 								somethingFoundThisPass = true;
 								consumed = consumeResult.consumed;
@@ -237,8 +235,8 @@ var Lexer = function () {
 
 				if (!somethingFoundThisPass) {
 					var userPartOfString = remaining.substring(0, 15);
-					var visibleUserPartOfString = userPartOfString.replace("\r", "\\r").replace("\t", "\\t").replace("\n", "\\n");
-					throw new LexerException("No viable alternative at " + tracker.line + "." + tracker.character + ": '" + visibleUserPartOfString + "...'");
+					var visibleUserPartOfString = userPartOfString.replace('\r', '\\r').replace('\t', '\\t').replace('\n', '\\n');
+					throw new LexerException('No viable alternative at ' + tracker.line + '.' + tracker.character + ': \'' + visibleUserPartOfString + '...\'');
 				}
 			}
 
@@ -250,7 +248,7 @@ var Lexer = function () {
 }();
 
 function escapeRegExp(string) {
-	return string.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+	return string.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
 }
 
 var StandardTokenTypes = function () {
@@ -259,121 +257,121 @@ var StandardTokenTypes = function () {
 	}
 
 	_createClass(StandardTokenTypes, null, [{
-		key: "constant",
+		key: 'constant',
 		value: function constant(literal, name, role) {
-			role = role || ["keyword"];
+			role = role || ['keyword'];
 			return {
 				name: name,
-				regexp: new RegExp("^" + escapeRegExp(literal)),
+				regexp: new RegExp('^' + escapeRegExp(literal)),
 				role: role
 			};
 		}
 	}, {
-		key: "floatingPoint",
+		key: 'floatingPoint',
 		value: function floatingPoint() {
 			return {
-				name: "floating point",
+				name: 'floating point',
 				regexp: /(^-?\d*\.\d+)/,
-				role: ["constant", "numeric"],
+				role: ['constant', 'numeric'],
 				interpret: function interpret(content) {
 					return parseFloat(content);
 				}
 			};
 		}
 	}, {
-		key: "integer",
+		key: 'integer',
 		value: function integer() {
 			return {
-				name: "integer",
+				name: 'integer',
 				regexp: /^-?\d+/,
-				role: ["constant", "numeric"],
+				role: ['constant', 'numeric'],
 				interpret: function interpret(content) {
 					return parseInt(content);
 				}
 			};
 		}
 	}, {
-		key: "whitespace",
+		key: 'whitespace',
 		value: function whitespace() {
 			return {
-				name: "whitespace",
+				name: 'whitespace',
 				ignore: true,
 				regexp: /^[ \t]+/
 			};
 		}
 	}, {
-		key: "whitespaceWithNewlines",
+		key: 'whitespaceWithNewlines',
 		value: function whitespaceWithNewlines() {
 			return {
-				name: "whitespace",
+				name: 'whitespace',
 				ignore: true,
 				regexp: /^[ \t\r\n]+/
 			};
 		}
 	}, {
-		key: "real",
+		key: 'real',
 		value: function real() {
 			return {
-				name: "real number",
+				name: 'real number',
 				regexp: /^X/,
-				role: ["constant", "numeric"]
+				role: ['constant', 'numeric']
 			};
 		}
 	}, {
-		key: "comma",
+		key: 'comma',
 		value: function comma() {
-			return this.constant(",", "comma", ["punctuation"]);
+			return this.constant(',', 'comma', ['punctuation']);
 		}
 	}, {
-		key: "period",
+		key: 'period',
 		value: function period() {
-			return this.constant(".", "period", ["punctuation"]);
+			return this.constant('.', 'period', ['punctuation']);
 		}
 	}, {
-		key: "star",
+		key: 'star',
 		value: function star() {
-			return this.constant("*", "star", ["punctuation"]);
+			return this.constant('*', 'star', ['punctuation']);
 		}
 	}, {
-		key: "colon",
+		key: 'colon',
 		value: function colon() {
-			return this.constant(":", "colon", ["punctuation"]);
+			return this.constant(':', 'colon', ['punctuation']);
 		}
 	}, {
-		key: "openParen",
+		key: 'openParen',
 		value: function openParen() {
-			return this.constant("(", "open paren", ["punctuation"]);
+			return this.constant('(', 'open paren', ['punctuation']);
 		}
 	}, {
-		key: "closeParen",
+		key: 'closeParen',
 		value: function closeParen() {
-			return this.constant(")", "close paren", ["punctuation"]);
+			return this.constant(')', 'close paren', ['punctuation']);
 		}
 	}, {
-		key: "openBracket",
+		key: 'openBracket',
 		value: function openBracket() {
-			return this.constant("{", "open bracket", ["punctuation"]);
+			return this.constant('{', 'open bracket', ['punctuation']);
 		}
 	}, {
-		key: "closeBracket",
+		key: 'closeBracket',
 		value: function closeBracket() {
-			return this.constant("}", "close bracket", ["punctuation"]);
+			return this.constant('}', 'close bracket', ['punctuation']);
 		}
 	}, {
-		key: "openSquareBracket",
+		key: 'openSquareBracket',
 		value: function openSquareBracket() {
-			return this.constant("[", "open square bracket", ["punctuation"]);
+			return this.constant('[', 'open square bracket', ['punctuation']);
 		}
 	}, {
-		key: "closeSquareBracket",
+		key: 'closeSquareBracket',
 		value: function closeSquareBracket() {
-			return this.constant("]", "close square bracket", ["punctuation"]);
+			return this.constant(']', 'close square bracket', ['punctuation']);
 		}
 	}, {
-		key: "JsonString",
+		key: 'JsonString',
 		value: function JsonString() {
 			return {
-				name: "string",
+				name: 'string',
 				regexp: /"(?:[^"\\]|\\.)*"/,
 				consume: function consume(remaining) {
 					var fail = { success: false };
@@ -399,16 +397,16 @@ var StandardTokenTypes = function () {
 								switch (ch2) {
 									case '"':
 										return fail;
-									case "t":
-										content += "\t";break;
-									case "r":
-										content += "\r";break;
-									case "n":
-										content += "\n";break;
-									case "u":
+									case 't':
+										content += '\t';break;
+									case 'r':
+										content += '\r';break;
+									case 'n':
+										content += '\n';break;
+									case 'u':
 										var unicodeDigits = remaining.substr(pos, 4);
 										if (unicodeDigits.length != 4 || !/\d{4}/.test(unicodeDigits)) {
-											content += "\\u";
+											content += '\\u';
 										} else {
 											pos += 4;
 											var codePoint = parseInt(unicodeDigits, 10);
@@ -449,51 +447,51 @@ var Parser = function () {
 	}
 
 	_createClass(Parser, [{
-		key: "initialize",
+		key: 'initialize',
 		value: function initialize(tokens) {
 			if (!tokens) {
-				throw new ParserException("No tokens provided to the parser");
+				throw new ParserException('No tokens provided to the parser');
 			}
 
 			if (!(tokens instanceof Array)) {
-				throw new ParserException("A non-array was provided to the parser instead of a token array");
+				throw new ParserException('A non-array was provided to the parser instead of a token array');
 			}
 
 			this.tokens = tokens;
 		}
 	}, {
-		key: "la1",
+		key: 'la1',
 		value: function la1(tokenType) {
 			if (this.eof()) {
-				throw new ParserException("No tokens available");
+				throw new ParserException('No tokens available');
 			}
 
 			return this.tokens[0].type == tokenType;
 		}
 	}, {
-		key: "match",
+		key: 'match',
 		value: function match(tokenType) {
 
 			if (this.eof()) {
-				throw new ParserException("Expected " + tokenType + " but found EOF");
+				throw new ParserException('Expected ' + tokenType + ' but found EOF');
 			}
 
 			if (!this.la1(tokenType)) {
-				throw new ParserException("Expected " + tokenType + " but found " + this.tokens[0].type + " at l" + this.tokens[0].line + "." + this.tokens[0].character);
+				throw new ParserException('Expected ' + tokenType + ' but found ' + this.tokens[0].type + ' at l' + this.tokens[0].line + '.' + this.tokens[0].character);
 			}
 
 			return this.tokens.shift();
 		}
 	}, {
-		key: "eof",
+		key: 'eof',
 		value: function eof() {
 			return this.tokens.length === 0;
 		}
 	}, {
-		key: "expectEof",
+		key: 'expectEof',
 		value: function expectEof() {
 			if (!this.eof()) {
-				throw new ParserException("Expected EOF but found " + this.tokens[0].type + " at l" + this.tokens[0].line + "." + this.tokens[0].character);
+				throw new ParserException('Expected EOF but found ' + this.tokens[0].type + ' at l' + this.tokens[0].line + '.' + this.tokens[0].character);
 			}
 		}
 	}]);
@@ -511,15 +509,15 @@ var LineTracker = function () {
 	}
 
 	_createClass(LineTracker, [{
-		key: "consume",
+		key: 'consume',
 		value: function consume(content) {
 
 			for (var i = 0, len = content.length; i < len; i++) {
-				if (content[i] == "\r") {
+				if (content[i] == '\r') {
 					this.line += 1;
 					this.character = 1;
 					this.justSeenSlashR = true;
-				} else if (content[i] == "\n") {
+				} else if (content[i] == '\n') {
 					if (!this.justSeenSlashR) {
 						this.line += 1;
 					}

@@ -6,7 +6,7 @@
     "dev": "node devserver.js",
     "build": "webpack --optimize-minimize --progress --hide-modules",
     "clean": "rm -rf dist/*",
-    "eslint": "eslint .",
+    "eslint": "eslint . --fix",
     "release": "npm run clean && npm run build",
     "deploy": "npm run release && firebase deploy",
     "deployToCT3000": "gsutil -m rsync -d -r dist gs://www.ct3000.nl"
