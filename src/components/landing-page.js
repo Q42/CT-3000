@@ -1,9 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default React.createClass({
 
   render() {
+    if (window.location.hash) {
+      if (window.location.hash.length > 4) {
+        return <Redirect to={ '/nl' + window.location.hash.substr(1) }/>
+      } else {
+        return <Redirect to={ '/' }/>
+      }
+    }
+
     return(
       <div className="landing-page">
         <header>
