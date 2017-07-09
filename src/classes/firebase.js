@@ -1,4 +1,5 @@
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
+import firebasedb from 'firebase/database';
 
 import ObjectStore from '../stores/object';
 import SessionStore from '../stores/session';
@@ -7,7 +8,7 @@ import TranslationStore from '../stores/translation';
 export default class {
   constructor() {
     this.sessionKey = SessionStore.sessionKey || '';
-    this.firebase = null;
+    this.db = null;
     this.displayRef = null;
     this.sessionRef = null;
     this.messagesRef = null;
@@ -22,22 +23,32 @@ export default class {
     this.messageRef = null;
 
     // listen to updated objects, activating firebase when digibord is used
-    this.unsubscribeObjectStore = ObjectStore.listen(this.onObjectUpdate.bind(this));
+    ObjectStore.listen(this.onObjectUpdate.bind(this));
     window.addEventListener('unload', this.disconnect.bind(this));
   }
 
   connect() {
-    if (!this.firebase) {
-      this.firebase = new Firebase('https://blink-ct.firebaseio.com/classes/')
-
-      // Initialise all firebase references
-      this.displayRef = this.firebase.child(this.classId + '/display');
-      this.sessionRef = this.displayRef.child('sessions/' + this.sessionKey);
-      this.messagesRef = this.displayRef.child('messages');
+    if (!this.db) {
+      const app = firebase.initializeApp({ databaseURL: 'https://ct-3000.firebaseio.com/' });
+      this.db = firebasedb(app);
+      console.log('connected to firebase');
     }
 
-    // Whipe local cache so we recreate all state on a new display
-    this.name = this.light = null;
+    // Initialise all firebase references
+    this.displayRef = this.db.ref(`/classes/${this.classId}`);
+    this.sessionRef = this.displayRef.child(`sessions/${this.sessionKey}`);
+    this.messagesRef = this.displayRef.child('messages');
+
+    this.sessionRef.update({ 
+      name: this.name, 
+      light: this.light 
+    });
+    this.displayRef.update({
+      music: {
+        value: this.music,
+        sessionKey: this.sessionKey
+      }
+    });
   }
 
   disconnect() {
@@ -51,6 +62,8 @@ export default class {
     // Remove message we were typing
     if(this.messageRef) {
       this.messageRef.remove();
+    }
+    if(this.messageTimeout) {
       clearTimeout(this.messageTimeout);
     }
 

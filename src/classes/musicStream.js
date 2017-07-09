@@ -1,4 +1,4 @@
-import emptySound from '!file!../assets/sound/empty.mp3';
+import emptySound from '!file-loader!../assets/sound/empty.mp3';
 import TranslationStore from '../stores/translation';
 
 export default class {

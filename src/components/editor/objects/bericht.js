@@ -3,7 +3,7 @@ import BaseObject from './_baseObject';
 import Rebase from 're-base';
 import InlineSVG from 'svg-inline-react';
 
-import svg from '!svg-inline!../../../assets/svg/sending.svg';
+import svg from '!svg-inline-loader!../../../assets/svg/sending.svg';
 
 const springSetting1 = {stiffness: 164, damping: 10};
 

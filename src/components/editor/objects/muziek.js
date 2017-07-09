@@ -2,7 +2,7 @@ import React from 'react';
 import BaseObject from './_baseObject';
 
 import InlineSVG from 'svg-inline-react';
-import svg from '!svg-inline!../../../assets/svg/sending.svg';
+import svg from '!svg-inline-loader!../../../assets/svg/sending.svg';
 
 import MusicStream from '../../../classes/musicStream';
 

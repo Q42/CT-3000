@@ -1,5 +1,5 @@
-import canto34 from 'canto34/src/canto34';
 import Promise from 'promise';
+import canto34 from './canto34';
 import TranslationStore from '../stores/translation';
 
 export default class {
@@ -19,15 +19,12 @@ export default class {
 
   parse(text){
     let tokens;
-    try{
-      /* Messages shouldn't be lowercased, but on iPads there's an all-caps issue in codemirror... */
-      tokens = this.lexer.tokenize(text.indexOf('"') > -1 ?
-        text.split('=')[0].toLowerCase() + '=' + text.split('=')[1] : 
-        text.toLowerCase());
-    }catch(e){
+    try {
+      tokens = this.lexer.tokenize(text);
+    } catch(e) {
       return new Promise.reject();
     }
-    if(tokens){
+    if(tokens) {
       this.parser.initialize(tokens);
       return this.runParser();
     }
@@ -40,6 +37,10 @@ export default class {
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['if'],'if'));
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['then'],'then'));
     this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['and'],'and'));
+    /* on iPads there's an all-caps issue in codemirror... */
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['if'].toUpperCase(),'if'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['then'].toUpperCase(),'then'));
+    this.lexer.addTokenType(types.constant(TranslationStore.mappingKeywords['and'].toUpperCase(),'and'));
     this.lexer.addTokenType(types.constant('=','equals'));
     this.lexer.addTokenType(types.constant('>','greater'));
     this.lexer.addTokenType(types.constant('<','smaller'));
@@ -113,9 +114,9 @@ export default class {
 
           let [object, op, value] = result;
           assignments.push({
-            object: object,
+            object: object.toLowerCase(),
             operator: op,
-            value: value
+            value: object.toLowerCase() == 'bericht' ? value : value.toLowerCase()
           });
 
           return this.match('and');

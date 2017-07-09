@@ -24,12 +24,14 @@ export default class PreviewPane extends React.Component {
   }
 
   handleResize(e) {
+    if (!this._mounted) return;
     this.setState({
       linesDrawForObjectStructureId: ''
     });
   }
 
   componentDidMount() {
+    this._mounted = true;
     this.unsubscribe = ObjectStore.listen((data) => {
       this.onUpdate(data);
     });
@@ -37,8 +39,8 @@ export default class PreviewPane extends React.Component {
   }
 
   componentWillUnmount() {
+    this._mounted = false;
     this.unsubscribe();
-    window.removeEventListener('resize', (e) => this.handleResize(e));
   }
 
   onUpdate(data){
@@ -151,7 +153,10 @@ export default class PreviewPane extends React.Component {
     }
 
     if(!this.state.rowResult || !(this.state.rowResult.checks || this.state.rowResult.assignments)){
-      return false;
+      return (
+        <div className="pane preview-pane">
+        </div>
+      );
     }
 
     let allChecksValid = true;

@@ -10,7 +10,8 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     this.type = TranslationStore.mappingClassToUI[type];
     this.state = {
       object: ObjectStore.getObject(this.type) || {},
-      digibord: ObjectStore.getObject('digibord') || {}
+      digibord: ObjectStore.getObject('digibord') || {},
+      hue: ObjectStore.getObject('hue') || {}
     };
   }
 
@@ -28,13 +29,22 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     if(data && data.objects) {
       this.setState({
         object: data.objects[this.type] || {},
-        digibordConnected: this.isDigibordConnected(data.objects.digibord)
+        digibordConnected: this.isDigibordConnected(data.objects.digibord),
+        hueConnected: this.isHueConnected(data.objects.hue)
       });
     }
   }
 
   isDigibordConnected(digibord) {
     if(digibord && digibord.state && digibord.state.length === 6) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isHueConnected(hue) {
+    if(hue && hue.state && hue.state.match(/^\d+\.\d+\.\d+\.\d+$/)) {
       return true;
     }
 
@@ -48,7 +58,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
     ];
 
     const object = this.state.object;
-    let exampleOperator = "="
+    let exampleOperator = '=';
     if(object) {
       const state = object.state;
       if(object.type == 'rgb' && typeof state === 'object') {
@@ -68,7 +78,7 @@ export default (ComposedComponent, type, status = '') => class BaseObject extend
       }
       else if(object.type == 'time')
       {
-        exampleOperator = "<";
+        exampleOperator = '<';
       }
     }
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import firebasedb from 'firebase/database';
 import Rebase from 're-base';
 
 import LightsComponent from './viewer/lights';
@@ -6,24 +8,34 @@ import TheMatrixComponent from './viewer/theMatrix';
 import MusicPlayerComponent from './viewer/musicPlayer';
 
 import TranslationStore from '../stores/translation';
+import { trackPage } from '../classes/googleanalytics';
 
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
-    TranslationStore.setLanguage(props.params.language);
+    trackPage('/digibord', this.props.match.params.language);
+
+    TranslationStore.setLanguage(props.match.params.language);
 
     this.state = {
       display: {},
-      classId: props.params.digibordId || this.generateId(),
+      classId: props.match.params.digibordId,
     };
   }
 
   componentWillMount() {
-    this.base = Rebase.createClass('https://blink-ct.firebaseio.com/classes/' + this.state.classId);
+    const app = firebase.initializeApp({ databaseURL: 'https://ct-3000.firebaseio.com/' });
+    this.base = Rebase.createClass(firebasedb(app));
 
-    this.ref = this.base.syncState('display', {
+    this.ref = this.base.syncState(`classes/${this.state.classId}`, {
       context: this,
-      state: 'display'
+      state: 'display',
+      then: () => {
+        console.log('Synced with firebase database...');
+      },
+      onFailure: (err) => {
+        console.error('Error connecting to firebase', err);
+      }
     });
   }
 
@@ -33,16 +45,6 @@ export default class Viewer extends React.Component {
 
   componentDidUpdate() {
     this.refs.chat.scrollTop = this.refs.chat.scrollHeight;
-  }
-
-  componentWillUnmount() {
-    this.base.removeBinding(this.ref);
-  }
-
-  generateId() {
-    const num = Math.floor(Math.random() * 1000000).toString();
-    const pad = '000000';
-    return pad.slice(num.length) + num;
   }
 
   render() {
