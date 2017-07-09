@@ -9,8 +9,14 @@ import ObjectActions from '../actions/object';
 import Firebase from '../classes/firebase';
 import Hue from '../classes/hue';
 import TranslationStore from '../stores/translation';
+import { trackPage } from '../classes/googleanalytics';
 
 export default class Editor extends React.Component {
+
+  constructor(props) {
+    super(props);
+    trackPage('/tool', this.props.match.params.language);
+  }
 
   componentWillMount(){
     TranslationStore.setLanguage(this.props.match.params.language);

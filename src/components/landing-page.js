@@ -1,8 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import { trackPage } from '../classes/googleanalytics';
 
-export default React.createClass({
+export default class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    trackPage('/', 'nl');
+  }
 
   render() {
     if (window.location.hash) {
@@ -50,4 +55,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+};

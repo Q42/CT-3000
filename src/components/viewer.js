@@ -8,10 +8,13 @@ import TheMatrixComponent from './viewer/theMatrix';
 import MusicPlayerComponent from './viewer/musicPlayer';
 
 import TranslationStore from '../stores/translation';
+import { trackPage } from '../classes/googleanalytics';
 
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
+    trackPage('/digibord', this.props.match.params.language);
+
     TranslationStore.setLanguage(props.match.params.language);
 
     this.state = {
