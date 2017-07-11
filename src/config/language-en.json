@@ -14,7 +14,8 @@
     "tooltipNumber": "A number",
     "tooltipText": "Text between quotes",
     "tooltipTime": "Before or after a time",
-    "tooltipRgb": "A color in (red, green, blue), where each color is between 0 and 255. on and off are also possible"
+    "tooltipRgb": "A color in (red, green, blue), where each color is between 0 and 255. on and off are also possible",
+    "tooltipIpaddress": "The address of a device on the internet"
   },
   "objects": [
     {

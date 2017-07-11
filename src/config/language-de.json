@@ -10,11 +10,12 @@
     "musicChosenBy": "ausgewählt von",
     "anonymousUser": "Anonym",
     "says": "sagt",
-    "tooltipValues": "TODO",
-    "tooltipNumber": "TODO",
-    "tooltipText": "TODO",
-    "tooltipTime": "TODO",
-    "tooltipRgb": "TODO"
+    "tooltipValues": "Wähle aus",
+    "tooltipNumber": "Eine Zahl",
+    "tooltipText": "Text umgeben mit \"",
+    "tooltipTime": "Vor oder nach einem Zeitpunkt",
+    "tooltipRgb": "Eine Farbe in (Rot, Grün, Blau), wobei jede Farbe einen Wert zwischen 0 und 255 hat. An und Aus ist auch möglich",
+    "tooltipIpaddress": "Die Adresse von einem Gerät das ans Internet angeschlossen ist"
   },
   "objects": [
     {
