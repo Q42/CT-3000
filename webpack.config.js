@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     javascript: [
       'webpack-dev-server/client?http://localhost:8000',
+      'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
       './main.js'
     ],
   },
@@ -21,14 +22,15 @@ module.exports = {
   },
 
   // only use on production
-  // plugins: [
-  //   new webpack.DefinePlugin({
-  //     'process.env': {
-  //       NODE_ENV: JSON.stringify('production')
-  //     }
-  //   }),
-  //   new webpack.optimize.UglifyJsPlugin()
-  // ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'CT-3000 - Learn to code',
+      favicon: 'favicon.ico',
+      hash: true,
+      template: 'index-template.ejs',
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 
   module: {
     rules: [
@@ -72,14 +74,5 @@ module.exports = {
       }
     ],
   },
-
-  plugins: [ 
-    new HtmlWebpackPlugin({
-      title: 'CT-3000 - Learn to code',
-      favicon: 'favicon.ico',
-      hash: true,
-      template: 'index-template.ejs',
-    })
-  ]
 
 };

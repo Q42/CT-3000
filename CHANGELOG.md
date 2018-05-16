@@ -5,7 +5,7 @@
 # 2.0.0
 
 * Moved hosting from Google Cloud Storage to Firebase Hosting, enabling pretty URL's
-* Replaced hash routing with browser history routing. The old routes redirect to the new ones, so `/#/tool` redirects to `/tool`
+* Replaced hash routing with browser history routing. The old routes redirect to the new ones, so `/#/tool` redirects to `/nl/tool`
 * When navigating to the digiboard, the ID is set in the URL. This way, when a teacher (accidentally) refreshes the digibord, the ID stays the same
 * Made the tool multilingual, added English and German (`/de/tool` and `/en/tool`). The landingpage is still only in Dutch
 * Added mouseovers to the variables at the bottom of the screen, so users can see the name of the variable, it's usage, and an example.
