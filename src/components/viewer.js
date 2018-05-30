@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import firebasedb from 'firebase/database';
-import Rebase from 're-base';
+import 'firebase/database';
 
 import LightsComponent from './viewer/lights';
 import TheMatrixComponent from './viewer/theMatrix';
@@ -24,19 +23,20 @@ export default class Viewer extends React.Component {
   }
 
   componentWillMount() {
-    const app = firebase.initializeApp({ databaseURL: 'https://ct-3000.firebaseio.com/' });
-    this.base = Rebase.createClass(firebasedb(app));
-
-    this.ref = this.base.syncState(`classes/${this.state.classId}`, {
-      context: this,
-      state: 'display',
-      then: () => {
-        console.log('Synced with firebase database...');
-      },
-      onFailure: (err) => {
-        console.error('Error connecting to firebase', err);
-      }
+    const app = firebase.initializeApp({
+      apiKey: 'AIzaSyC1KnxqjtoIoF7Tvj-pPVBsPoHkdtv0zMc',
+      authDomain: 'ct-3000.firebaseapp.com',
+      databaseURL: 'https://ct-3000.firebaseio.com',
+      projectId: 'ct-3000',
+      storageBucket: 'ct-3000.appspot.com',
+      messagingSenderId: '414261788492'
     });
+    firebase.database()
+      .ref(`classes/${this.state.classId}`)
+      .on('value', (snapshot) => {
+        // console.log('got value', snapshot.val());
+        this.setState({ display: snapshot.val() })
+      });
   }
 
   componentDidMount() {

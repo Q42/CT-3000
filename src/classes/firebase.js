@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
-import firebasedb from 'firebase/database';
-
+import 'firebase/database';
 import ObjectStore from '../stores/object';
 import SessionStore from '../stores/session';
 import TranslationStore from '../stores/translation';
@@ -29,10 +28,19 @@ export default class {
 
   connect() {
     if (!this.db) {
-      const app = firebase.initializeApp({ databaseURL: 'https://ct-3000.firebaseio.com/' });
-      this.db = firebasedb(app);
-      console.log('connected to firebase');
+      console.log('opening connection to firebase');
+      const app = firebase.initializeApp({
+        apiKey: 'AIzaSyC1KnxqjtoIoF7Tvj-pPVBsPoHkdtv0zMc',
+        authDomain: 'ct-3000.firebaseapp.com',
+        databaseURL: 'https://ct-3000.firebaseio.com',
+        projectId: 'ct-3000',
+        storageBucket: 'ct-3000.appspot.com',
+        messagingSenderId: '414261788492'
+      });
+      this.db = firebase.database()
     }
+
+    console.log('connecting to digibord ' + this.classId);
 
     // Initialise all firebase references
     this.displayRef = this.db.ref(`/classes/${this.classId}`);
