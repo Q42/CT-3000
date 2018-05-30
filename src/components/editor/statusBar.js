@@ -5,24 +5,26 @@ import * as Objects from './objects/_index';
 
 const springSetting1 = {stiffness: 168, damping: 18};
 
-export default React.createClass ({
-  getInitialState() {
+export default class StatusBar extends React.Component {
+  constructor(props) {
+    super(props);
+
     const elements = Object.keys(Objects).map((key) => {
       return { name: key, status: false };
     });
     const stroom = false;
-    return { elements, stroom };
-  },
+    this.state = { elements, stroom };
+  }
 
   setStroomAan(){
     this.setState({
       stroom: true
     });
-  },
+  }
 
   componentDidMount() {
-    setTimeout(this.setStroomAan, 1000);
-  },
+    setTimeout(this.setStroomAan.bind(this), 1000);
+  }
 
   getDefaultStyles() {
     var o = [];
@@ -30,7 +32,7 @@ export default React.createClass ({
       o.push({ x:300, scale: 0.5 });
     });
     return o;
-  },
+  }
 
   render() {
     let pos = this.state.stroom ? 0 : 300;
@@ -61,4 +63,4 @@ export default React.createClass ({
       </div>
     );
   }
-});
+}
