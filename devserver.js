@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var opn = require('opn');
 var WebpackDevServer = require('webpack-dev-server');
 
-var config = require('./webpack.config');
+var config = require('./webpack.dev');
 
 var port = 8000;
 var ip = '0.0.0.0';

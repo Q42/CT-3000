@@ -7,13 +7,6 @@ process.traceDeprecation = true;
 
 module.exports = {
   context: __dirname + '/src',
-  entry: {
-    javascript: [
-      'webpack-dev-server/client?http://localhost:8000',
-      'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-      './main.js'
-    ],
-  },
 
   output: {
     path: path.resolve(__dirname + '/dist'),
@@ -29,7 +22,6 @@ module.exports = {
       hash: true,
       template: 'index-template.ejs',
     }),
-    new webpack.HotModuleReplacementPlugin(),
   ],
 
   module: {

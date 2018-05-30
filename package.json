@@ -4,7 +4,7 @@
   "description": "CT-3000 - Learn coding!",
   "scripts": {
     "dev": "node devserver.js",
-    "build": "webpack -p --progress --hide-modules",
+    "build": "webpack -p --progress --hide-modules --config webpack.prod.js",
     "clean": "rm -rf dist/*",
     "eslint": "eslint . --fix",
     "deploy": "npm run eslint && npm run clean && npm run build && firebase deploy",
@@ -60,6 +60,7 @@
     "style-loader": "^0.18.2",
     "svg-inline-loader": "^0.7.1",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.0",
+    "webpack-merge": "^4.1.2"
   }
 }
