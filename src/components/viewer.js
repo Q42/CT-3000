@@ -34,8 +34,8 @@ export default class Viewer extends React.Component {
     firebase.database()
       .ref(`classes/${this.state.classId}`)
       .on('value', (snapshot) => {
-        // console.log('got value', snapshot.val());
-        this.setState({ display: snapshot.val() })
+        const val = snapshot.val();
+        this.setState({ display: val || {} })
       });
   }
 
