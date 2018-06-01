@@ -1,6 +1,12 @@
 # next
 
-
+* Added German translations of tooltips
+* Specific packages built for `development` and `production`
+* Improved deployment bundle by removing unused images
+* Built with new `npm` version, including `package-lock.json`
+* Updated all minor `npm` dependencies
+* Fix `npm audit` issues
+* Replaced ReBase with a custom Firebase implementation
 
 # 2.0.0
 
