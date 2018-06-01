@@ -1,6 +1,6 @@
 {
   "name": "ct-3000",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "CT-3000 - Learn coding!",
   "scripts": {
     "dev": "node devserver.js",
