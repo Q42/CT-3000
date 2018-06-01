@@ -1,6 +1,5 @@
 import React from 'react';
 import BaseObject from './_baseObject';
-import Rebase from 're-base';
 import InlineSVG from 'svg-inline-react';
 
 import svg from '!svg-inline-loader!../../../assets/svg/sending.svg';
